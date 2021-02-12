@@ -1,4 +1,4 @@
-;last modified 2021. 02. 07. 22:43:00 by pungorpeter    (1)
+;last modified 2021. 02. 12. 23:28:55 by pungorpeter    (41)
 
 [2021_HV]
 
@@ -20,52 +20,52 @@ CapacityTotal = LastValue(#Capacity)
 CapacityTotal = Set(DIM, mAh)
 
 [IdIq]
- Iq1=*(#AMK_Torquecurrent_1,107.2);
- Iq1=/(#Iq1,16384);
+ Iq1=*(#AMK_Torquecurrent_1,107.2)
+ Iq1=/(#Iq1,16384)
 
- Iq2=*(#AMK_Torquecurrent_2,107.2);
- Iq2=/(#Iq2,16384);
+ Iq2=*(#AMK_Torquecurrent_2,107.2)
+ Iq2=/(#Iq2,16384)
 
- Iq3=*(#AMK_Torquecurrent_3,107.2);
- Iq3=/(#Iq3,16384);
+ Iq3=*(#AMK_Torquecurrent_3,107.2)
+ Iq3=/(#Iq3,16384)
 
- Iq4=*(#AMK_Torquecurrent_4,107.2);
- Iq4=/(#Iq4,16384);
+ Iq4=*(#AMK_Torquecurrent_4,107.2)
+ Iq4=/(#Iq4,16384)
 
- Id1=*(#AMK_MagnetizingCurrent_1,107.2);
- Id1=/(#Id1,16384);
+ Id1=*(#AMK_MagnetizingCurrent_1,107.2)
+ Id1=/(#Id1,16384)
 
- Id2=*(#AMK_MagnetizingCurrent_2,107.2);
- Id2=/(#Id2,16384);
+ Id2=*(#AMK_MagnetizingCurrent_2,107.2)
+ Id2=/(#Id2,16384)
 
- Id3=*(#AMK_MagnetizingCurrent_3,107.2);
- Id3=/(#Id3,16384);
+ Id3=*(#AMK_MagnetizingCurrent_3,107.2)
+ Id3=/(#Id3,16384)
 
- Id4=*(#AMK_MagnetizingCurrent_4,107.2);
- Id4=/(#Id4,16384);
+ Id4=*(#AMK_MagnetizingCurrent_4,107.2)
+ Id4=/(#Id4,16384)
 
- INT_Iq1=Abs(#Iq1);
- INT_Iq1=Integrate(#INT_Iq1);
+ INT_Iq1=Abs(#Iq1)
+ INT_Iq1=Integrate(#INT_Iq1)
 
- INT_Iq2=Abs(#Iq2);
- INT_Iq2=Integrate(#INT_Iq2);
+ INT_Iq2=Abs(#Iq2)
+ INT_Iq2=Integrate(#INT_Iq2)
 
- INT_Iq3=Abs(#Iq3);
- INT_Iq3=Integrate(#INT_Iq3);
+ INT_Iq3=Abs(#Iq3)
+ INT_Iq3=Integrate(#INT_Iq3)
 
- INT_Iq4=Abs(#Iq4);
- INT_Iq4=Integrate(#INT_Iq4);
+ INT_Iq4=Abs(#Iq4)
+ INT_Iq4=Integrate(#INT_Iq4)
 
- INT_Id1=Abs(#Id1);
- INT_Id1=Integrate(#INT_Id1);
+ INT_Id1=Abs(#Id1)
+ INT_Id1=Integrate(#INT_Id1)
 
- INT_Id2=Abs(#Id2);
- INT_Id2=Integrate(#INT_Id2);
+ INT_Id2=Abs(#Id2)
+ INT_Id2=Integrate(#INT_Id2)
 
- INT_Id3=Abs(#Id3);
- INT_Id3=Integrate(#INT_Id3);
+ INT_Id3=Abs(#Id3)
+ INT_Id3=Integrate(#INT_Id3)
 
- INT_Id4=Abs(#Id4);
- INT_Id4=Integrate(#INT_Id4);
+ INT_Id4=Abs(#Id4)
+ INT_Id4=Integrate(#INT_Id4)
 
 

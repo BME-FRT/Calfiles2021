@@ -1,4 +1,4 @@
-;last modified 2021. 02. 08. 23:40:27 by pungorpeter    (1)
+;last modified 2021. 02. 12. 23:27:36 by pungorpeter    (110)
 
 [2021_Energy]
 
@@ -47,15 +47,15 @@ P_downforce=Power(#VS,3)
 P_downforce=*(#P_downforce,Parameters.C_L)
 P_downforce=*(#P_downforce,Parameters.AREA)
 P_downforce=*(#P_downforce,Parameters.RHO)
-P_downforce=*(#P_downforce,Parameters.ROLLING_COEFFICIENT);
-P_downforce=*(#P_downforce,#VS);
-P_RollRes=*(0.08829,#VS);
-P_RollRes=+(#P_RollRes,#P_downforce);
+P_downforce=*(#P_downforce,Parameters.ROLLING_COEFFICIENT)
+P_downforce=*(#P_downforce,#VS)
+P_RollRes=*(0.08829,#VS)
+P_RollRes=+(#P_RollRes,#P_downforce)
 //P_RollRes=If(#Throttle_Position_1,>,4,#P_RollRes,0)            //Szucsnek
-E_RollRes=Integrate(#P_RollRes,0);
+E_RollRes=Integrate(#P_RollRes,0)
 E_RollRes=/(#E_RollRes,1000)
-E_RollRes=Set(Dim='kJ');
-Delete(#P_downforce);
+E_RollRes=Set(Dim='kJ')
+Delete(#P_downforce)
 
 /////Drag
 
@@ -71,29 +71,29 @@ Delete(#VS)
 
 /////Motor mechanical Power
 
-P_motor_1=*(#AMK_TorqueLimitPositive_1,#AMK_Actualvelocity_1);
-P_motor_1=*(#P_motor_1,@Pi);
-P_motor_1=/(#P_motor_1,30);
+P_motor_1=*(#AMK_TorqueLimitPositive_1,#AMK_Actualvelocity_1)
+P_motor_1=*(#P_motor_1,@Pi)
+P_motor_1=/(#P_motor_1,30)
 P_motor_1=/(#P_motor_1,1000)
-E_motor_1=Integrate(#P_motor_1,0);
+E_motor_1=Integrate(#P_motor_1,0)
 
-P_motor_2=*(#AMK_TorqueLimitPositive_2,#AMK_Actualvelocity_2);
-P_motor_2=*(#P_motor_2,@Pi);
-P_motor_2=/(#P_motor_2,30);
+P_motor_2=*(#AMK_TorqueLimitPositive_2,#AMK_Actualvelocity_2)
+P_motor_2=*(#P_motor_2,@Pi)
+P_motor_2=/(#P_motor_2,30)
 P_motor_2=/(#P_motor_2,1000)
-E_motor_2=Integrate(#P_motor_2,0);
+E_motor_2=Integrate(#P_motor_2,0)
 
-P_motor_3=*(#AMK_TorqueLimitPositive_3,#AMK_Actualvelocity_3);
-P_motor_3=*(#P_motor_3,@Pi);
-P_motor_3=/(#P_motor_3,30);
+P_motor_3=*(#AMK_TorqueLimitPositive_3,#AMK_Actualvelocity_3)
+P_motor_3=*(#P_motor_3,@Pi)
+P_motor_3=/(#P_motor_3,30)
 P_motor_3=/(#P_motor_3,1000)
-E_motor_3=Integrate(#P_motor_3,0);
+E_motor_3=Integrate(#P_motor_3,0)
 
-P_motor_4=*(#AMK_TorqueLimitPositive_4,#AMK_Actualvelocity_4);
-P_motor_4=*(#P_motor_4,@Pi);
+P_motor_4=*(#AMK_TorqueLimitPositive_4,#AMK_Actualvelocity_4)
+P_motor_4=*(#P_motor_4,@Pi)
 P_motor_4=/(#P_motor_4,30)
 P_motor_4=/(#P_motor_4,1000)
-E_motor_4=Integrate(#P_motor_4,0);
+E_motor_4=Integrate(#P_motor_4,0)
 
 P_motor_1=Set(Dim='kW')
 P_motor_2=Set(Dim='kW')
@@ -105,36 +105,36 @@ E_motor_2=Set(Dim='kJ')
 E_motor_3=Set(Dim='kJ')
 E_motor_4=Set(Dim='kJ')
 
-E_motors=+(#E_motor_1,#E_motor_2);
-E_motors=+(#E_motors,#E_motor_3);
-E_motors=+(#E_motors,#E_motor_4);
+E_motors=+(#E_motor_1,#E_motor_2)
+E_motors=+(#E_motors,#E_motor_3)
+E_motors=+(#E_motors,#E_motor_4)
 
-P_motors=+(#P_motor_1,#P_motor_2);
-P_motors=+(#P_motors,#P_motor_3);
-P_motors=+(#P_motors,#P_motor_4);
+P_motors=+(#P_motor_1,#P_motor_2)
+P_motors=+(#P_motors,#P_motor_3)
+P_motors=+(#P_motors,#P_motor_4)
 
 /////Efficiency
 
-Motor_Efficiency=+(#P_motor_1,#P_motor_2);
-Motor_Efficiency=+(#Motor_Efficiency,#P_motor_3);
-Motor_Efficiency=+(#Motor_Efficiency,#P_motor_4);
-Motor_Efficiency=/(#Motor_Efficiency,#P_Electric);
-Motor_Efficiency=Set(DIM='-');
+Motor_Efficiency=+(#P_motor_1,#P_motor_2)
+Motor_Efficiency=+(#Motor_Efficiency,#P_motor_3)
+Motor_Efficiency=+(#Motor_Efficiency,#P_motor_4)
+Motor_Efficiency=/(#Motor_Efficiency,#P_Electric)
+Motor_Efficiency=Set(DIM='-')
 
-P_Lost=-(#P_Electric,#P_motor_1);
-P_Lost=-(#P_Lost,#P_motor_2);
-P_Lost=-(#P_Lost,#P_motor_3);
-P_Lost=-(#P_Lost,#P_motor_4);
+P_Lost=-(#P_Electric,#P_motor_1)
+P_Lost=-(#P_Lost,#P_motor_2)
+P_Lost=-(#P_Lost,#P_motor_3)
+P_Lost=-(#P_Lost,#P_motor_4)
 
 /////mAh
 
-INT_HV_current_Pos=If(#HV_Current,>,0,#HV_Current,0);
-INT_HV_current_Neg=If(#HV_Current,>,0,0,#HV_Current);
-INT_HV_current_Pos=Integrate(#INT_HV_current_Pos);
-INT_HV_current_Neg=Integrate(#INT_HV_current_Neg);
-INT_HV_current_Pos=/(#INT_HV_current_Pos,36);
-INT_HV_current_Neg=/(#INT_HV_current_Neg,36);
-INT_HV_current_Pos=Set(DIM='mAh');
-INT_HV_current_Neg=Set(DIM='mAh');
+INT_HV_current_Pos=If(#HV_Current,>,0,#HV_Current,0)
+INT_HV_current_Neg=If(#HV_Current,>,0,0,#HV_Current)
+INT_HV_current_Pos=Integrate(#INT_HV_current_Pos)
+INT_HV_current_Neg=Integrate(#INT_HV_current_Neg)
+INT_HV_current_Pos=/(#INT_HV_current_Pos,36)
+INT_HV_current_Neg=/(#INT_HV_current_Neg,36)
+INT_HV_current_Pos=Set(DIM='mAh')
+INT_HV_current_Neg=Set(DIM='mAh')
 
 Delete(#VS)
