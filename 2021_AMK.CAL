@@ -1,0 +1,56 @@
+;last modified 2021. 02. 09. 20:02:05 by pungorpeter    (27)
+
+[2021_AMK]
+
+/////AMK_TorqueLimit
+
+AMK_TorqueLimit_1 = +(#AMK_TorqueLimitNegative_1,#AMK_TorqueLimitPositive_1)
+AMK_TorqueLimit_2 = +(#AMK_TorqueLimitNegative_2,#AMK_TorqueLimitPositive_2)
+AMK_TorqueLimit_3 = +(#AMK_TorqueLimitNegative_3,#AMK_TorqueLimitPositive_3)
+AMK_TorqueLimit_4 = +(#AMK_TorqueLimitNegative_4,#AMK_TorqueLimitPositive_4)
+AMK_TorqueLimit =  +(#AMK_TorqueLimit_1,#AMK_TorqueLimit_2)
+AMK_TorqueLimit = +(#AMK_TorqueLimit,#AMK_TorqueLimit_3)
+AMK_TorqueLimit = +(#AMK_TorqueLimit,#AMK_TorqueLimit_4)
+AMK_TorqueLimitDerivate = Derivate(#AMK_TorqueLimit)
+
+AMK_Sum_ActualVelocity = +(#AMK_ActualVelocity_1,#AMK_ActualVelocity_2)
+AMK_Sum_ActualVelocity = +(#AMK_ActualVelocity,#AMK_ActualVelocity_3)
+AMK_Sum_ActualVelocity = +(#AMK_ActualVelocity,#AMK_ActualVelocity_4)
+
+/////Regeneration
+
+TotalRegen1=If (#AMK_Torquecurrent_1, <, 0,#AMK_Torquecurrent_1, 0)
+TotalRegen1=Integrate (#TotalRegen1,0)
+
+TotalRegen2=If (#AMK_Torquecurrent_2, <, 0,#AMK_Torquecurrent_2, 0)
+TotalRegen2=Integrate (#TotalRegen2,0)
+
+TotalRegen3=If (#AMK_Torquecurrent_3, <, 0,#AMK_Torquecurrent_3, 0)
+TotalRegen3=Integrate (#TotalRegen3,0)
+
+TotalRegen4=If (#AMK_Torquecurrent_4, <, 0,#AMK_Torquecurrent_4, 0)
+TotalRegen4=Integrate (#TotalRegen4,0)
+
+TotalRegen=+(#TotalRegen1,#TotalRegen2)
+TotalRegen=+(#TotalRegen,#TotalRegen4)
+TotalRegen=+(#TotalRegen,#TotalRegen3)
+TotalRegen=*(#TotalRegen,0.2778)
+TotalRegen=Set(Dim='mAh')
+
+/////Régi V_RPM
+
+V_RPM_1=Min(#AMK_Actualvelocity_1, #AMK_Actualvelocity_3)
+V_RPM_2=Min(#AMK_ActualVelocity_2, #AMK_ActualVelocity_4)
+V_RPM_3=Min(#AMK_Actualvelocity_1, #AMK_Actualvelocity_2)
+V_RPM_4=Min(#AMK_ActualVelocity_3, #AMK_ActualVelocity_4)
+V_RPM_1=Max(#V_RPM_1,#V_RPM_2)
+V_RPM_3=Max(#V_RPM_3,#V_RPM_4)
+V_RPM=Min(#V_RPM_1,#V_RPM_3)
+Delete(#V_RPM_1)
+Delete(#V_RPM_2)
+Delete(#V_RPM_3)
+Delete(#V_RPM_4)
+V_RPM=*(#V_RPM,Parameters.RPM2KMPH)
+V_RPM=Set(Dim='km/h')
+
+

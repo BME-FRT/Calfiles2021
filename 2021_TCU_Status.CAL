@@ -1,0 +1,16 @@
+;last modified 2021. 02. 08. 21:34:15 by pungorpeter    (1)
+
+[2021_TCU_Status]
+
+Front_Rear_Throttle_Bias = And(#TCU_Status_12_32BIT, 0xFF000000)
+Front_Rear_Throttle_Bias = /(#Front_Rear_Throttle_Bias, 16777216)
+
+Left_Right_Bias = And(#TCU_Status_12_32BIT, 0x00FF0000)
+Left_Right_Bias = /(#Left_Right_Bias, 65536)
+Left_Right_Bias = *(#Left_Right_Bias, 0.01)
+
+Max_Braking_Torque = And(#TCU_Status_12_32BIT, 0x0000FF00)
+Max_Braking_Torque = /(#Max_Braking_Torque, 256)
+
+Front_Rear_Brake_Bias = And(#TCU_Status_12_32BIT, 0x000000FF)
+Front_Rear_Brake_Bias = *(#Front_Rear_Brake_Bias, 5)

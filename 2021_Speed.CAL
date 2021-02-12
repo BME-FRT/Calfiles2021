@@ -1,0 +1,92 @@
+;last modified 2021. 02. 09. 20:03:25 by pungorpeter    (36)
+
+[2021_Speed]
+
+/////Velocity
+
+V_GPS=Shift(#V_GPS,-0.4)        //GPS késése miatti eltolás
+
+/////WheelSpeed_1
+
+IfExists(#AMK_Actualvelocity_1)
+WheelSpeed_1=*(#AMK_Actualvelocity_1,Parameters.RPM2KMPH)
+WheelSpeed_1=F(#WheelSpeed_1,F(AVG 20));
+WheelSpeed_1=Set(DIM='km/h');
+
+/////WheelSpeed_2
+
+IfExists(#AMK_Actualvelocity_2);
+WheelSpeed_2=*(#AMK_Actualvelocity_2,Parameters.RMP2KMPH)
+WheelSpeed_2=F(#WheelSpeed_2,F(AVG 20));
+WheelSpeed_2=Set(DIM='km/h');
+
+/////WheelSpeed_3
+
+IfExists(#AMK_Actualvelocity_3)
+WheelSpeed_3=*(#AMK_Actualvelocity_3,Parameters.RMP2KMPH)
+WheelSpeed_3=F(#WheelSpeed_3,F(AVG 20));
+WheelSpeed_3=Set(DIM='km/h');
+
+/////WheelSpeed_4
+
+IfExists(#AMK_Actualvelocity_4);
+WheelSpeed_4=*(#AMK_Actualvelocity_4,Parameters.RMP2KMPH);
+WheelSpeed_4=F(#WheelSpeed_4,F(AVG 20));
+WheelSpeed_4=Set(DIM='km/h');
+
+/////VehicleSpeed
+
+//kerekek gyorsításának vizsgálata, kipörgéseket így figyelmen kívül hagyhatjuk
+Accel1=Derivate(#WheelSpeed_1);
+Accel1=Abs(#Accel1);
+Accel1=F(#Accel1,F(Max 50));
+
+Accel2=Derivate(#WheelSpeed_2);
+Accel2=Abs(#Accel2);
+Accel2=F(#Accel2,F(Max 50));
+
+Accel3=Derivate(#WheelSpeed_3);
+Accel3=Abs(#Accel3);
+Accel3=F(#Accel3,F(Max 50));
+
+Accel4=Derivate(#WheelSpeed_4);
+Accel4=Abs(#Accel4);
+Accel4=F(#Accel4,F(Max 50));
+
+//elpörgõ kerekek kizárása maximumnál
+WS1=If(#Accel1,>,35,0,#WheelSpeed_1);
+WS2=If(#Accel2,>,35,0,#WheelSpeed_2);
+WS3=If(#Accel3,>,35,0,#WheelSpeed_3);
+WS4=If(#Accel4,>,35,0,#WheelSpeed_4);
+WSMax=Max(#WS1,#WS2);
+WSMax=Max(#WSMax,#WS3);
+WSMax=Max(#WSMax,#WS4);
+
+//elpörgõ kerekek kizárása minimumnál
+WS1=If(#Accel1,>,35,120,#WheelSpeed_1);
+WS2=If(#Accel2,>,35,120,#WheelSpeed_2);
+WS3=If(#Accel3,>,35,120,#WheelSpeed_3);
+WS4=If(#Accel4,>,35,120,#WheelSpeed_4);
+WSMin=Min(#WS1,#WS2);
+WSMin=Min(#WSMin,#WS3);
+WSMin=Min(#WSMin,#WS4);
+
+VehicleSpeed=If(#Acceleration_X_Rear_Filtered,>,0,#WSMin,#WSMax);
+VehicleSpeed=F(#VehicleSpeed,F(AVG 100));
+VehicleSpeed=Set(DIM='km/h')
+
+Delete(#WSMax);
+Delete(#WSMin);
+Delete(#WS1);
+Delete(#WS2);
+Delete(#WS3);
+Delete(#WS4);
+Delete(#Accel1);
+Delete(#Accel2);
+Delete(#Accel3);
+Delete(#Accel4);
+Delete(#checkSpeed);
+
+AMK_RPM_average=/(#AMK_ActualVelocity,4);
+
+

@@ -1,0 +1,41 @@
+;last modified 2021. 02. 12. 21:42:35 by pungorpeter    (1)
+
+[2021_Throttle_Steering]
+
+/////Throttle
+
+Throttle_Plausibility = And(#Throttle_Steering_1_32BIT, 0x80000000)
+Throttle_Plausibility = /(#Throttle_Plausibility, 2147483648)
+Throttle_Plausibility = -(0, #Throttle_Plausibility)
+Throttle_Plausibility = Set(DIM = 'bool')
+
+Throttle_Position_1 = And(#Throttle_Steering_1_32BIT, 0x0FFF0000)
+Throttle_Position_1 = /(#Throttle_Position_1, 655360)
+Throttle_Position_1 = Set(DIM = '%')
+
+Throttle_Position_2 = And(#Throttle_Steering_1_32BIT, 0x00000FFF)
+Throttle_Position_2 = /(#Throttle_Position_2, 10)
+Throttle_Position_2 = Set(DIM = '%')
+
+/////Steering
+
+Steering_Angle_Plausibility = And(#Throttle_Steering_2_32BIT, 0x80000000)
+Steering_Angle_Plausibility = /(#Steering_Angle_Plausibility, 2147483648)
+Steering_Angle_Plausibility = -(0, #Steering_Angle_Plausibility)
+Steering_Angle_Plausibility = Set(DIM = 'bool')
+
+Steering_Angle_1 = And(#Throttle_Steering_2_32BIT, 0x0FFF0000)
+Steering_Angle_1 = /(#Steering_Angle_1, 65536)
+Steering_Angle_1 = -(#Steering_Angle_1, 90)
+Steering_Angle_1 = Set(DIM = '°')
+Steering_Angle_Derivate_1 = Derivate(#Steering_Angle_1)
+
+Steering_Angle_2 = And(#Throttle_Steering_2_32BIT, 0x00000FFF)
+Steering_Angle_2 = *(#Steering_Angle_2, -1)
+Steering_Angle_2 = +(#Steering_Angle_2, 330)
+Steering_Angle_2 = Set(DIM = '°')
+Steering_Angle_Derivate_2 = Derivate(#Steering_Angle_2)
+
+
+
+

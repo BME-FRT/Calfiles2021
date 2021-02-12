@@ -1,0 +1,11 @@
+;last modified 2021. 02. 08. 21:34:08 by pungorpeter    (1)
+
+[2021_PDM_Status]
+
+PDM_Heartbeat = And(#PDM_Status_1_32BIT, 0xFF000000)
+PDM_Heartbeat = /(#PDM_Heartbeat, 16777216)
+
+PDM_Cell_by_Undervoltage = And(#PDM_Status_1_32BIT, 0x0000000F)
+PDM_Cell_by_Undervoltage_MAX = MaxHold(#PDM_Cell_by_Undervoltage, #PDM_Cell_by_Undervoltage, 0,10)
+
+

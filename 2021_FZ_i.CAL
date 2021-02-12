@@ -1,0 +1,105 @@
+;last modified 2021. 02. 11. 23:49:29 by pungorpeter    (1)
+
+[2021_FZ_i]
+
+/////F_aero
+
+F_aero_down=Power(#VehicleSpeed,2)
+F_aero_down=*(#F_aero_down,0.04726)               //const=0.5*air_density/3.6^2
+F_aero_down=*(#F_aero_down,Parameters.AREA)
+F_aero_down=*(#F_aero_down, Parameters.C_L)
+
+F_aero_drag=*(#F_aero_down,0.04726)               //const=0.5*air_density/3.6^2
+F_aero_drag=*(#F_aero_down,Parameters.AREA)
+F_aero_drag=*(#F_aero_down, Parameters.C_D)
+
+Delta_drag=*(#F_aero_drag,Parameters.H_COP)
+Delta_drag=/(#Delta_drag,Parameters.WHEELBASE)
+Delta_drag=*(#Delta_drag,0.5)
+
+F_aero_front=*(#F_aero_down,Parameters.BIAS)
+F_aero_front=*(#F_aero_front,0.5)
+F_aero_front=-(#F_aero_front,#Delta_drag)
+
+F_aero_rear=*(#F_aero_down,Parameters.1MINUSBIAS)
+F_aero_rear=*(#F_aero_rear,0.5)
+F_aero_rear=+(#F_aero_rear,#Delta_drag)
+
+Delete(#Delta_drag)
+
+/////Calculation of Fz_i-s
+
+;Fz_1 = m*9.81/4 + m*9.81*hCoG/2 * ( - AccelerationX /WB - Acceleration_Y / T_F)
+;Fz_2 = m*9.81/4 + m*9.81*hCoG/2 * ( - AccelerationX /WB + Acceleration_Y / T_F)
+;Fz_3 = m*9.81/4 + m*9.81*hCoG/2 * ( AccelerationX / WB - Acceleration_Y / T_R)
+;Fz_4 = m*9.81/4 + m*9.81*hCoG/2 * ( AccelerationX / WB + Acceleration_Y / T_R)
+
+/////Fz_1
+
+var1 =/(#Acceleration_X_Rear,Parameters.WHEELBASE)
+var1 = *(#var1,-1)
+var2 =/(#Acceleration_Y_Rear,Parameters.TRACK_FRONT)
+Fz_1 =-(#var1,#var2)
+Fz_1 =*(#Fz_1,Parameters.MGPER2)
+Fz_1 =*(#Fz_1,Parameters.H_COG)
+Fz_1 =+(#Fz_1,Parameters.MGPER4)
+Fz_1 =+(#F_aero_front,#Fz_1)
+
+Fz_1=F(#Fz_1,F(AVG 20))
+Fz_1=Set(DIM='N');
+
+Delete(#var1)
+Delete(#var2)
+
+/////Fz_2
+
+var3=/(#Acceleration_X_Rear,Parameters.WHEELBASE)
+var3= *(#var3,-1)
+var4=/(#Acceleration_Y_Rear,Parameters.TRACK_FRONT)
+Fz_2=+(#var3,#var4)
+Fz_2 =*(#Fz_2,Parameters.MGPER2)
+Fz_2 =*(#Fz_2,Parameters.H_COG)
+Fz_2 =+(#Fz_2,Parameters.MGPER4)
+Fz_2 =+(#F_aero_front,#Fz_2)
+
+Fz_2=F(#Fz_2,F(AVG 20))
+Fz_2=Set(DIM='N');
+
+Delete(#var3)
+Delete(#var4)
+
+/////Fz_3
+
+var5=/(#Acceleration_X_Rear,Parameters.WHEELBASE)
+var6=/(#Acceleration_Y_Rear,Parameter.TRACK_REAR)
+Fz_3=-(#var5,#var6)
+Fz_3 =*(#Fz_3,Parameters.MGPER2)
+Fz_3 =*(#Fz_3,Parameters.H_COG)
+Fz_3 =+(#Fz_3,Parameters.MGPER4)
+Fz_3 =+(#F_aero_front,#Fz_2)
+
+Fz_3=F(#Fz_3,F(AVG 20))
+Fz_3=Set(DIM='N');
+
+Delete(#var5)
+Delete(#var6)
+
+/////Fz_4
+
+var7 =/(#Acceleration_X_Rear,Parameters.WHEELBASE)
+var8 =/(#Acceleration_Y_Rear,1.200)
+Fz_4 =+(#var7,#var8)
+Fz_4 =*(#Fz_4,Parameters.MGPER2)
+Fz_4 =*(#Fz_4,Parameters.H_COG)
+Fz_4 =+(#Fz_4,Parameters.MGPER4)
+Fz_4 =+(#F_aero_front,#Fz_4)
+
+Fz_4=F(#Fz_4,F(AVG 20))
+Fz_4=Set(DIM='N');
+
+Delete(#var7)
+Delete(#var8)
+
+
+
+

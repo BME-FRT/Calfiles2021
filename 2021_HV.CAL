@@ -1,0 +1,71 @@
+;last modified 2021. 02. 07. 22:43:00 by pungorpeter    (1)
+
+[2021_HV]
+
+HV_Voltage_Before_AIRs = And(#HV_Voltage_Before_&_After_AIRs , 0xFFFF0000)
+HV_Voltage_Before_AIRs = /(#HV_Voltage_Before_AIRs, 65536)
+HV_Voltage_Before_AIRs = /(#HV_Voltage_Before_AIRs, 10)
+HV_Voltage_Before_AIRs = Set(Dim='V')
+
+HV_Voltage_After_AIRs = And(#HV_Voltage_Before_&_After_AIRs, 0x0000FFFF)
+HV_Voltage_After_AIRs = /(#HV_Voltage_After_AIRs, 10)
+HV_Voltage_After_AIRs = Set(Dim='V')
+
+HV_Current_filtered = F(#HV_Current, F(AVG 15 Sec))
+
+Capacity = Integrate(#HV_Current)
+Capacity = /(#Capacity, 3.6)
+Capacity = Set(DIM, mAh)
+CapacityTotal = LastValue(#Capacity)
+CapacityTotal = Set(DIM, mAh)
+
+[IdIq]
+ Iq1=*(#AMK_Torquecurrent_1,107.2);
+ Iq1=/(#Iq1,16384);
+
+ Iq2=*(#AMK_Torquecurrent_2,107.2);
+ Iq2=/(#Iq2,16384);
+
+ Iq3=*(#AMK_Torquecurrent_3,107.2);
+ Iq3=/(#Iq3,16384);
+
+ Iq4=*(#AMK_Torquecurrent_4,107.2);
+ Iq4=/(#Iq4,16384);
+
+ Id1=*(#AMK_MagnetizingCurrent_1,107.2);
+ Id1=/(#Id1,16384);
+
+ Id2=*(#AMK_MagnetizingCurrent_2,107.2);
+ Id2=/(#Id2,16384);
+
+ Id3=*(#AMK_MagnetizingCurrent_3,107.2);
+ Id3=/(#Id3,16384);
+
+ Id4=*(#AMK_MagnetizingCurrent_4,107.2);
+ Id4=/(#Id4,16384);
+
+ INT_Iq1=Abs(#Iq1);
+ INT_Iq1=Integrate(#INT_Iq1);
+
+ INT_Iq2=Abs(#Iq2);
+ INT_Iq2=Integrate(#INT_Iq2);
+
+ INT_Iq3=Abs(#Iq3);
+ INT_Iq3=Integrate(#INT_Iq3);
+
+ INT_Iq4=Abs(#Iq4);
+ INT_Iq4=Integrate(#INT_Iq4);
+
+ INT_Id1=Abs(#Id1);
+ INT_Id1=Integrate(#INT_Id1);
+
+ INT_Id2=Abs(#Id2);
+ INT_Id2=Integrate(#INT_Id2);
+
+ INT_Id3=Abs(#Id3);
+ INT_Id3=Integrate(#INT_Id3);
+
+ INT_Id4=Abs(#Id4);
+ INT_Id4=Integrate(#INT_Id4);
+
+

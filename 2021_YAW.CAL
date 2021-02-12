@@ -1,0 +1,76 @@
+;last modified 2021. 02. 09. 10:02:36 by pungorpeter    (19)
+
+[2021_Yaw]
+
+/////Cornering radius
+
+c_radius=/(#V_GPS,3.6)
+c_radius=Power(#c_radius, 2)
+c_radius=/(#c_radius,#Acceleration_Y_Rear)
+c_radius=/(#c_radius,9.81)
+c_radius=Set(Dim='m')
+c_radius=Limit(#c_radius, -100, 100)
+
+/////
+
+Wheel_Angle_Real=+(#Steering_Angle_1,#Steering_Angle_2)
+Wheel_Angle_Real=/(#Wheel_Angle_Real,Parameters.STEERING_RATIO)
+Wheel_Angle_Real=/(#Wheel_Angle_Real,2)
+
+Wheel_Angle_Virtual=/(Parameters.WHEELBASE,#c_radius)    // Wheel_Angle_Virtual=ArcTan(Wheelbase/TurnRadius)
+Wheel_Angle_Virtual=ArcTan(#Wheel_Angle_Virtual)
+Wheel_Angle_Virtual=*(#Wheel_Angle_Virtual,@RAD2DEG)
+Wheel_Angle_Virtual=If(#VehicleSpeed,<,5,#Wheel_Angle_Real,#Wheel_Angle_Virtual)
+Wheel_Angle_Virtual=Set(Dim='°')
+
+Handling=/(#Wheel_Angle_Virtual,#Wheel_Angle_Real)
+Handling=-(#Handling,1)
+Handling=If(#VehicleSpeed,>,5,#Handling,0)
+c1=Abs(#Wheel_Angle_Real)
+Handling=If(#c1,<,3,0,#Handling)
+Handling=Set(Dim='-')
+
+Delete(#AccYaverage)
+Delete(#c1)
+
+[YAW]
+Yaw=+(#Yaw_Rate_Front,#Yaw_Rate_Rear)
+Yaw=/(#Yaw,@DEG2RAD)
+Yaw=/(#Yaw,2)
+Yaw=F(#Yaw,F(AVG 20))
+Mz_Real=Derivate(#Yaw)
+Mz_Real=*(#Mz_Real,Parameters.I_Z)
+Mz_Real=Set(Dim='Nm')
+
+Delete(#Yaw)
+
+/////Yaw calculated from torques at wheels
+
+Mz_from_FL=*(#AMK_TorqueLimit_1,Parameters.PLANETARY_GEAR_RATIO)
+Mz_from_FL=*(#Mz_from_FL,Parameters.TRACK_FRONT)
+Mz_from_FL=/(#Mz_from_FL,2)
+Mz_from_FL=/(#Mz_from_FL,Parameters.WHEEL_RADIUS)
+
+Mz_from_FR=*(#AMK_TorqueLimit_2,Parameters.PLANETARY_GEAR_RATIO)
+Mz_from_FR=*(#Mz_from_FR,Parameters.TRACK_FRONT)
+Mz_from_FR=/(#Mz_from_FR,2)
+Mz_from_FR=/(#Mz_from_FR,Parameters.WHEEL_RADIUS)
+
+Mz_from_RL=*(#AMK_TorqueLimit_3,Parameters.PLANETARY_GEAR_RATIO)
+Mz_from_RL=*(#Mz_from_RL,Parameters.TRACK_REAR)
+Mz_from_RL=/(#Mz_from_RL,2)
+Mz_from_RL=/(#Mz_from_RL,Parameters.WHEEL_RADIUS)
+
+Mz_from_RR=*(#AMK_TorqueLimit_4,Parameters.PLANETARY_GEAR_RATIO)
+Mz_from_RR=*(#Mz_from_RR,Parameters.TRACK_REAR)
+Mz_from_RR=/(#Mz_from_RR,2)
+Mz_from_RR=/(#Mz_from_RR,Parameters.WHEEL_RADIUS)
+
+M_Yaw=+(#Mz_from_FL,#Mz_from_FR)
+M_Yaw=+(#M_Yaw,#Mz_from_RL)
+M_Yaw=+(#M_Yaw,#Mz_from_RR)
+
+Delete(#Mz_from_FL)
+Delete(#Mz_from_FR)
+Delete(#Mz_from_RL)
+Delete(#Mz_from_RR)
