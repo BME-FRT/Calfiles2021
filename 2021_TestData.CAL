@@ -1,4 +1,4 @@
-;last modified 2021. 02. 12. 21:58:56 by pungorpeter    (15)
+;last modified 2021. 02. 14. 13:56:10 by pungorpeter    (1)
 
 [2021_TestData]
 
@@ -20,14 +20,13 @@ Coast=Set(DIM='-')
 [INT_Coast]
 INT_Coast=Integrate(#Coast,0)
 INT_Coast=/(#Coast,Parameters.CIRCUIT_LENGTH)
-INT_Coast=Set(DIM='s/m')
+INT_Coast=Set(Dim='s/m)
 
 [INT_Throttle]
 Throttle=+(#Throttle_Position_1,#Throttle_Position_2)
 Throttle=/(#Throttle,2)
 INT_Throttle=Integrate(#Throttle,0)
 INT_Throttle=/(#Throttle,Parameters.CIRCUIT_LENGTH)
-INT_Throttle=Set(DIM='%/m')
 Delete(#Throttle)
 
 [INT_BrakeForce]
@@ -48,11 +47,13 @@ ThrottleSteering=Set(DIM='°*%')
 
 INT_ThrottleSteering=Integrate(#ThrottleSteering,0)
 INT_ThrottleSteering=/(#ThrottleSteering,Parameters.CIRCUIT_LENGTH)
-INT_ThrottleSteering=Set(DIM='°*%/m')
+INT_ThrottleSteering=Set(Dim='°*%*s/m)
+
+/////INT Steering_Angle
 
 INT_Steering_Angle=Integrate(#SteeringAngle_tmp,0)
 INT_Steering_Angle=/(#INT_SteeringAngle,Parameters.CIRCUIT_LENGTH)
-INT_Steering_Angle=Set(DIM='°/m')
+INT_Steering_Angle=Set(DIM='°*s/m')
 
 Delete(#SteeringAngle_tmp)
 

@@ -1,4 +1,4 @@
-;last modified 2021. 02. 11. 16:32:52 by pungorpeter    (95)
+;last modified 2021. 02. 14. 13:57:08 by pungorpeter    (90)
 
 [2021_SlipRatio]
 
@@ -77,25 +77,25 @@ SlipRatio_4_Braking=Set(Dim='-')
 IfExists(#WheelSpeed_1)
 INT_SlipRatio_1_Traction=Integrate(#SlipRatio_1_Traction,0)
 INT_SlipRatio_1_Traction=/(#INT_SlipRatio_1_Traction,Parameters.CIRCUIT_LENGTH)
-INT_SlipRatio_1_Traction=Set(Dim='1/m')
+INT_SlipRatio_1_Traction=Set(Dim='s/m')
 
 [INT_SlipRatio_2_Traction]
 IfExists(#SlipRatio_2_Traction)
 INT_SlipRatio_2_Traction=Integrate(#SlipRatio_2_Traction,0)
 INT_SlipRatio_2_Traction=/(#INT_SlipRatio_2_Traction,Parameters.CIRCUIT_LENGTH)
-INT_SlipRatio_2_Traction=Set(Dim='1/m')
+INT_SlipRatio_2_Traction=Set(Dim='s/m')
 
 [INT_SlipRatio_3_Traction]
 IfExists(#SlipRatio_3_Traction)
 INT_SlipRatio_3_Traction=Integrate(#SlipRatio_3_Traction,0)
 INT_SlipRatio_3_Traction=/(#INT_SlipRatio_3_Traction,Parameters.CIRCUIT_LENGTH)
-INT_SlipRatio_3_Traction=Set(Dim='1/m')
+INT_SlipRatio_3_Traction=Set(Dim='s/m')
 
 [INT_SlipRatio_4_Traction]
 IfExists(#SlipRatio_4_Traction)
 INT_SlipRatio_4_Traction=Integrate(#SlipRatio_4_Traction,0)
 INT_SlipRatio_4_Traction=/(#INT_SlipRatio_4_Traction,Parameters.CIRCUIT_LENGTH)
-INT_SlipRatio_4_Traction=Set(Dim='1/m')
+INT_SlipRatio_4_Traction=Set(Dim='s/m')
 
 /////INT Braking
 
@@ -103,22 +103,22 @@ INT_SlipRatio_4_Traction=Set(Dim='1/m')
 IfExists(#SlipRatio_1_Braking)
 INT_SlipRatio_1_Braking=Integrate(#SlipRatio_1_Braking,0)
 INT_SlipRatio_1_Braking=/(#INT_SlipRatio_1_Braking,Parameters.CIRCUIT_LENGTH)
-INT_SlipRatio_1_Braking=Set(Dim='1/m')
+INT_SlipRatio_1_Braking=Set(Dim='s/m')
 
 [INT_SlipRatio_2_Braking]
 IfExists(#SlipRatio_2_Braking)
 INT_SlipRatio_2_Braking=Integrate(#SlipRatio_2_Braking,0)
 INT_SlipRatio_2_Braking=/(#INT_SlipRatio_2_Braking,Parameters.CIRCUIT_LENGTH)
-INT_SlipRatio_2_Braking=Set(Dim='1/m')
+INT_SlipRatio_2_Braking=Set(Dim='s/m')
 
 [INT_SlipRatio_3_Braking]
 IfExists(#SlipRatio_3_Braking)
 INT_SlipRatio_3_Braking=Integrate(#SlipRatio_3_Braking,0)
 INT_SlipRatio_3_Braking=/(#INT_SlipRatio_3_Braking,Parameters.CIRCUIT_LENGTH)
-INT_SlipRatio_3_Braking=Set(Dim='1/m')
+INT_SlipRatio_3_Braking=Set(Dim='s/m')
 
 [INT_SlipRatio_4_Braking]
 IfExists(#SlipRatio_4_Braking)
 INT_SlipRatio_4_Braking=Integrate(#SlipRatio_4_Braking,0)
 INT_SlipRatio_4_Braking=/(#INT_SlipRatio_4_Braking,Parameters.CIRCUIT_LENGTH)
-INT_SlipRatio_4_Braking=Set(Dim='1/m')
+INT_SlipRatio_4_Braking=Set(Dim='s/m')

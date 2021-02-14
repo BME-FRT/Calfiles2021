@@ -1,4 +1,4 @@
-;last modified 2021. 02. 09. 10:02:36 by pungorpeter    (19)
+;last modified 2021. 02. 14. 12:56:33 by pungorpeter    (45)
 
 [2021_Yaw]
 
@@ -46,31 +46,31 @@ Delete(#Yaw)
 
 /////Yaw calculated from torques at wheels
 
-Mz_from_FL=*(#AMK_TorqueLimit_1,Parameters.PLANETARY_GEAR_RATIO)
-Mz_from_FL=*(#Mz_from_FL,Parameters.TRACK_FRONT)
-Mz_from_FL=/(#Mz_from_FL,2)
-Mz_from_FL=/(#Mz_from_FL,Parameters.WHEEL_RADIUS)
+Mz_1=*(#AMK_TorqueLimit_1,Parameters.PLANETARY_GEAR_RATIO)
+Mz_1=*(#Mz_1,Parameters.TRACK_FRONT)
+Mz_1=/(#Mz_1,2)
+Mz_1=/(#Mz_1,Parameters.WHEEL_RADIUS)
 
-Mz_from_FR=*(#AMK_TorqueLimit_2,Parameters.PLANETARY_GEAR_RATIO)
-Mz_from_FR=*(#Mz_from_FR,Parameters.TRACK_FRONT)
-Mz_from_FR=/(#Mz_from_FR,2)
-Mz_from_FR=/(#Mz_from_FR,Parameters.WHEEL_RADIUS)
+Mz_2=*(#AMK_TorqueLimit_2,Parameters.PLANETARY_GEAR_RATIO)
+Mz_2=*(#Mz_2,Parameters.TRACK_FRONT)
+Mz_2=/(#Mz_2,2)
+Mz_2=/(#Mz_2,Parameters.WHEEL_RADIUS)
 
-Mz_from_RL=*(#AMK_TorqueLimit_3,Parameters.PLANETARY_GEAR_RATIO)
-Mz_from_RL=*(#Mz_from_RL,Parameters.TRACK_REAR)
-Mz_from_RL=/(#Mz_from_RL,2)
-Mz_from_RL=/(#Mz_from_RL,Parameters.WHEEL_RADIUS)
+Mz_3=*(#AMK_TorqueLimit_3,Parameters.PLANETARY_GEAR_RATIO)
+Mz_3=*(#Mz_3,Parameters.TRACK_REAR)
+Mz_3=/(#Mz_3,2)
+Mz_3=/(#Mz_3,Parameters.WHEEL_RADIUS)
 
-Mz_from_RR=*(#AMK_TorqueLimit_4,Parameters.PLANETARY_GEAR_RATIO)
-Mz_from_RR=*(#Mz_from_RR,Parameters.TRACK_REAR)
-Mz_from_RR=/(#Mz_from_RR,2)
-Mz_from_RR=/(#Mz_from_RR,Parameters.WHEEL_RADIUS)
+Mz_4=*(#AMK_TorqueLimit_4,Parameters.PLANETARY_GEAR_RATIO)
+Mz_4=*(#Mz_4,Parameters.TRACK_REAR)
+Mz_4=/(#Mz_4,2)
+Mz_4=/(#Mz_4,Parameters.WHEEL_RADIUS)
 
-M_Yaw=+(#Mz_from_FL,#Mz_from_FR)
-M_Yaw=+(#M_Yaw,#Mz_from_RL)
-M_Yaw=+(#M_Yaw,#Mz_from_RR)
+M_Yaw=+(#Mz_1,#Mz_2)
+M_Yaw=+(#M_Yaw,#Mz_3)
+M_Yaw=+(#M_Yaw,#Mz_4)
 
-Delete(#Mz_from_FL)
-Delete(#Mz_from_FR)
-Delete(#Mz_from_RL)
-Delete(#Mz_from_RR)
+Delete(#Mz_1)
+Delete(#Mz_2)
+Delete(#Mz_3)
+Delete(#Mz_4)

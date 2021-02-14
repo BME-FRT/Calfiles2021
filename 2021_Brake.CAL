@@ -1,4 +1,4 @@
-;last modified 2021. 02. 12. 22:29:50 by pungorpeter    (43)
+;last modified 2021. 02. 13. 11:42:45 by pungorpeter    (37)
 
 [2021_Brake]
 
@@ -49,22 +49,22 @@ INT_Brake_Pressure_Rear=Set(DIM='bar')
 [Forces]
 
 F_Brake_Front=*(30.54,#Brake_Pressure_Front)      //mech brake
-F_Brake_1=*(#AMK_TorqueLimitNegative_1,70.48)     //regbrake
-F_Brake_1=-(#F_Brake_Front,#F_Brake_1)
+F_Brake_1=*(#AMK_TorqueLimitNegative_1,-70.48)     //regbrake, azért megatívval szorzom, mert negatív az amk_torquelimitnegative is
+F_Brake_1=-(#F_Brake_Front,#F_Brake_1)              // de amúgyis ki kell majd számolni ezt a konstanst az aktuális autóra
 F_Brake_1=Set(DIM='N')
 
-F_Brake_2=*(#AMK_TorqueLimitNegative_2,70.48)     //regbrake
+F_Brake_2=*(#AMK_TorqueLimitNegative_2,-70.48)     //regbrake
 F_Brake_2=-(#F_Brake_Front,#F_Brake_2)
 F_Brake_2=Set(DIM='N')
 
 /////
 
 F_Brake_Rear=*(30.54,#Brake_Pressure_Rear)     //mech brake
-F_Brake_3=*(#AMK_TorqueLimitNegative_3,70.48)   //regbrake
+F_Brake_3=*(#AMK_TorqueLimitNegative_3,-70.48)   //regbrake
 F_Brake_3=-(#F_Brake_Rear,#F_Brake_3)
 F_Brake_3=Set(DIM='N')
 
-F_Brake_4=*(#AMK_TorqueLimitNegative_4,70.48)    //regbrake
+F_Brake_4=*(#AMK_TorqueLimitNegative_4,-70.48)    //regbrake
 F_Brake_4=-(#F_Brake_Rear,#F_Brake_4)
 F_Brake_4=Set(DIM='N')
 
