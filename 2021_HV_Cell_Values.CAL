@@ -1,6 +1,6 @@
-;last modified 2021. 02. 09. 19:42:07 by pungorpeter    (1)
+;last modified 2021. 02. 16. 8:38:08 by bekes    (1)
 
 [2021_HV_Cell_Values]
 
-HV_Accumulator_Cell_ID =  And(#HV Cell Values 1, 0xFF00)
-HV_Accumulator_Cell_ID = /(#HV_Accumulator_Cell_ID, 256)
+HV_Accumulator_Cell_ID =  And(#HV_Cell_Values, 0xFF00)
+HV_Accumulator_Cell_ID = /(#HV_Accumulator_Cell_ID,256)
