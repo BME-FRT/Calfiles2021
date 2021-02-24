@@ -1,6 +1,0 @@
-;last modified 2021. 02. 08. 21:35:16 by pungorpeter    (1)
-
-[2021_MCU_Support]
-
-SC_endline = And(#MCU_Support_Status, 0x000000FF)
-SC_endline = Set(Dim='V')

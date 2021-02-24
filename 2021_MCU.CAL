@@ -1,6 +1,11 @@
-;last modified 2021. 02. 07. 23:02:52 by pungorpeter    (50)
+;last modified 2021. 02. 24. 18:53:28 by pungorpeter    (1)
 
 [2021_MCU]
+
+SC_endline = And(#MCU_Support_Status, 0x000000FF)
+SC_endline = Set(Dim='V')
+
+/////
 
 Derating1 = Mod(#AMK_Status_1, 2)
 Derating2 = Mod(#AMK_Status_2, 2)

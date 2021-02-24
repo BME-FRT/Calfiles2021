@@ -1,8 +1,368 @@
-;last modified 2021. 02. 22. 22:09:19 by pungorpeter    (1)
+;last modified 2021. 02. 24. 18:57:53 by pungorpeter    (1)
 
-[2021_HV_Cell_Voltage_2]
+[2021_HV_Cell_Voltage]
 
 /////Run 2021_HV_Cell_IDs first
+
+IsID_S1M1C1 = If(#HV_Cell_Values, =, 0, 1, 0)
+HV_Cell_Voltage_S1M1C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M1C1)
+HV_Cell_Voltage_S1M1C1 = Set(DIM, mV)
+Delete(IsID_S1M1C1)
+
+IsID_S1M1C2 = If(#HV_Cell_Values, =, 1, 1, 0)
+HV_Cell_Voltage_S1M1C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M1C2)
+HV_Cell_Voltage_S1M1C2 = Set(DIM, mV)
+Delete(IsID_S1M1C2)
+
+IsID_S1M1C3 = If(#HV_Cell_Values, =, 2, 1, 0)
+HV_Cell_Voltage_S1M1C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M1C3)
+HV_Cell_Voltage_S1M1C3 = Set(DIM, mV)
+Delete(IsID_S1M1C3)
+
+IsID_S1M1C4 = If(#HV_Cell_Values, =, 3, 1, 0)
+HV_Cell_Voltage_S1M1C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M1C4)
+HV_Cell_Voltage_S1M1C4 = Set(DIM, mV)
+Delete(IsID_S1M1C4)
+
+IsID_S1M2C1 = If(#HV_Cell_Values, =, 4, 1, 0)
+HV_Cell_Voltage_S1M2C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M2C1)
+HV_Cell_Voltage_S1M2C1 = Set(DIM, mV)
+Delete(IsID_S1M2C1)
+
+IsID_S1M2C2 = If(#HV_Cell_Values, =, 5, 1, 0)
+HV_Cell_Voltage_S1M2C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M2C2)
+HV_Cell_Voltage_S1M2C2 = Set(DIM, mV)
+Delete(IsID_S1M2C2)
+
+IsID_S1M2C3 = If(#HV_Cell_Values, =, 6, 1, 0)
+HV_Cell_Voltage_S1M2C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M2C3)
+HV_Cell_Voltage_S1M2C3 = Set(DIM, mV)
+Delete(IsID_S1M2C3)
+
+IsID_S1M2C4 = If(#HV_Cell_Values, =, 7, 1, 0)
+HV_Cell_Voltage_S1M2C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M2C4)
+HV_Cell_Voltage_S1M2C4 = Set(DIM, mV)
+Delete(IsID_S1M2C4)
+
+IsID_S1M3C1 = If(#HV_Cell_Values, =, 8, 1, 0)
+HV_Cell_Voltage_S1M3C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M3C1)
+HV_Cell_Voltage_S1M3C1 = Set(DIM, mV)
+Delete(IsID_S1M3C1)
+
+IsID_S1M3C2 = If(#HV_Cell_Values, =, 9, 1, 0)
+HV_Cell_Voltage_S1M3C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M3C2)
+HV_Cell_Voltage_S1M3C2 = Set(DIM, mV)
+Delete(IsID_S1M3C2)
+
+IsID_S1M3C3 = If(#HV_Cell_Values, =, 10, 1, 0)
+HV_Cell_Voltage_S1M3C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M3C3)
+HV_Cell_Voltage_S1M3C3 = Set(DIM, mV)
+Delete(IsID_S1M3C3)
+
+IsID_S1M3C4 = If(#HV_Cell_Values, =, 11, 1, 0)
+HV_Cell_Voltage_S1M3C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M3C4)
+HV_Cell_Voltage_S1M3C4 = Set(DIM, mV)
+Delete(IsID_S1M3C4)
+
+IsID_S1M4C1 = If(#HV_Cell_Values, =, 15, 1, 0)
+HV_Cell_Voltage_S1M4C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M4C1)
+HV_Cell_Voltage_S1M4C1 = Set(DIM, mV)
+Delete(IsID_S1M4C1)
+
+IsID_S1M4C2 = If(#HV_Cell_Values, =, 16, 1, 0)
+HV_Cell_Voltage_S1M4C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M4C2)
+HV_Cell_Voltage_S1M4C2 = Set(DIM, mV)
+Delete(IsID_S1M4C2)
+
+IsID_S1M4C3 = If(#HV_Cell_Values, =, 17, 1, 0)
+HV_Cell_Voltage_S1M4C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M4C3)
+HV_Cell_Voltage_S1M4C3 = Set(DIM, mV)
+Delete(IsID_S1M4C3)
+
+IsID_S1M4C4 = If(#HV_Cell_Values, =, 18, 1, 0)
+HV_Cell_Voltage_S1M4C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M4C4)
+HV_Cell_Voltage_S1M4C4 = Set(DIM, mV)
+Delete(IsID_S1M4C4)
+
+IsID_S1M5C1 = If(#HV_Cell_Values, =, 19, 1, 0)
+HV_Cell_Voltage_S1M5C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M5C1)
+HV_Cell_Voltage_S1M5C1 = Set(DIM, mV)
+Delete(IsID_S1M5C1)
+
+IsID_S1M5C2 = If(#HV_Cell_Values, =, 20, 1, 0)
+HV_Cell_Voltage_S1M5C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M5C2)
+HV_Cell_Voltage_S1M5C2 = Set(DIM, mV)
+Delete(IsID_S1M5C2)
+
+IsID_S1M5C3 = If(#HV_Cell_Values, =, 21, 1, 0)
+HV_Cell_Voltage_S1M5C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M5C3)
+HV_Cell_Voltage_S1M5C3 = Set(DIM, mV)
+Delete(IsID_S1M5C3)
+
+IsID_S1M5C4 = If(#HV_Cell_Values, =, 22, 1, 0)
+HV_Cell_Voltage_S1M5C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M5C4)
+HV_Cell_Voltage_S1M5C4 = Set(DIM, mV)
+Delete(IsID_S1M5C4)
+
+IsID_S1M6C1 = If(#HV_Cell_Values, =, 23, 1, 0)
+HV_Cell_Voltage_S1M6C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M6C1)
+HV_Cell_Voltage_S1M6C1 = Set(DIM, mV)
+Delete(IsID_S1M6C1)
+
+IsID_S1M6C2 = If(#HV_Cell_Values, =, 24, 1, 0)
+HV_Cell_Voltage_S1M6C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M6C2)
+HV_Cell_Voltage_S1M6C2 = Set(DIM, mV)
+Delete(IsID_S1M6C2)
+
+IsID_S1M6C3 = If(#HV_Cell_Values, =, 25, 1, 0)
+HV_Cell_Voltage_S1M6C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M6C3)
+HV_Cell_Voltage_S1M6C3 = Set(DIM, mV)
+Delete(IsID_S1M6C3)
+
+IsID_S1M6C4 = If(#HV_Cell_Values, =, 26, 1, 0)
+HV_Cell_Voltage_S1M6C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S1M6C4)
+HV_Cell_Voltage_S1M6C4 = Set(DIM, mV)
+Delete(IsID_S1M6C4)
+
+IsID_S2M1C1 = If(#HV_Cell_Values, =, 30, 1, 0)
+HV_Cell_Voltage_S2M1C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M1C1)
+HV_Cell_Voltage_S2M1C1 = Set(DIM, mV)
+Delete(IsID_S2M1C1)
+
+IsID_S2M1C2 = If(#HV_Cell_Values, =, 31, 1, 0)
+HV_Cell_Voltage_S2M1C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M1C2)
+HV_Cell_Voltage_S2M1C2 = Set(DIM, mV)
+Delete(IsID_S2M1C2)
+
+IsID_S2M1C3 = If(#HV_Cell_Values, =, 32, 1, 0)
+HV_Cell_Voltage_S2M1C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M1C3)
+HV_Cell_Voltage_S2M1C3 = Set(DIM, mV)
+Delete(IsID_S2M1C3)
+
+IsID_S2M1C4 = If(#HV_Cell_Values, =, 33, 1, 0)
+HV_Cell_Voltage_S2M1C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M1C4)
+HV_Cell_Voltage_S2M1C4 = Set(DIM, mV)
+Delete(IsID_S2M1C4)
+
+IsID_S2M2C1 = If(#HV_Cell_Values, =, 34, 1, 0)
+HV_Cell_Voltage_S2M2C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M2C1)
+HV_Cell_Voltage_S2M2C1 = Set(DIM, mV)
+Delete(IsID_S2M2C1)
+
+IsID_S2M2C2 = If(#HV_Cell_Values, =, 35, 1, 0)
+HV_Cell_Voltage_S2M2C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M2C2)
+HV_Cell_Voltage_S2M2C2 = Set(DIM, mV)
+Delete(IsID_S2M2C2)
+
+IsID_S2M2C3 = If(#HV_Cell_Values, =, 36, 1, 0)
+HV_Cell_Voltage_S2M2C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M2C3)
+HV_Cell_Voltage_S2M2C3 = Set(DIM, mV)
+Delete(IsID_S2M2C3)
+
+IsID_S2M2C4 = If(#HV_Cell_Values, =, 37, 1, 0)
+HV_Cell_Voltage_S2M2C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M2C4)
+HV_Cell_Voltage_S2M2C4 = Set(DIM, mV)
+Delete(IsID_S2M2C4)
+
+IsID_S2M3C1 = If(#HV_Cell_Values, =, 38, 1, 0)
+HV_Cell_Voltage_S2M3C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M3C1)
+HV_Cell_Voltage_S2M3C1 = Set(DIM, mV)
+Delete(IsID_S2M3C1)
+
+IsID_S2M3C2 = If(#HV_Cell_Values, =, 39, 1, 0)
+HV_Cell_Voltage_S2M3C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M3C2)
+HV_Cell_Voltage_S2M3C2 = Set(DIM, mV)
+Delete(IsID_S2M3C2)
+
+IsID_S2M3C3 = If(#HV_Cell_Values, =, 40, 1, 0)
+HV_Cell_Voltage_S2M3C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M3C3)
+HV_Cell_Voltage_S2M3C3 = Set(DIM, mV)
+Delete(IsID_S2M3C3)
+
+IsID_S2M3C4 = If(#HV_Cell_Values, =, 41, 1, 0)
+HV_Cell_Voltage_S2M3C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M3C4)
+HV_Cell_Voltage_S2M3C4 = Set(DIM, mV)
+Delete(IsID_S2M3C4)
+
+IsID_S2M4C1 = If(#HV_Cell_Values, =, 45, 1, 0)
+HV_Cell_Voltage_S2M4C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M4C1)
+HV_Cell_Voltage_S2M4C1 = Set(DIM, mV)
+Delete(IsID_S2M4C1)
+
+IsID_S2M4C2 = If(#HV_Cell_Values, =, 46, 1, 0)
+HV_Cell_Voltage_S2M4C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M4C2)
+HV_Cell_Voltage_S2M4C2 = Set(DIM, mV)
+Delete(IsID_S2M4C2)
+
+IsID_S2M4C3 = If(#HV_Cell_Values, =, 47, 1, 0)
+HV_Cell_Voltage_S2M4C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M4C3)
+HV_Cell_Voltage_S2M4C3 = Set(DIM, mV)
+Delete(IsID_S2M4C3)
+
+IsID_S2M4C4 = If(#HV_Cell_Values, =, 48, 1, 0)
+HV_Cell_Voltage_S2M4C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M4C4)
+HV_Cell_Voltage_S2M4C4 = Set(DIM, mV)
+Delete(IsID_S2M4C4)
+
+IsID_S2M5C1 = If(#HV_Cell_Values, =, 49, 1, 0)
+HV_Cell_Voltage_S2M5C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M5C1)
+HV_Cell_Voltage_S2M5C1 = Set(DIM, mV)
+Delete(IsID_S2M5C1)
+
+IsID_S2M5C2 = If(#HV_Cell_Values, =, 50, 1, 0)
+HV_Cell_Voltage_S2M5C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M5C2)
+HV_Cell_Voltage_S2M5C2 = Set(DIM, mV)
+Delete(IsID_S2M5C2)
+
+IsID_S2M5C3 = If(#HV_Cell_Values, =, 51, 1, 0)
+HV_Cell_Voltage_S2M5C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M5C3)
+HV_Cell_Voltage_S2M5C3 = Set(DIM, mV)
+Delete(IsID_S2M5C3)
+
+IsID_S2M5C4 = If(#HV_Cell_Values, =, 52, 1, 0)
+HV_Cell_Voltage_S2M5C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M5C4)
+HV_Cell_Voltage_S2M5C4 = Set(DIM, mV)
+Delete(IsID_S2M5C4)
+
+IsID_S2M6C1 = If(#HV_Cell_Values, =, 53, 1, 0)
+HV_Cell_Voltage_S2M6C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M6C1)
+HV_Cell_Voltage_S2M6C1 = Set(DIM, mV)
+Delete(IsID_S2M6C1)
+
+IsID_S2M6C2 = If(#HV_Cell_Values, =, 54, 1, 0)
+HV_Cell_Voltage_S2M6C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M6C2)
+HV_Cell_Voltage_S2M6C2 = Set(DIM, mV)
+Delete(IsID_S2M6C2)
+
+IsID_S2M6C3 = If(#HV_Cell_Values, =, 55, 1, 0)
+HV_Cell_Voltage_S2M6C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M6C3)
+HV_Cell_Voltage_S2M6C3 = Set(DIM, mV)
+Delete(IsID_S2M6C3)
+
+IsID_S2M6C4 = If(#HV_Cell_Values, =, 56, 1, 0)
+HV_Cell_Voltage_S2M6C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M6C4)
+HV_Cell_Voltage_S2M6C4 = Set(DIM, mV)
+Delete(IsID_S2M6C4)
+
+IsID_S3M1C1 = If(#HV_Cell_Values, =, 60, 1, 0)
+HV_Cell_Voltage_S3M1C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M1C1)
+HV_Cell_Voltage_S3M1C1 = Set(DIM, mV)
+Delete(IsID_S3M1C1)
+
+IsID_S3M1C2 = If(#HV_Cell_Values, =, 61, 1, 0)
+HV_Cell_Voltage_S3M1C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M1C2)
+HV_Cell_Voltage_S3M1C2 = Set(DIM, mV)
+Delete(IsID_S3M1C2)
+
+IsID_S3M1C3 = If(#HV_Cell_Values, =, 62, 1, 0)
+HV_Cell_Voltage_S3M1C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M1C3)
+HV_Cell_Voltage_S3M1C3 = Set(DIM, mV)
+Delete(IsID_S3M1C3)
+
+IsID_S3M1C4 = If(#HV_Cell_Values, =, 63, 1, 0)
+HV_Cell_Voltage_S3M1C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M1C4)
+HV_Cell_Voltage_S3M1C4 = Set(DIM, mV)
+Delete(IsID_S3M1C4)
+
+IsID_S3M2C1 = If(#HV_Cell_Values, =, 64, 1, 0)
+HV_Cell_Voltage_S3M2C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M2C1)
+HV_Cell_Voltage_S3M2C1 = Set(DIM, mV)
+Delete(IsID_S3M2C1)
+
+IsID_S3M2C2 = If(#HV_Cell_Values, =, 65, 1, 0)
+HV_Cell_Voltage_S3M2C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M2C2)
+HV_Cell_Voltage_S3M2C2 = Set(DIM, mV)
+Delete(IsID_S3M2C2)
+
+IsID_S3M2C3 = If(#HV_Cell_Values, =, 66, 1, 0)
+HV_Cell_Voltage_S3M2C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M2C3)
+HV_Cell_Voltage_S3M2C3 = Set(DIM, mV)
+Delete(IsID_S3M2C3)
+
+IsID_S3M2C4 = If(#HV_Cell_Values, =, 67, 1, 0)
+HV_Cell_Voltage_S3M2C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M2C4)
+HV_Cell_Voltage_S3M2C4 = Set(DIM, mV)
+Delete(IsID_S3M2C4)
+
+IsID_S3M3C1 = If(#HV_Cell_Values, =, 68, 1, 0)
+HV_Cell_Voltage_S3M3C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M3C1)
+HV_Cell_Voltage_S3M3C1 = Set(DIM, mV)
+Delete(IsID_S3M3C1)
+
+IsID_S3M3C2 = If(#HV_Cell_Values, =, 69, 1, 0)
+HV_Cell_Voltage_S3M3C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M3C2)
+HV_Cell_Voltage_S3M3C2 = Set(DIM, mV)
+Delete(IsID_S3M3C2)
+
+IsID_S3M3C3 = If(#HV_Cell_Values, =, 70, 1, 0)
+HV_Cell_Voltage_S3M3C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M3C3)
+HV_Cell_Voltage_S3M3C3 = Set(DIM, mV)
+Delete(IsID_S3M3C3)
+
+IsID_S3M3C4 = If(#HV_Cell_Values, =, 71, 1, 0)
+HV_Cell_Voltage_S3M3C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M3C4)
+HV_Cell_Voltage_S3M3C4 = Set(DIM, mV)
+Delete(IsID_S3M3C4)
+
+IsID_S3M4C1 = If(#HV_Cell_Values, =, 75, 1, 0)
+HV_Cell_Voltage_S3M4C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M4C1)
+HV_Cell_Voltage_S3M4C1 = Set(DIM, mV)
+Delete(IsID_S3M4C1)
+
+IsID_S3M4C2 = If(#HV_Cell_Values, =, 76, 1, 0)
+HV_Cell_Voltage_S3M4C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M4C2)
+HV_Cell_Voltage_S3M4C2 = Set(DIM, mV)
+Delete(IsID_S3M4C2)
+
+IsID_S3M4C3 = If(#HV_Cell_Values, =, 77, 1, 0)
+HV_Cell_Voltage_S3M4C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M4C3)
+HV_Cell_Voltage_S3M4C3 = Set(DIM, mV)
+Delete(IsID_S3M4C3)
+
+IsID_S3M4C4 = If(#HV_Cell_Values, =, 78, 1, 0)
+HV_Cell_Voltage_S3M4C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M4C4)
+HV_Cell_Voltage_S3M4C4 = Set(DIM, mV)
+Delete(IsID_S3M4C4)
+
+IsID_S3M5C1 = If(#HV_Cell_Values, =, 79, 1, 0)
+HV_Cell_Voltage_S3M5C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M5C1)
+HV_Cell_Voltage_S3M5C1 = Set(DIM, mV)
+Delete(IsID_S3M5C1)
+
+IsID_S3M5C2 = If(#HV_Cell_Values, =, 80, 1, 0)
+HV_Cell_Voltage_S3M5C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M5C2)
+HV_Cell_Voltage_S3M5C2 = Set(DIM, mV)
+Delete(IsID_S3M5C2)
+
+IsID_S3M5C3 = If(#HV_Cell_Values, =, 81, 1, 0)
+HV_Cell_Voltage_S3M5C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M5C3)
+HV_Cell_Voltage_S3M5C3 = Set(DIM, mV)
+Delete(IsID_S3M5C3)
+
+IsID_S3M5C4 = If(#HV_Cell_Values, =, 82, 1, 0)
+HV_Cell_Voltage_S3M5C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M5C4)
+HV_Cell_Voltage_S3M5C4 = Set(DIM, mV)
+Delete(IsID_S3M5C4)
+
+IsID_S3M6C1 = If(#HV_Cell_Values, =, 83, 1, 0)
+HV_Cell_Voltage_S3M6C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M6C1)
+HV_Cell_Voltage_S3M6C1 = Set(DIM, mV)
+Delete(IsID_S3M6C1)
+
+IsID_S3M6C2 = If(#HV_Cell_Values, =, 84, 1, 0)
+HV_Cell_Voltage_S3M6C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M6C2)
+HV_Cell_Voltage_S3M6C2 = Set(DIM, mV)
+Delete(IsID_S3M6C2)
+
+IsID_S3M6C3 = If(#HV_Cell_Values, =, 85, 1, 0)
+HV_Cell_Voltage_S3M6C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M6C3)
+HV_Cell_Voltage_S3M6C3 = Set(DIM, mV)
+Delete(IsID_S3M6C3)
+
+IsID_S3M6C4 = If(#HV_Cell_Values, =, 86, 1, 0)
+HV_Cell_Voltage_S3M6C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S3M6C4)
+HV_Cell_Voltage_S3M6C4 = Set(DIM, mV)
+Delete(IsID_S3M6C4)
 
 IsID_S4M1C1 = If(#HV_Accumulator_Cell_ID, =, 90, 1, 0)
 HV_Cell_Voltage_S4M1C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S4M1C1)

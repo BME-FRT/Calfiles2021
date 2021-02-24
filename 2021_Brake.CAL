@@ -1,4 +1,4 @@
-;last modified 2021. 02. 13. 11:42:45 by pungorpeter    (37)
+;last modified 2021. 02. 24. 18:52:02 by pungorpeter    (33)
 
 [2021_Brake]
 
@@ -36,15 +36,6 @@ Brake_Pressure_Rear = Set(DIM = 'bar')
 [Brake_Force_Correction]
  //Calculating the zero error of brake force
  Brake_Force_corrected=-(#Brake_Force,64)
-
-[INT_Brake_for_TestData]
-INT_Brake_Pressure_Front=Integrate(#Brake_Pressure_Front)
-INT_Brake_Pressure_Front=/(#INT_Brake_Pressure_Front,Parameters.CIRCUIT_LENGTH)
-INT_Brake_Pressure_Front=Set(DIM='bar')
-
-INT_Brake_Pressure_Rear=Integrate(#Brake_Pressure_Rear)
-INT_Brake_Pressure_Rear=/(#INT_Brake_Pressure_Rear,Parameters.CIRCUIT_LENGTH)
-INT_Brake_Pressure_Rear=Set(DIM='bar')
 
 [Forces]
 
