@@ -1,0 +1,21 @@
+;last modified 2021. 02. 23. 20:32:01 by pungorpeter    (1)
+
+[2021_Errors]
+
+///// 1, ha kevesebb, mint 3400 mV
+ERROR_HV_Cell_Voltage_Critical=If(#HV_Cell_Voltage_Critical,<,3400,1,0)
+
+///// 1, ha melegebb, mint 55°C
+ERROR_HV_Cell_Temperature_Critical=If(#HV_Cell_Temperature_Critical,>,550,1,0)
+
+/////
+
+ERROR_AMK_Control_1=If(#AMK_Control_1,>,0,1,0)
+ERROR_AMK_Control_2=If(#AMK_Control_2,>,0,1,0)
+ERROR_AMK_Control_3=If(#AMK_Control_3,>,0,1,0)
+ERROR_AMK_Control_4=If(#AMK_Control_4,>,0,1,0)
+
+/////
+ERROR_P_Electric=If(#P_Electric,>,75,1,0)
+
+

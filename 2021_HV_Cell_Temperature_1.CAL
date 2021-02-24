@@ -1,6 +1,8 @@
-;last modified 2021. 02. 16. 8:44:47 by bekes    (1)
+;last modified 2021. 02. 22. 22:08:54 by pungorpeter    (1)
 
 [2021_HV_Cell_Temperature_1]
+
+/////Run 2021_HV_Cell_IDs first
 
 HV_Cell_Temperature_S1M1T1 = If(#HV_Accumulator_Cell_ID, =, 0, 1, 0)
 HV_Cell_Temperature_S1M1T1 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S1M1T1)

@@ -1,7 +1,8 @@
-;last modified 2021. 02. 07. 22:08:50 by pungorpeter    (1)
+;last modified 2021. 02. 22. 22:09:26 by pungorpeter    (1)
 
 [2021_HV_Cell_Voltage_2]
 
+/////Run 2021_HV_Cell_IDs first
 
 IsID_S4M1C1 = If(#HV_Cell_Values, =, 90, 1, 0)
 HV_Cell_Voltage_S4M1C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S4M1C1)
