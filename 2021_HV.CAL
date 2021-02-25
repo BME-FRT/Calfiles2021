@@ -1,6 +1,6 @@
-;last modified 2021. 02. 24. 18:59:13 by pungorpeter    (39)
+;last modified 2021. 02. 25. 23:16:46 by pungorpeter    (1)
 
-[2021_HV_Cell_IDs]
+[2021_HV]
 
 HV_Accumulator_Cell_ID =  And(#HV_Cell_Values, 0xFF00)
 HV_Accumulator_Cell_ID = /(#HV_Accumulator_Cell_ID,256)
@@ -10,38 +10,12 @@ HV_Cell_Voltage_Validity = FillFromBool(#HV_Cell_Voltage,#HV_Cell_Voltage_Validi
 HV_Cell_Voltage_Critical = F(#HV_Cell_Voltage_Validity, F(Min 180))
 Delete(#HV_Cell_Voltage_Validity)
 
-
+HV_tmp=/(#HV_Cell_Temperature,10)
 HV_Cell_Temperature_Validity = If(#HV_Cell_Temperature,<,600,1,0)
-HV_Cell_Temperature_Validity = FillFromBool(#HV_Cell_Temperature,#HV_Cell_Temperature_Validity)
+HV_Cell_Temperature_Validity = FillFromBool(#HV_tmp,#HV_Cell_Temperature_Validity)
 HV_Cell_Temperature_Critical = F(#HV_Cell_Temperature_Validity, F(Max 180))
 Delete(#HV_Cell_Temperature_Validity)
-
-/////HV_Accumulator_Status
-
-AMS   = And(#HV_Accumulator_Status_32BIT, 0x00800000)
-AMS   = /(#AMS,8388608)
-IMD   = And(#HV_Accumulator_Status_32BIT, 0x00400000)
-IMD   = /(#IMD,4194304)
-HVDET = And(#HV_Accumulator_Status_32BIT, 0x00200000)
-HVDET =/(#HVDET,2097152)
-AIRp  = And(#HV_Accumulator_Status_32BIT, 0x00100000)
-AIRp  =/(#AIRp,1048576)
-AIRn  = And(#HV_Accumulator_Status_32BIT, 0x00080000)
-AIRn  = /(#AIRn,524288)
-PC    = And(#HV_Accumulator_Status_32BIT, 0x00040000)
-PC    =/(#PC,262144)
-TSALg = And(#HV_Accumulator_Status_32BIT, 0x00004000)
-TSALg =/(#TSALg ,16384)
-AMSr  = And(#HV_Accumulator_Status_32BIT, 0x00002000)
-AMSr  =/(#AMSr  ,8192)
-IMDr  = And(#HV_Accumulator_Status_32BIT, 0x00001000)
-IMDr  =/(#IMDr  ,4096)
-TSALr = And(#HV_Accumulator_Status_32BIT, 0x00000800)
-TSALr =/(#TSALr ,2048)
-TSALe = And(#HV_Accumulator_Status_32BIT, 0x00000400)
-TSALe =/(#TSALe ,1024)
-TSALmcu = And(#HV_Accumulator_Status_32BIT, 0x00000200)
-TSALmcu =/(#TSALmcu ,512)
+Delete(#HV_tmp)
 
 /////
 
