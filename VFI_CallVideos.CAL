@@ -1,0 +1,28 @@
+;last modified 02.06.2020 10:10:42 by DD    (1)
+
+
+; FS02/2020: Conditional calls Not to create unused channels! [CallVideoFiles] calculates the Single indexes of the videos
+; of one camera. [CallSumVFI] adds them togehther to one video file index of a camera!
+
+[CallVideoFiles]
+{$IfSpecValueExists(Videoinfo.Offset_1_@P1) VFI_VideoSyncChannel, P(1, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_2_@P1) VFI_VideoSyncChannel, P(2, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_3_@P1) VFI_VideoSyncChannel, P(3, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_4_@P1) VFI_VideoSyncChannel, P(4, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_5_@P1) VFI_VideoSyncChannel, P(5, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_6_@P1) VFI_VideoSyncChannel, P(6, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_7_@P1) VFI_VideoSyncChannel, P(7, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_8_@P1) VFI_VideoSyncChannel, P(8, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_9_@P1) VFI_VideoSyncChannel, P(9, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_10_@P1) VFI_VideoSyncChannel, P(10, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_11_@P1) VFI_VideoSyncChannel, P(11, @P1)}
+{$IfSpecValueExists(Videoinfo.Offset_12_@P1) VFI_VideoSyncChannel, P(12, @P1)}
+
+
+[CallSumVFI]
+{$IfSpecValueExists(Videoinfo.Offset_1_@P1) VFI_SumVFI.CAL, P(@P1)}
+  ; Sum VideoFileIndizess
+
+[CallSumVT]
+{$IfSpecValueExists(Videoinfo.Offset_1_@P1) VFI_SumVT.CAL,  P(@P1)}
+ ; Sum VideoTimes

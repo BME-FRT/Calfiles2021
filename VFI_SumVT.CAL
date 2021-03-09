@@ -1,0 +1,79 @@
+;last modified 28.07.2020 14:51:27 by mhb    (24)
+
+[Video_Time_1_@P1NotExists]
+IfNotExists(#Video_Time_1_@P1)
+Video_Time_1_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_2_@P1NotExists]
+IfNotExists(#Video_Time_2_@P1)
+Video_Time_2_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_3_@P1NotExists]
+IfNotExists(#Video_Time_3_@P1)
+Video_Time_3_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_4_@P1NotExists]
+IfNotExists(#Video_Time_4_@P1)
+Video_Time_4_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_5_@P1NotExists]
+IfNotExists(#Video_Time_5_@P1)
+Video_Time_5_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_6_@P1NotExists]
+IfNotExists(#Video_Time_6_@P1)
+Video_Time_6_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_7_@P1NotExists]
+IfNotExists(#Video_Time_7_@P1)
+Video_Time_7_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_8_@P1NotExists]
+IfNotExists(#Video_Time_8_@P1)
+Video_Time_8_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_9_@P1NotExists]
+IfNotExists(#Video_Time_9_@P1)
+Video_Time_9_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_10_@P1NotExists]
+IfNotExists(#Video_Time_10_@P1)
+Video_Time_10_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_11_@P1NotExists]
+IfNotExists(#Video_Time_11_@P1)
+Video_Time_11_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+[Video_Time_12_@P1NotExists]
+IfNotExists(#Video_Time_12_@P1)
+Video_Time_12_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executable in any case
+
+
+[Video_Time_@P1]
+C1     =+(#Video_Time_1_@P1, #Video_Time_2_@P1)                                 ; Sum up Single Videotimes of one camera
+C1     =+(#C1              , #Video_Time_3_@P1)
+C1     =+(#C1              , #Video_Time_4_@P1)
+C1     =+(#C1              , #Video_Time_5_@P1)
+C1     =+(#C1              , #Video_Time_6_@P1)
+C1     =+(#C1              , #Video_Time_7_@P1)
+C1     =+(#C1              , #Video_Time_8_@P1)
+C1     =+(#C1              , #Video_Time_9_@P1)
+C1     =+(#C1              , #Video_Time_10_@P1)
+C1     =+(#C1              , #Video_Time_11_@P1)
+Result =+(#C1              , #Video_Time_12_@P1)
+Result = Set(Dim='sec')                                                         ; Set Dim
+
+
+[Delete]
+Delete(#Video_Time_1_@P1)                                                       ; Delete auxiliary channels
+Delete(#Video_Time_2_@P1)
+Delete(#Video_Time_3_@P1)
+Delete(#Video_Time_4_@P1)
+Delete(#Video_Time_5_@P1)
+Delete(#Video_Time_6_@P1)
+Delete(#Video_Time_7_@P1)
+Delete(#Video_Time_8_@P1)
+Delete(#Video_Time_9_@P1)
+Delete(#Video_Time_10_@P1)
+Delete(#Video_Time_11_@P1)
+Delete(#Video_Time_12_@P1)

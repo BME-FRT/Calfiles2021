@@ -1,0 +1,81 @@
+;last modified 16.07.2020 09:10:06 by FS    (1)
+
+; FS02/2020: Sum up VFI-channels of each camera
+
+[VFI_1_@P1NotExists]
+IfNotExists(#VFI_1_@P1)
+VFI_1_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_2_@P1NotExists]
+IfNotExists(#VFI_2_@P1)
+VFI_2_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_3_@P1NotExists]
+IfNotExists(#VFI_3_@P1)
+VFI_3_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_4_@P1NotExists]
+IfNotExists(#VFI_4_@P1)
+VFI_4_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_5_@P1NotExists]
+IfNotExists(#VFI_5_@P1)
+VFI_5_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_6_@P1NotExists]
+IfNotExists(#VFI_6_@P1)
+VFI_6_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_7_@P1NotExists]
+IfNotExists(#VFI_7_@P1)
+VFI_7_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_8_@P1NotExists]
+IfNotExists(#VFI_8_@P1)
+VFI_8_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_9_@P1NotExists]
+IfNotExists(#VFI_9_@P1)
+VFI_9_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_10_@P1NotExists]
+IfNotExists(#VFI_10_@P1)
+VFI_10_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_11_@P1NotExists]
+IfNotExists(#VFI_11_@P1)
+VFI_11_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+[VFI_12_@P1NotExists]
+IfNotExists(#VFI_12_@P1)
+VFI_12_@P1=Const(0, @TimeResolution)                                             ; Ensure that later summary is executalble in any case
+
+
+[Video_File_Index_@P1]
+C1        =+(#VFI_1_@P1, #VFI_2_@P1)                                            ; Sum up Single Video_File_Index of one Camera
+C1        =+(#C1       , #VFI_3_@P1)
+C1        =+(#C1       , #VFI_4_@P1)
+C1        =+(#C1       , #VFI_5_@P1)
+C1        =+(#C1       , #VFI_6_@P1)
+C1        =+(#C1       , #VFI_7_@P1)
+C1        =+(#C1       , #VFI_8_@P1)
+C1        =+(#C1       , #VFI_9_@P1)
+C1        =+(#C1       , #VFI_10_@P1)
+C1        =+(#C1       , #VFI_11_@P1)
+C1        =+(#C1       , #VFI_12_@P1)
+Result    = Word(#C1,0,65535)                                                   ; Set Datatype to Word And Set range from 0 to 65535
+Result    = Set(Dim='')                                                         ; Set Dim
+
+[Delete]
+Delete(VFI_1_@P1)                                                               ; Delete Auxiliary channels
+Delete(VFI_2_@P1)
+Delete(VFI_3_@P1)
+Delete(VFI_4_@P1)
+Delete(VFI_5_@P1)
+Delete(VFI_6_@P1)
+Delete(VFI_7_@P1)
+Delete(VFI_8_@P1)
+Delete(VFI_9_@P1)
+Delete(VFI_10_@P1)
+Delete(VFI_11_@P1)
+Delete(VFI_12_@P1)

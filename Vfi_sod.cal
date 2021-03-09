@@ -1,0 +1,29 @@
+;last modified 15.07.2020 17:01:08 by FS    (1)
+
+;FS02/2020: Abwandlung von MakeSyncChannel.CCF um VideoFileIndex für jede Camera des Video-Plugins berechnen zu können
+
+[Variables]
+SOD_Freq_Hi        = 200
+SOD_Freq_Lo        = 100
+FPS_Limit          = 150
+
+[SOD_Rate]
+C0                 = Const(@FPS_Limit,10)                                       ; Konstanten Kanal mit Limit-Wert erzeugen
+C1                 = Const(VideoInfo.FPS_Max,10)                                ; Konstanten Kanal mit Wert aus SpecSheet Eintrag VideoInfo.FPS_Max
+
+C1                 = If(#C1, <, #C0, @SOD_Freq_Lo, @SOD_Freq_Hi)                ; Wenn Maximale FPS > Limit, dann SOD_Freq_Hi, sonst SOD_Freq_Lo
+VideoInfo.SOD_Rate = LastValue(#C1)                                             ; SOD_Rate-Wert ins SpecSheet schreiben
+
+[PreProc_SOD_Rate]
+ExecutePreProcessor                                                             ; Sicherstellen, dass aktuellster SOD_Rate aus Gruppe zuvor im SpecSheet ist
+
+[Upsampling_SOD]
+IfExists(#SOD)
+SOD                = Freq(#SOD, VideoInfo.SOD_Rate)                             ; Falls Kanal #SOD vorhanden, Frequenz von #SOD auf SpecSheet-Wert VideoInfo.SOD_Rate setzen
+
+[Upsampling_VideoTimes]
+Video_Time_1       = Freq(#Video_Time_1, VideoInfo.SOD_Rate)
+Video_Time_2       = Freq(#Video_Time_2, VideoInfo.SOD_Rate)
+Video_Time_3       = Freq(#Video_Time_3, VideoInfo.SOD_Rate)
+Video_Time_4       = Freq(#Video_Time_4, VideoInfo.SOD_Rate)
+

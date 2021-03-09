@@ -1,0 +1,8 @@
+;last modified 07.05.2020 15:44:20 by FS    (1)
+
+
+[delete]
+Delete(#Video_Time_@P1)
+Delete(#Video_File_index_@p1)
+
+

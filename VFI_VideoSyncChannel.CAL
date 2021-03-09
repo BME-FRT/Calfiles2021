@@ -1,0 +1,28 @@
+;last modified 15.07.2020 16:59:03 by FS    (1)
+
+[Video_Time_@P1_@P2]
+C1                =-(#SOD_rel, Videoinfo.Offset_@P1_@P2)                        ; Video-Zeit berechnen
+C1                =-(#C1, Videoinfo.FineAdjust_@P1_@P2)                         ; Fine-Adjust-Wert auf Video-Zeit anwenden
+C2                = If(#C1, >, Videoinfo.Duration_@P1_@P2, 0, #C1)              ; Wenn Video-Zeit größer als Video-Länge, dann 0 sonst Video-Zeit
+Result            = If(#C2, <, 0                         , 0, #C2)              ; Nur positive Video-Zeit Werte zulassen
+Result            = Set(Dim='Sec')                                              ; Dimension
+
+[VFI_@P1_@P2]
+Result            = If(#Video_Time_@P1_@P2,> , 0, @P1 ,0)                       ; VideoFileIndex erzeugen
+
+[FPS_Max]
+IfNotExists(#FPS_max)
+Result            = Const(0,10)                                                 ; Wenn #FPS_Max nicht exisiert, wird #FPS_Max vorerst als Konstante mit 0 initialisiert
+
+[FindHighestFPS_@P1_@P2]
+C0                = Const(VideoInfo.FPS_@P1_@P2,10)                             ; Konstante mit jeweiliger Framerate des aktuell aufgerufenen Videos erzeugen
+FPS_Max           = If(#C0, >, #FPS_Max, VideoInfo.FPS_@P1_@P2, #FPS_Max)       ; Maximasuche: Falls aktuelle Framerate größer als bisheriger Wert #FPS_Max, dann neues Maxima
+Videoinfo.FPS_Max = LastValue(#FPS_MAX)                                         ; Maximale Framerate ins SpecSheet schreiben
+
+
+
+
+
+
+
+
