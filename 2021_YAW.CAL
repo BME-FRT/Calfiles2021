@@ -1,4 +1,4 @@
-;last modified 2021. 02. 14. 12:56:33 by pungorpeter    (45)
+;last modified 2021. 03. 09. 18:38:10 by pungorpeter    (15)
 
 [2021_Yaw]
 
@@ -35,7 +35,7 @@ Delete(#c1)
 
 [YAW]
 Yaw=+(#Yaw_Rate_Front,#Yaw_Rate_Rear)
-Yaw=/(#Yaw,@DEG2RAD)
+Yaw=/(#Yaw,@RAD2DEG)
 Yaw=/(#Yaw,2)
 Yaw=F(#Yaw,F(AVG 20))
 Mz_Real=Derivate(#Yaw)
@@ -48,7 +48,7 @@ Delete(#Yaw)
 
 Mz_1=*(#AMK_TorqueLimit_1,Parameters.PLANETARY_GEAR_RATIO)
 Mz_1=*(#Mz_1,Parameters.TRACK_FRONT)
-Mz_1=/(#Mz_1,2)
+Mz_1=/(#Mz_1,-2)
 Mz_1=/(#Mz_1,Parameters.WHEEL_RADIUS)
 
 Mz_2=*(#AMK_TorqueLimit_2,Parameters.PLANETARY_GEAR_RATIO)
@@ -58,7 +58,7 @@ Mz_2=/(#Mz_2,Parameters.WHEEL_RADIUS)
 
 Mz_3=*(#AMK_TorqueLimit_3,Parameters.PLANETARY_GEAR_RATIO)
 Mz_3=*(#Mz_3,Parameters.TRACK_REAR)
-Mz_3=/(#Mz_3,2)
+Mz_3=/(#Mz_3,-2)
 Mz_3=/(#Mz_3,Parameters.WHEEL_RADIUS)
 
 Mz_4=*(#AMK_TorqueLimit_4,Parameters.PLANETARY_GEAR_RATIO)
