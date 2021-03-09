@@ -1,4 +1,4 @@
-;last modified 2021. 02. 12. 23:27:36 by pungorpeter    (110)
+;last modified 2021. 03. 09. 17:07:16 by pungorpeter    (43)
 
 [2021_Energy]
 
@@ -46,7 +46,7 @@ Delete(#P_Regenerative_EM)
 P_downforce=Power(#VS,3)
 P_downforce=*(#P_downforce,Parameters.C_L)
 P_downforce=*(#P_downforce,Parameters.AREA)
-P_downforce=*(#P_downforce,Parameters.RHO)
+P_downforce=*(#P_downforce,1.225)         //air density
 P_downforce=*(#P_downforce,Parameters.ROLLING_COEFFICIENT)
 P_downforce=*(#P_downforce,#VS)
 P_RollRes=*(0.08829,#VS)
@@ -63,7 +63,7 @@ P_Drag=Power(#VS,3)
 //P_Drag=If(#Throttle_Position_1,>,4,#P_Drag,0)                  //Szucsnek
 P_Drag=*(#P_Drag,Parameters.C_D)
 P_Drag=*(#P_Drag,Parameters.AREA)
-P_Drag=*(#P_Drag,Parameters.RHO)
+P_Drag=*(#P_Drag,1.225)
 P_Drag=/(#P_Drag,1000)
 P_Drag=Set(Dim='kW')
 E_Drag=Integrate(#P_Drag,0)
