@@ -1,13 +1,13 @@
-;last modified 2021. 02. 24. 19:01:10 by pungorpeter    (81)
+;last modified 2021. 03. 12. 21:29:19 by pungorpeter    (22)
 
 [2021_TestData]
 
 [INT_Brake]
-INT_Brake_Pressure_Front=Integrate(#Brake_Pressure_Front)
+INT_Brake_Pressure_Front=Integrate(#Brake_Pressure_Front,0)
 INT_Brake_Pressure_Front=/(#INT_Brake_Pressure_Front,Parameters.CIRCUIT_LENGTH)
 INT_Brake_Pressure_Front=Set(DIM='bar')
 
-INT_Brake_Pressure_Rear=Integrate(#Brake_Pressure_Rear)
+INT_Brake_Pressure_Rear=Integrate(#Brake_Pressure_Rear,0)
 INT_Brake_Pressure_Rear=/(#INT_Brake_Pressure_Rear,Parameters.CIRCUIT_LENGTH)
 INT_Brake_Pressure_Rear=Set(DIM='bar')
 
@@ -36,6 +36,7 @@ Throttle=+(#Throttle_Position_1,#Throttle_Position_2)
 Throttle=/(#Throttle,2)
 INT_Throttle=Integrate(#Throttle,0)
 INT_Throttle=/(#Throttle,Parameters.CIRCUIT_LENGTH)
+INT_Throttle=Set(Dim='°*%/m)
 Delete(#Throttle)
 
 [INT_BrakeForce]
@@ -121,10 +122,11 @@ INT_SlipRatio_4_Braking=Set(Dim='s/m')
 [OS_US]
 INT_OS_US=/(#Acceleration_Y_Front,#VehicleSpeed)
 INT_OS_US=*(2023.5,#INT_OS_US)                      //const=3.6*180/PI*g
-INT_OS_US=/(#Yaw_Rate_Filtered,#INT_OS_US)
+INT_OS_US=/(#Yaw_Rate_Front_Filtered,#INT_OS_US)
 INT_OS_US=-(#INT_OS_US,1)
 INT_OS_US=If(#VehicleSpeed,>,5,#INT_OS_US,0)
 INT_OS_US=Word(#INT_OS_US,-5,5)
-INT_OS_US=Integrate(#INT_OS_US)
+INT_OS_US=Integrate(#INT_OS_US,0)
+INT_OS_US=/(#INT_OS_US,Parameters.CIRCUIT_LENGTH)
 INT_OS_US=Set(DIM='-')
 
