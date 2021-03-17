@@ -1,10 +1,10 @@
-;last modified 2021. 03. 06. 15:38:34 by pungorpeter    (57)
+;last modified 2021. 03. 17. 14:07:28 by pungorpeter    (63)
 
 [2021_Speed]
 
 /////Velocity
 
-V_GPS=Shift(#V_GPS,-0.4 Sec)        //GPS késése miatti eltolás
+V_GPS_corrected=Shift(#V_GPS,-0.4 Sec)        //GPS késése miatti eltolás
 
 [WheelSpeed_1]
 
@@ -16,21 +16,21 @@ WheelSpeed_1=Set(DIM='km/h')
 [WheelSpeed_2]
 
 IfExists(#AMK_Actualvelocity_2)
-WheelSpeed_2=*(#AMK_Actualvelocity_2,Parameters.RMP2KMPH)
+WheelSpeed_2=*(#AMK_Actualvelocity_2,Parameters.RPM2KMPH)
 WheelSpeed_2=F(#WheelSpeed_2,F(AVG 20))
 WheelSpeed_2=Set(DIM='km/h')
 
 [WheelSpeed_3]
 
 IfExists(#AMK_Actualvelocity_3)
-WheelSpeed_3=*(#AMK_Actualvelocity_3,Parameters.RMP2KMPH)
+WheelSpeed_3=*(#AMK_Actualvelocity_3,Parameters.RPM2KMPH)
 WheelSpeed_3=F(#WheelSpeed_3,F(AVG 20))
 WheelSpeed_3=Set(DIM='km/h')
 
 [WheelSpeed_4]
 
 IfExists(#AMK_Actualvelocity_4)
-WheelSpeed_4=*(#AMK_Actualvelocity_4,Parameters.RMP2KMPH);
+WheelSpeed_4=*(#AMK_Actualvelocity_4,Parameters.RPM2KMPH);
 WheelSpeed_4=F(#WheelSpeed_4,F(AVG 20))
 WheelSpeed_4=Set(DIM='km/h')
 
