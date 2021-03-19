@@ -1,8 +1,8 @@
-;last modified 2021. 03. 12. 16:35:13 by pungorpeter    (101)
+;last modified 2021. 03. 19. 16:38:56 by pungorpeter    (1)
 
 [2021_HV_Cell_Temperature6]
 
-/////Run 2021_HV_Cell_IDs first
+/////Run 2021_HV first
 
 HV_Cell_Temperature2=/(#HV_Cell_Temperature,10)
 

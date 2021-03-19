@@ -1,4 +1,4 @@
-;last modified 2021. 03. 18. 14:14:40 by pungorpeter    (29)
+;last modified 2021. 03. 19. 16:25:04 by pungorpeter    (46)
 
 [2021_Damper]
 
@@ -51,26 +51,6 @@ Roll_Angle_Rear=Set(DIM='°')
 
 Roll_Angle=+(#Roll_Angle_Front,#Roll_Angle_Rear)
 Roll_Angle=/(#Roll_Angle,2)
-
-/////Roll stiffness
-
-acc=*(#Acceleration_Y_Front_Filtered,-9.81)
-froll=F(#Roll_Angle_Front,F(AVG 20))
-Roll_Stiffness_Front=/(#acc,#froll)
-Roll_Stiffness_Front=*(#Roll_Stiffness_Front,Parameters.MASS)
-Roll_Stiffness_Front=*(#Roll_Stiffness_Front,0.22)
-Roll_Stiffness_Front=Abs(#Roll_Stiffness_Front)
-Roll_Stiffness_Front=Set(Dim='Nm/deg')
-
-acc=*(#Acceleration_Y_Rear_Filtered,-9.81)
-froll=F(#Roll_Angle_Rear,F(AVG 20))
-Roll_Stiffness_Rear=/(#acc,#froll)
-Roll_Stiffness_Rear=*(#Roll_Stiffness_Rear,Parameters.MASS)
-Roll_Stiffness_Rear=*(#Roll_Stiffness_Rear,0.21)
-Roll_Stiffness_Rear=Abs(#Roll_Stiffness_Rear)
-Roll_Stiffness_Rear=Set(Dim='Nm/deg')
-Delete(#acc)
-Delete(#froll)
 
 /////
 

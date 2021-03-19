@@ -1,8 +1,8 @@
-;last modified 2021. 03. 12. 16:50:42 by pungorpeter    (1)
+;last modified 2021. 03. 19. 16:38:51 by pungorpeter    (1)
 
 [2021_HV_Cell_Voltage6]
 
-/////Run 2021_HV_Cell_IDs first
+/////Run 2021_HV first
 
 IsID_S6M1C1 = If(#HV_Accumulator_Cell_ID, =, 150, 1, 0)
 HV_Cell_Voltage_S6M1C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S6M1C1)

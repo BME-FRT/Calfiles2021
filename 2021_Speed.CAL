@@ -1,10 +1,10 @@
-;last modified 2021. 03. 18. 13:47:09 by pungorpeter    (112)
+;last modified 2021. 03. 19. 16:55:52 by pungorpeter    (1)
 
 [2021_Speed]
 
 /////Velocity
 
-V_GPS_corrected=Shift(#V_GPS,-0.35 Sec)        //GPS késése miatti eltolás
+V_GPS_corrected=Shift(#V_GPS,-0.25 Sec)        //GPS késése miatti eltolás
 
 [WheelSpeed_1]
 
@@ -74,7 +74,7 @@ der_y4=Abs(#der_y4)
 der_y4=F(#der_y4,F(AVG 5))
 
 //Weights
-egy=/(#AMK_Actualvelocity_1,#AMK_Actualvelocity_1)
+egy=Const(1,200)
 egy=*(#egy,100)
 
 n1_tmp=*(#der_y1,-0.1)
@@ -115,10 +115,10 @@ sumout=+(#sumout,#out3)
 sumout=+(#sumout,#out4)
 
 VehicleSpeed=/(#sumout,#sumn)
-VehicleSpeed=*(#VehicleSpeed2,0.024)
-VehicleSpeed=RcLp(#VehicleSpeed2,0.23)
-VehicleSpeed=F(#VehicleSpeed2, F(AVG 0.05 sec))
-VehicleSpeed=Shift(#VehicleSpeed2,-0.005 sec)
+VehicleSpeed=*(#VehicleSpeed,0.024)
+VehicleSpeed=RcLp(#VehicleSpeed,0.23)
+VehicleSpeed=F(#VehicleSpeed, F(AVG 0.05 sec))
+VehicleSpeed=Shift(#VehicleSpeed,-0.1 sec)
 VehicleSpeed=Set(Dim='km/h')
 
 

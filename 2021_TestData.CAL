@@ -1,4 +1,4 @@
-;last modified 2021. 03. 12. 21:29:19 by pungorpeter    (22)
+;last modified 2021. 03. 19. 14:08:19 by pungorpeter    (102)
 
 [2021_TestData]
 
@@ -125,7 +125,7 @@ INT_OS_US=*(2023.5,#INT_OS_US)                      //const=3.6*180/PI*g
 INT_OS_US=/(#Yaw_Rate_Front_Filtered,#INT_OS_US)
 INT_OS_US=-(#INT_OS_US,1)
 INT_OS_US=If(#VehicleSpeed,>,5,#INT_OS_US,0)
-INT_OS_US=Word(#INT_OS_US,-5,5)
+INT_OS_US=Limit(#INT_OS_US,-5,5)
 INT_OS_US=Integrate(#INT_OS_US,0)
 INT_OS_US=/(#INT_OS_US,Parameters.CIRCUIT_LENGTH)
 INT_OS_US=Set(DIM='-')
