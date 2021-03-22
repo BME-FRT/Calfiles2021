@@ -1,8 +1,8 @@
-;last modified 2021. 03. 19. 16:25:04 by pungorpeter    (46)
+;last modified 2021. 03. 19. 17:10:46 by pungorpeter    (1)
 
 [2021_Damper]
 
-/////Ride_Height
+[Ride_Height]
 
 Ride_Height_1=*(#DamperPos_FL, Parameters.MOTION_RATIO_FRONT)
 Ride_Height_2=*(#DamperPos_FR, Parameters.MOTION_RATIO_FRONT)
@@ -19,7 +19,7 @@ Ride_Height_Rear=/(#Ride_Height_Rear,2)
 Ride_Height_Rear=+(#Ride_Height_Rear,Parameters.RH_STATIC_REAR)
 Ride_Height_Rear=Set(DIM='mm')
 
-/////Damper_Velocity
+[Damper_Velocity]
 
 Damper_Velocity_1=Derivate(#DamperPos_FL)
 Damper_Velocity_1=Set(DIM='mm/s')
@@ -33,7 +33,7 @@ Damper_Velocity_3=Set(DIM='mm/s')
 Damper_Velocity_4=Derivate(#DamperPos_RR)
 Damper_Velocity_4=Set(DIM='mm/s')
 
-/////Roll
+[Roll]
 
 Roll_Angle_Front=-(#DamperPos_FL,#DamperPos_FR)
 Roll_Angle_Front=/(#Roll_Angle_Front,1000)
@@ -66,7 +66,7 @@ Roll=SqRt(#Roll)
 Roll=ArcTan(#Roll)
 Roll=/(#Acceleration_Y_Rear_Filtered,#Roll)
 
-/////Pitch
+[Pitch]
 
 PitchAngle=-(#Ride_Height_Rear,#Ride_Height_Front)
 PitchAngle=/(#PitchAngle,Parameters.WHEELBASE)

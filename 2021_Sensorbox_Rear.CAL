@@ -1,8 +1,8 @@
-;last modified 2021. 02. 07. 23:44:09 by pungorpeter    (54)
+;last modified 22/03/2021 12:06:40 by pungorpeter    (62)
 
 [2021_Sensorbox_Rear]
 
-/////Roll_Rate_Rear
+[Roll_Rate_Rear]
 
 Roll_Rate_Rearlb = And(#ACCEL2_REAR_1_32BIT, 0xFF000000)
 Roll_Rate_Rearlb = /(#Roll_Rate_Rearlb,16777216)
@@ -17,7 +17,7 @@ Roll_Rate_Rear= Set(DIM = '°/s')
 Delete(#Roll_Rate_Rearlb)
 Delete(#Roll_Rate_Rearhb)
 
-/////Yaw_Rate_Rear
+[Yaw_Rate_Rear]
 
 Yaw_Rate_Rearlb= And(#ACCEL1_REAR_1_32BIT, 0xFF000000)
 Yaw_Rate_Rearlb=/(#Yaw_Rate_Rearlb,16777216)
@@ -32,7 +32,7 @@ Yaw_Rate_Rear= Set(DIM = '°/s')
 Delete(#Yaw_Rate_Rearlb)
 Delete(#Yaw_Rate_Rearhb)
 
-/////Acceleration_X_Rear
+[Acceleration_X_Rear]
 
 Acceleration_X_Rearlb = And(#ACCEL2_REAR_2_32BIT, 0xFF000000)
 Acceleration_X_Rearlb = /(#Acceleration_X_Rearlb,16777216)
@@ -48,7 +48,7 @@ Acceleration_X_Rear =Set(DIM = 'g')
 Delete(#Acceleration_X_Rearlb)
 Delete(#Acceleration_X_Rearhb)
 
-/////Acceleration_Y_Rear
+[Acceleration_Y_Rear]
 
 Acceleration_Y_Rearlb= And(#ACCEL1_REAR_2_32BIT, 0xFF000000)
 Acceleration_Y_Rearlb=/(#Acceleration_Y_Rearlb,16777216)
@@ -63,7 +63,7 @@ Acceleration_Y_Rear= Set(DIM = 'g')
 Delete(#Acceleration_Y_Rearlb)
 Delete(#Acceleration_Y_Rearhb)
 
-/////Accelerration_Z_Rear
+[Accelerration_Z_Rear]
 
 Acceleration_Z_Rearlb= And(#ACCEL3_REAR_2_32BIT, 0xFF000000)
 Acceleration_Z_Rearlb=/(#Acceleration_Z_Rearlb,16777216)
@@ -79,13 +79,13 @@ Acceleration_Z_Rear= Set(DIM = 'g')
 Delete(#Acceleration_Z_Rearlb)
 Delete(#Acceleration_Z_Rearhb)
 
-/////Acceleration_Rear_Filtered
+[Acceleration_Rear_Filtered]
 
 Acceleration_X_Rear_Filtered=F(#Acceleration_X_Rear, F(AVG 0.5 Sec))
 Acceleration_Y_Rear_Filtered=F(#Acceleration_Y_Rear, F(AVG 0.5 Sec))
 Acceleration_Z_Rear_Filtered=F(#Acceleration_Z_Rear, F(AVG 0.5 Sec))
 
-/////Yaw_Rate_Rear_Filtered
+[Yaw_Rate_Rear_Filtered]
 
 Yaw_Rate_Rear_Filtered=F(#Yaw_Rate_Front, F(AVG 0.2 Sec))
 

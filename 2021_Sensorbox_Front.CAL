@@ -1,8 +1,8 @@
-;last modified 2021. 02. 07. 23:44:19 by pungorpeter    (55)
+;last modified 22/03/2021 12:38:43 by pungorpeter    (59)
 
 [2021_Sensorbox_Front]
 
-/////Roll_Rate_Front
+[Roll_Rate_Front]
 
 Roll_Rate_Frontlb = And(#ACCEL2_1_32_BIT, 0xFF000000)
 Roll_Rate_Frontlb = /(#Roll_Rate_Frontlb,16777216)
@@ -17,7 +17,7 @@ Roll_Rate_Front= Set(DIM = '°/s')
 Delete(#Roll_Rate_Frontlb)
 Delete(#Roll_Rate_Fronthb)
 
-/////Yaw_Rate_Front
+[Yaw_Rate_Front]
 
 Yaw_Rate_Frontlb= And(#ACCEL1_1_32BIT, 0xFF000000)
 Yaw_Rate_Frontlb=/(#Yaw_Rate_Frontlb,16777216)
@@ -32,7 +32,7 @@ Yaw_Rate_Front= Set(DIM = '°/s')
 Delete(#Yaw_Rate_Frontlb)
 Delete(#Yaw_Rate_Fronthb)
 
-/////Acceleration_X_Front
+[Acceleration_X_Front]
 
 Acceleration_X_Frontlb = And(#ACCEL2_2_32BIT, 0xFF000000)
 Acceleration_X_Frontlb = /(#Acceleration_X_Frontlb,16777216)
@@ -48,7 +48,7 @@ Acceleration_X_Front =Set(DIM = 'g')
 Delete(#Acceleration_X_Frontlb)
 Delete(#Acceleration_X_Fronthb)
 
-/////Acceleration_Y_Front
+[Acceleration_Y_Front]
 
 Acceleration_Y_Frontlb= And(#ACCEL1_2_32BIT, 0xFF000000)   ;maszkoljuk
 Acceleration_Y_Frontlb=/(#Acceleration_Y_Frontlb,16777216)
@@ -63,7 +63,7 @@ Acceleration_Y_Front= Set(DIM = 'g')
 Delete(#Acceleration_Y_Frontlb)
 Delete(#Acceleration_Y_Fronthb)
 
-/////Acceleration_Z_Front
+[Acceleration_Z_Front]
 
 Acceleration_Z_Frontlb= And(#ACCEL3_2_32BIT, 0xFF000000)
 Acceleration_Z_Frontlb=/(#Acceleration_Z_Frontlb,16777216)
@@ -78,13 +78,13 @@ Acceleration_Z_Front= Set(DIM = 'g')
 Delete(#Acceleration_Z_Frontlb)
 Delete(#Acceleration_Z_Fronthb)
 
-/////Acceleration_Front_Filtered
+[Acceleration_Front_Filtered]
 
 Acceleration_X_Front_Filtered=F(#Acceleration_X_Front, F(AVG 0.5 Sec))
 Acceleration_Y_Front_Filtered=F(#Acceleration_Y_Front, F(AVG 0.5 Sec))
 Acceleration_Z_Front_Filtered=F(#Acceleration_Z_Front, F(AVG 0.5 Sec))
 
-/////Yaw_Rate_Front_Filtered
+[Yaw_Rate_Front_Filtered]
 
 Yaw_Rate_Front_Filtered=F(#Yaw_Rate_Front, F(AVG 0.2 Sec))
 

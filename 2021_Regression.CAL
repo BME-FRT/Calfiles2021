@@ -1,16 +1,14 @@
-;last modified 2021. 03. 19. 16:50:27 by pungorpeter    (1)
+;last modified 2021. 03. 22. 20:50:31 by pungorpeter    (8)
 
-[Regression]
+[2021_Regression]
 
 cons=Const(1,200)
 T_=Integrate(#cons,0)
 
-[Roll_Gradient_Front]
-IfExists(#Acceleration_Y_Front)
-acc=*(#Acceleration_Y_Front, -9.81)
+acc=*(#@P1, #@P6)
 int_a=Integrate(#acc,0)
-int_t=Integrate(#Roll_Angle_Front,0)
-int_ta=*(#Roll_Angle_Front,#acc)
+int_t=Integrate(#@P2,0)
+int_ta=*(#@P2,#acc)
 int_ta=Integrate(#int_ta,0)
 int_a2=Power(#acc,2)
 int_a2=Integrate(#int_a2,0)
@@ -25,36 +23,19 @@ nevezo1=*(#T_,#int_a2)
 nevezo2=Power(#int_a,2)
 nevezo2=-(#nevezo1,#nevezo2)
 
-Roll_Gradient_Front=/(#szamlalo2,#nevezo2)
-Roll_Gradient_Front=Set(Dim='deg*s^2/m')
+@P3=/(#szamlalo2,#nevezo2)
+@P3=Set(Dim,@P4)
 
-//
+//Offset
 
-[Roll_Gradient_Rear]
-IfExists(#Acceleration_Y_Rear)
-acc=*(#Acceleration_Y_Rear, -9.81)
-int_a=Integrate(#acc,0)
-int_t=Integrate(#Roll_Angle_Rear,0)
-int_ta=*(#Roll_Angle_Rear,#acc)
-int_ta=Integrate(#int_ta,0)
-int_a2=Power(#acc,2)
-int_a2=Integrate(#int_a2,0)
-
-//
-
-szamlalo1=*(#T_,#int_ta)
-szamlalo2=*(#int_a,#int_t)
+szamlalo1=*(#int_a2,#int_t)
+szamlalo2=*(#int_a,#int_ta)
 szamlalo2=-(#szamlalo1,#szamlalo2)
 
-nevezo1=*(#T_,#int_a2)
-nevezo2=Power(#int_a,2)
-nevezo2=-(#nevezo1,#nevezo2)
-
-Roll_Gradient_Rear=/(#szamlalo2,#nevezo2)
-Roll_Gradient_Rear=Set(Dim='deg*s^2/m')
+@P5=/(#szamlalo1,#nevezo2)
 
 
-Delete(#T_);
+Delete(#T_)
 Delete(#acc)
 Delete(#int_a)
 Delete(#int_t)
@@ -64,3 +45,4 @@ Delete(#szamlalo1)
 Delete(#szamlalo2)
 Delete(#nevezo1)
 Delete(#nevezo2)
+

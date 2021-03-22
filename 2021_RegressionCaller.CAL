@@ -1,0 +1,28 @@
+;last modified 2021. 03. 22. 20:51:57 by pungorpeter    (1)
+
+[2021_RegressionCaller]
+
+{Ezzel a calfile-lal lehet meghívni a 2021_Regression.CAL-t.
+Lineáris regressziót hajt végre}
+
+
+//a Const 1. argumentumába írd be, ha van mértékegység-converzió. Ha nincs, akkor 1-et írj be.
+conv=Const(-9.81,200)
+
+
+{A 'P' argumentumának 1. eleme -> x tengely
+                      2. eleme -> y tengely
+                      3. eleme -> ez lesz a kiszámolt értéked, egyenes meredeksége
+                      4. eleme -> ' ' közé hogy szép mértékegység legyen
+                      5. eleme -> ofszet; ennyivel van eltolva az egyenes az origóból
+                      6. eleme -> mértékegység-konverzió
+}
+{$I 2021_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Rear,Roll_Gradient_Rear,'deg*s^2/m',offset,conv)}
+;{$I 2021_Regression.CAL P( , , ,'', ,conv)}
+
+
+
+
+//Calculate!
+
+Delete(#conv)
