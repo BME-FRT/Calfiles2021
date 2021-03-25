@@ -1,9 +1,12 @@
-;last modified 2021. 03. 19. 16:36:43 by pungorpeter    (1)
+;last modified 2021. 03. 25. 11:56:03 by pungorpeter    (1)
 
 [2021_HV_Cell_Temperature]
 
 /////Run 2021_HV first
-{$I 2021_HV.CAL}
+[if]
+{$IfNotExists(#HV_Accumulator_Cell_ID) 2021_HV.CAL)}
+
+[Cells]
 
 HV_Cell_Temperature2=/(#HV_Cell_Temperature,10)
 

@@ -1,4 +1,4 @@
-;last modified 2021. 03. 09. 17:07:16 by pungorpeter    (43)
+;last modified 2021. 03. 25. 11:49:08 by pungorpeter    (105)
 
 [2021_Energy]
 
@@ -57,7 +57,7 @@ E_RollRes=/(#E_RollRes,1000)
 E_RollRes=Set(Dim='kJ')
 Delete(#P_downforce)
 
-/////Drag
+[Drag]
 
 P_Drag=Power(#VS,3)
 //P_Drag=If(#Throttle_Position_1,>,4,#P_Drag,0)                  //Szucsnek
@@ -69,7 +69,7 @@ P_Drag=Set(Dim='kW')
 E_Drag=Integrate(#P_Drag,0)
 Delete(#VS)
 
-/////Motor mechanical Power
+[Motor mechanical Power]
 
 P_motor_1=*(#AMK_TorqueLimitPositive_1,#AMK_Actualvelocity_1)
 P_motor_1=*(#P_motor_1,@Pi)
@@ -113,7 +113,7 @@ P_motors=+(#P_motor_1,#P_motor_2)
 P_motors=+(#P_motors,#P_motor_3)
 P_motors=+(#P_motors,#P_motor_4)
 
-/////Efficiency
+[Efficiency]
 
 Motor_Efficiency=+(#P_motor_1,#P_motor_2)
 Motor_Efficiency=+(#Motor_Efficiency,#P_motor_3)
@@ -126,7 +126,7 @@ P_Lost=-(#P_Lost,#P_motor_2)
 P_Lost=-(#P_Lost,#P_motor_3)
 P_Lost=-(#P_Lost,#P_motor_4)
 
-/////mAh
+[mAh]
 
 INT_HV_current_Pos=If(#HV_Current,>,0,#HV_Current,0)
 INT_HV_current_Neg=If(#HV_Current,>,0,0,#HV_Current)

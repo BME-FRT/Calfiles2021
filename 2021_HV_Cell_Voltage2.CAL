@@ -1,8 +1,12 @@
-;last modified 2021. 03. 19. 16:38:22 by pungorpeter    (3)
+;last modified 2021. 03. 25. 11:59:17 by pungorpeter    (3)
 
 [2021_HV_Cell_Voltage2]
 
 /////Run 2021_HV first
+[if]
+{$IfNotExists(#HV_Accumulator_Cell_ID) 2021_HV.CAL)}
+
+[Cells]
 
 IsID_S2M1C1 = If(#HV_Cell_Values, =, 30, 1, 0)
 HV_Cell_Voltage_S2M1C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S2M1C1)

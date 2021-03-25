@@ -1,4 +1,4 @@
-;last modified 2021. 03. 19. 17:10:46 by pungorpeter    (1)
+;last modified 2021. 03. 25. 12:18:42 by pungorpeter    (46)
 
 [2021_Damper]
 
@@ -66,11 +66,16 @@ Roll=SqRt(#Roll)
 Roll=ArcTan(#Roll)
 Roll=/(#Acceleration_Y_Rear_Filtered,#Roll)
 
+Delete(#AccX2)
+Delete(#AccY2)
+Delete(#AccZ2)
+
 [Pitch]
 
-PitchAngle=-(#Ride_Height_Rear,#Ride_Height_Front)
-PitchAngle=/(#PitchAngle,Parameters.WHEELBASE)
-PitchAngle=ArcSin(#PitchAngle)
-PitchAngle=*(180,#PitchAngle, @RAD2DEG)
-PitchAngle=Set(DIM='°')
+Pitch_Angle=-(#Ride_Height_Rear,#Ride_Height_Front)
+Pitch_Angle=/(#Pitch_Angle,-1000)                       //elõre bólintás pozitív
+Pitch_Angle=/(#Pitch_Angle,Parameters.WHEELBASE)
+Pitch_Angle=ArcSin(#Pitch_Angle)
+Pitch_Angle=*(#Pitch_Angle,@RAD2DEG)
+Pitch_Angle=Set(DIM='°')
 
