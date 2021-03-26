@@ -1,15 +1,20 @@
-;last modified 2021. 03. 19. 14:08:19 by pungorpeter    (102)
+;last modified 2021. 03. 26. 22:15:23 by pungorpeter    (1)
 
 [2021_TestData]
 
 [INT_Brake]
 INT_Brake_Pressure_Front=Integrate(#Brake_Pressure_Front,0)
 INT_Brake_Pressure_Front=/(#INT_Brake_Pressure_Front,Parameters.CIRCUIT_LENGTH)
-INT_Brake_Pressure_Front=Set(DIM='bar')
+INT_Brake_Pressure_Front=Set(DIM='bar*s/m')
 
 INT_Brake_Pressure_Rear=Integrate(#Brake_Pressure_Rear,0)
 INT_Brake_Pressure_Rear=/(#INT_Brake_Pressure_Rear,Parameters.CIRCUIT_LENGTH)
-INT_Brake_Pressure_Rear=Set(DIM='bar')
+INT_Brake_Pressure_Rear=Set(DIM='bar*s/m')
+
+INT_Mech_vs_RegBrake=-(#Brake_Pressure_Front,30)
+INT_Mech_vs_RegBrake=Integrate(#INT_Mech_vs_RegBrake,0)
+INT_Mech_vs_RegBrake=/(#INT_Mech_vs_RegBrake,Parameters.CIRCUIT_LENGTH)
+INT_Mech_vs_RegBrake=Set(Dim='bar*s/m)
 
 [Coast]    //no brake force & no throttle & the car is Not standing
 bool1=If(#Brake_Pressure_Front,<,20,0,1)
@@ -36,12 +41,13 @@ Throttle=+(#Throttle_Position_1,#Throttle_Position_2)
 Throttle=/(#Throttle,2)
 INT_Throttle=Integrate(#Throttle,0)
 INT_Throttle=/(#Throttle,Parameters.CIRCUIT_LENGTH)
-INT_Throttle=Set(Dim='°*%/m)
+INT_Throttle=Set(Dim='%*s/m')
 Delete(#Throttle)
 
-[INT_BrakeForce]
-INT_BrakeForce=Integrate(#Brake_Force_corrected,0)
-INT_BrakeForce=Set(DIM='-')
+[INT_Brake_Force]
+INT_Brake_Force=Integrate(#Brake_Force_corrected,0)
+INT_Brake_Force=/(#INT_Brake_Force,Parameters.CIRCUIT_LENGTH)
+INT_Brake_Force=Set(DIM='N*s/m')
 
 [Throttle_Steering]
 Throttle_Steering=+(#Throttle_Position_1,#Throttle_Position_2)
@@ -51,15 +57,15 @@ SteeringAngle_tmp=/(#SteeringAngle_tmp,2)
 SteeringAngle_tmp=Abs(#SteeringAngle_tmp)
 Throttle_Steering=*(#Throttle_Steering,#SteeringAngle_tmp)
 Throttle_Steering=If(#SteeringAngle_tmp,>,30,#Throttle_Steering,0)
-ThrottleSteering=Set(DIM='°*%')
+Throttle_Steering=Set(DIM='°*%')
 
 [INT_Throttle_Steering]
 
-INT_ThrottleSteering=Integrate(#ThrottleSteering,0)
-INT_ThrottleSteering=/(#ThrottleSteering,Parameters.CIRCUIT_LENGTH)
-INT_ThrottleSteering=Set(Dim='°*%*s/m)
+INT_Throttle_Steering=Integrate(#ThrottleSteering,0)
+INT_Throttle_Steering=/(#ThrottleSteering,Parameters.CIRCUIT_LENGTH)
+INT_Throttle_Steering=Set(Dim='°*%*s/m)
 
-/////INT Steering_Angle
+[INT Steering_Angle]
 
 INT_Steering_Angle=Integrate(#SteeringAngle_tmp,0)
 INT_Steering_Angle=/(#INT_SteeringAngle,Parameters.CIRCUIT_LENGTH)
@@ -70,7 +76,7 @@ Delete(#SteeringAngle_tmp)
 /////INT Traction
 
 [INT_SlipRatio_1_Traction]
-IfExists(#WheelSpeed_1)
+IfExists(#SlipRatio_1_Traction)
 INT_SlipRatio_1_Traction=Integrate(#SlipRatio_1_Traction,0)
 INT_SlipRatio_1_Traction=/(#INT_SlipRatio_1_Traction,Parameters.CIRCUIT_LENGTH)
 INT_SlipRatio_1_Traction=Set(Dim='s/m')
@@ -128,5 +134,5 @@ INT_OS_US=If(#VehicleSpeed,>,5,#INT_OS_US,0)
 INT_OS_US=Limit(#INT_OS_US,-5,5)
 INT_OS_US=Integrate(#INT_OS_US,0)
 INT_OS_US=/(#INT_OS_US,Parameters.CIRCUIT_LENGTH)
-INT_OS_US=Set(DIM='-')
+INT_OS_US=Set(DIM='s/m')
 

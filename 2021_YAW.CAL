@@ -1,10 +1,10 @@
-;last modified 2021. 03. 09. 18:38:10 by pungorpeter    (15)
+;last modified 2021. 03. 26. 21:57:28 by pungorpeter    (1)
 
 [2021_Yaw]
 
 /////Cornering radius
 
-c_radius=/(#V_GPS,3.6)
+c_radius=/(#VehicleSpeed,3.6)
 c_radius=Power(#c_radius, 2)
 c_radius=/(#c_radius,#Acceleration_Y_Rear)
 c_radius=/(#c_radius,9.81)
