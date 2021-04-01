@@ -1,4 +1,4 @@
-;last modified 2021. 03. 26. 22:15:23 by pungorpeter    (1)
+;last modified 2021. 04. 01. 12:27:51 by pungorpeter    (31)
 
 [2021_TestData]
 
@@ -45,7 +45,7 @@ INT_Throttle=Set(Dim='%*s/m')
 Delete(#Throttle)
 
 [INT_Brake_Force]
-INT_Brake_Force=Integrate(#Brake_Force_corrected,0)
+INT_Brake_Force=Integrate(#Brake_Force,0)
 INT_Brake_Force=/(#INT_Brake_Force,Parameters.CIRCUIT_LENGTH)
 INT_Brake_Force=Set(DIM='N*s/m')
 

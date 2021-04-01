@@ -1,4 +1,4 @@
-;last modified 2021. 03. 25. 13:51:33 by pungorpeter    (8)
+;last modified 2021. 04. 01. 13:08:33 by pungorpeter    (1)
 
 [2021_FZ_i]
 
@@ -10,9 +10,10 @@ F_aero_down=*(#F_aero_down,Parameters.AREA)
 F_aero_down=*(#F_aero_down, Parameters.C_L)
 F_aero_down=Set(Dim='N')
 
-F_aero_drag=*(#F_aero_down,0.04726)               //const=0.5*air_density/3.6^2
-F_aero_drag=*(#F_aero_down,Parameters.AREA)
-F_aero_drag=*(#F_aero_down, Parameters.C_D)
+F_aero_drag=Power(#VehicleSpeed,2)
+F_aero_drag=*(#F_aero_drag,0.04726)               //const=0.5*air_density/3.6^2
+F_aero_drag=*(#F_aero_drag,Parameters.AREA)
+F_aero_drag=*(#F_aero_drag, Parameters.C_D)
 F_aero_drag=Set(Dim='N')
 
 Delta_drag=*(#F_aero_drag,Parameters.H_COP)

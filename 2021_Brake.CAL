@@ -1,4 +1,4 @@
-;last modified 2021. 03. 27. 14:50:13 by pungorpeter    (34)
+;last modified 2021. 04. 01. 12:27:21 by pungorpeter    (15)
 
 [2021_Brake]
 
@@ -33,10 +33,6 @@ Brake_Pressure_Rear_Raw = And(#Brake_Pressure_32BIT, 0x00000FFF)
 Brake_Pressure_Rear = And(#Brake_Pressure_32BIT, 0x00000FFF)
 Brake_Pressure_Rear = Set(DIM = 'bar')
 
-[Brake_Force_Correction]
- //Calculating the zero error of brake force
- Brake_Force_corrected=-(#Brake_Force,64)
-
 [Forces]
 
 F_Brake_Front=*(200000,#Brake_Pressure_Front)      //mech brake, 2 pofa és bar -> Pa
@@ -58,7 +54,7 @@ F_Brake_2=Set(DIM='N')
 
 //
 
-F_Brake_Rear=*(200000,#Brake_Pressure_Rear)      //mech brake, //mech brake, 2 pofa és bar -> Pa
+F_Brake_Rear=*(200000,#Brake_Pressure_Rear)      //mech brake, 2 pofa és bar -> Pa
 F_Brake_Rear=*(#F_Brake_Rear,Parameters.PISTON_AREA)
 F_Brake_Rear=*(#F_Brake_Rear, Parameters.BRAKE_MU)
 F_Brake_Rear=*(#F_Brake_Rear,Parameters.BRAKE_RADIUS)

@@ -1,4 +1,4 @@
-;last modified 2021. 03. 25. 12:05:55 by pungorpeter    (1)
+;last modified 2021. 03. 30. 21:06:41 by pungorpeter    (2)
 
 [2021_RegressionCaller]
 
@@ -22,6 +22,9 @@ conv3=Const(1,200)
 {$I 2021_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Rear,Roll_Gradient_Rear,'deg*s^2/m',Roll_offset,conv1)}
 {$I 2021_Regression.CAL, P(Acceleration_X_Rear,Pitch_Angle,Pitch_Gradient,'deg*s^2/m',Pitch_offset,conv2)}
 {$I 2021_Regression.CAL, P(DamperPos_FL,Fz_1,Damper_Stiffness_1,'N/mm',Damper_offset1,conv3)}
+{$I 2021_Regression.CAL, P(DamperPos_FR,Fz_2,Damper_Stiffness_2,'N/mm',Damper_offset2,conv3)}
+{$I 2021_Regression.CAL, P(DamperPos_RL,Fz_3,Damper_Stiffness_3,'N/mm',Damper_offset3,conv3)}
+{$I 2021_Regression.CAL, P(DamperPos_RR,Fz_4,Damper_Stiffness_4,'N/mm',Damper_offset4,conv3)}
 ;{$I 2021_Regression.CAL P( , , ,'', ,conv)}
 
 
@@ -29,4 +32,7 @@ conv3=Const(1,200)
 
 //Calculate!
 
-Delete(#conv)
+Delete(#conv1)
+Delete(#conv2)
+Delete(#conv3)
+
