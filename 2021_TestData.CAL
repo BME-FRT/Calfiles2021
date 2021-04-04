@@ -1,6 +1,9 @@
-;last modified 2021. 04. 01. 12:27:51 by pungorpeter    (31)
+;last modified 2021. 04. 05. 0:29:54 by pungorpeter    (50)
 
 [2021_TestData]
+
+[if]
+{$IfNotExists(#E_Kinetic) 2021_Energy.CAL}
 
 [INT_Brake]
 INT_Brake_Pressure_Front=Integrate(#Brake_Pressure_Front,0)
@@ -74,6 +77,7 @@ INT_Steering_Angle=Set(DIM='°*s/m')
 Delete(#SteeringAngle_tmp)
 
 /////INT Traction
+{$IfNotExists(#SlipRatio_1_Traction) 2021_SlipRatio.CAL}
 
 [INT_SlipRatio_1_Traction]
 IfExists(#SlipRatio_1_Traction)
@@ -135,4 +139,38 @@ INT_OS_US=Limit(#INT_OS_US,-5,5)
 INT_OS_US=Integrate(#INT_OS_US,0)
 INT_OS_US=/(#INT_OS_US,Parameters.CIRCUIT_LENGTH)
 INT_OS_US=Set(DIM='s/m')
+
+[HV_Current]
+
+INT_HV_Current=Integrate(#HV_Current,0)
+INT_HV_Current=/(#INT_HV_Current,36)
+INT_HV_Current=Set(Dim='mAh')
+
+[INT_Id/iq]
+
+{$IfNotExists(#Iq1) 2021_HV.CAL}
+
+INT_Iq1=Abs(#Iq1)
+INT_Iq1=Integrate(#INT_Iq1)
+
+INT_Iq2=Abs(#Iq2)
+INT_Iq2=Integrate(#INT_Iq2)
+
+INT_Iq3=Abs(#Iq3)
+INT_Iq3=Integrate(#INT_Iq3)
+
+INT_Iq4=Abs(#Iq4)
+INT_Iq4=Integrate(#INT_Iq4)
+
+INT_Id1=Abs(#Id1)
+INT_Id1=Integrate(#INT_Id1)
+
+INT_Id2=Abs(#Id2)
+INT_Id2=Integrate(#INT_Id2)
+
+INT_Id3=Abs(#Id3)
+INT_Id3=Integrate(#INT_Id3)
+
+INT_Id4=Abs(#Id4)
+INT_Id4=Integrate(#INT_Id4)
 

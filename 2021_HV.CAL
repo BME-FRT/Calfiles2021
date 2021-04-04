@@ -1,4 +1,4 @@
-;last modified 2021. 03. 15. 22:01:39 by pungorpeter    (24)
+;last modified 2021. 04. 05. 0:09:22 by pungorpeter    (28)
 
 [2021_HV]
 
@@ -61,26 +61,4 @@ CapacityTotal = Set(DIM, mAh)
  Id4=*(#AMK_MagnetizingCurrent_4,107.2)
  Id4=/(#Id4,16384)
 
- INT_Iq1=Abs(#Iq1)
- INT_Iq1=Integrate(#INT_Iq1)
 
- INT_Iq2=Abs(#Iq2)
- INT_Iq2=Integrate(#INT_Iq2)
-
- INT_Iq3=Abs(#Iq3)
- INT_Iq3=Integrate(#INT_Iq3)
-
- INT_Iq4=Abs(#Iq4)
- INT_Iq4=Integrate(#INT_Iq4)
-
- INT_Id1=Abs(#Id1)
- INT_Id1=Integrate(#INT_Id1)
-
- INT_Id2=Abs(#Id2)
- INT_Id2=Integrate(#INT_Id2)
-
- INT_Id3=Abs(#Id3)
- INT_Id3=Integrate(#INT_Id3)
-
- INT_Id4=Abs(#Id4)
- INT_Id4=Integrate(#INT_Id4)

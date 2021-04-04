@@ -1,4 +1,4 @@
-;last modified 2021. 03. 28. 19:51:46 by pungorpeter    (101)
+;last modified 2021. 04. 05. 0:02:01 by pungorpeter    (104)
 
 [2021_Energy]
 
@@ -41,7 +41,7 @@ E_Electric_EM = Set(DIM, Wh)
 E_Electric_EM_Total = LastValue(#E_Electric_EM)
 Delete(#P_Regenerative_EM)
 
-/////Rolling Resistance
+[Rolling Resistance]
 
 P_downforce=Power(#VS,3)
 P_downforce=*(#P_downforce,Parameters.C_L)
@@ -127,10 +127,6 @@ P_Lost=-(#P_Lost,#P_motor_3)
 P_Lost=-(#P_Lost,#P_motor_4)
 
 [mAh]
-
-INT_HV_Current=Integrate(#HV_Current,0)
-INT_HV_Current=/(#INT_HV_Current,36)
-INT_HV_Current=Set(Dim='mAh')
 
 INT_HV_current_Pos=If(#HV_Current,>,0,#HV_Current,0)
 INT_HV_current_Neg=If(#HV_Current,>,0,0,#HV_Current)
