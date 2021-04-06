@@ -1,4 +1,4 @@
-;last modified 2021. 04. 05. 0:02:01 by pungorpeter    (104)
+;last modified 2021. 04. 06. 17:53:52 by pungorpeter    (1)
 
 [2021_Energy]
 
@@ -35,10 +35,9 @@ E_Electric_pos=Set(Dim='kJ')
 P_Regenerative_EM = *(#P_Electric, 0.9)
 P_Electric_EM = If(#P_Electric, >=, 0, #P_Electric, #P_Regenerative_EM)
 
-E_Electric_EM= Integrate(#P_Electric_EM)
+E_Electric_EM= Integrate(#P_Electric_EM,0)
 E_Electric_EM = /(#E_Electric_EM,3.6)
 E_Electric_EM = Set(DIM, Wh)
-E_Electric_EM_Total = LastValue(#E_Electric_EM)
 Delete(#P_Regenerative_EM)
 
 [Rolling Resistance]
@@ -71,25 +70,25 @@ Delete(#VS)
 
 [Motor mechanical Power]
 
-P_motor_1=Power(#AMK_TorqueLimitPositive_1)
+P_motor_1=*(#AMK_TorqueLimitPositive_1,#AMK_Actualvelocity_1)
 P_motor_1=*(#P_motor_1,@Pi)
 P_motor_1=/(#P_motor_1,30)
 P_motor_1=/(#P_motor_1,1000)
 E_motor_1=Integrate(#P_motor_1,0)
 
-P_motor_2=Power(#AMK_TorqueLimitPositive_2)
+P_motor_2=*(#AMK_TorqueLimitPositive_2,#AMK_Actualvelocity_2)
 P_motor_2=*(#P_motor_2,@Pi)
 P_motor_2=/(#P_motor_2,30)
 P_motor_2=/(#P_motor_2,1000)
 E_motor_2=Integrate(#P_motor_2,0)
 
-P_motor_3=Power(#AMK_TorqueLimitPositive_3)
+P_motor_3=*(#AMK_TorqueLimitPositive_3,#AMK_Actualvelocity_3)
 P_motor_3=*(#P_motor_3,@Pi)
 P_motor_3=/(#P_motor_3,30)
 P_motor_3=/(#P_motor_3,1000)
 E_motor_3=Integrate(#P_motor_3,0)
 
-P_motor_4=Power(#AMK_TorqueLimitPositive_4)
+P_motor_4=*(#AMK_TorqueLimitPositive_4,#AMK_Actualvelocity_4)
 P_motor_4=*(#P_motor_4,@Pi)
 P_motor_4=/(#P_motor_4,30)
 P_motor_4=/(#P_motor_4,1000)
