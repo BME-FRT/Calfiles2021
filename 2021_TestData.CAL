@@ -1,4 +1,4 @@
-;last modified 2021. 04. 05. 0:29:54 by pungorpeter    (50)
+;last modified 2021. 04. 18. 17:12:43 by pungorpeter    (135)
 
 [2021_TestData]
 
@@ -143,7 +143,7 @@ INT_OS_US=Set(DIM='s/m')
 [HV_Current]
 
 INT_HV_Current=Integrate(#HV_Current,0)
-INT_HV_Current=/(#INT_HV_Current,36)
+INT_HV_Current=/(#INT_HV_Current,3.6)
 INT_HV_Current=Set(Dim='mAh')
 
 [INT_Id/iq]

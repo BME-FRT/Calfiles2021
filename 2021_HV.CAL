@@ -1,4 +1,4 @@
-;last modified 2021. 04. 05. 0:09:22 by pungorpeter    (28)
+;last modified 2021. 04. 18. 17:33:16 by pungorpeter    (20)
 
 [2021_HV]
 
@@ -10,31 +10,23 @@ HV_Cell_Voltage_Validity = FillFromBool(#HV_Cell_Voltage,#HV_Cell_Voltage_Validi
 HV_Cell_Voltage_Critical = F(#HV_Cell_Voltage_Validity, F(Min 0.84 Sec))
 Delete(#HV_Cell_Voltage_Validity)
 
-HV_tmp=/(#HV_Cell_Temperature,10)
-HV_Cell_Temperature_Validity = If(#HV_Cell_Temperature,<,600,1,0)
-HV_Cell_Temperature_Validity = FillFromBool(#HV_tmp,#HV_Cell_Temperature_Validity)
+HV_Cell_Temperature_Validity = If(#HV_Cell_Temperature,<,60,1,0)
+HV_Cell_Temperature_Validity = FillFromBool(#HV_Cell_Temperature,#HV_Cell_Temperature_Validity)
 HV_Cell_Temperature_Critical = F(#HV_Cell_Temperature_Validity, F(Max 0.84 Sec))
 Delete(#HV_Cell_Temperature_Validity)
-Delete(#HV_tmp)
 
 /////
 
 HV_Voltage_Before_AIRs = And(#HV_Voltage_Before_&_After_AIRs , 0xFFFF0000)
 HV_Voltage_Before_AIRs = /(#HV_Voltage_Before_AIRs, 65536)
-HV_Voltage_Before_AIRs = /(#HV_Voltage_Before_AIRs, 10)
+HV_Voltage_Before_AIRs=/(#HV_Voltage_Before_AIRs,10)
 HV_Voltage_Before_AIRs = Set(Dim='V')
 
 HV_Voltage_After_AIRs = And(#HV_Voltage_Before_&_After_AIRs, 0x0000FFFF)
-HV_Voltage_After_AIRs = /(#HV_Voltage_After_AIRs, 10)
+HV_Voltage_After_AIRs =/(#HV_Voltage_After_AIRs,10)
 HV_Voltage_After_AIRs = Set(Dim='V')
 
-HV_Current_filtered = F(#HV_Current, F(AVG 15 Sec))
-
-Capacity = Integrate(#HV_Current)
-Capacity = /(#Capacity, 3.6)
-Capacity = Set(DIM, mAh)
-CapacityTotal = LastValue(#Capacity)
-CapacityTotal = Set(DIM, mAh)
+HV_Current_filtered = F(#HV_Current, F(AVG 10 Sec))
 
 [IdIq]
  Iq1=*(#AMK_Torquecurrent_1,107.2)

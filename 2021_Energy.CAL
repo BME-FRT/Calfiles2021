@@ -1,10 +1,9 @@
-;last modified 2021. 04. 06. 17:53:52 by pungorpeter    (1)
+;last modified 2021. 04. 18. 17:36:35 by pungorpeter    (1)
 
 [2021_Energy]
 
 [Kinetic_Energy]
 VS=/(#VehicleSpeed,3.6)
-VS=Set(Dim='m/s')
 
 E_Kinetic=Power(#VS,2)
 E_Kinetic=*(#E_Kinetic,Parameters.MASS)
@@ -20,7 +19,7 @@ E_Useful=Set(DIM='kJ')
 
 [Electric_Energy]
 P_Electric =  *(#HV_Voltage_Before_AIRs,#HV_Current)
-P_Electric =  /(#P_Electric, 10000)               // Current, Voltage values: /10, kJ
+P_Electric =  /(#P_Electric, 1000)
 P_Electric = Set(DIM, kW)
 
 E_Electric= Integrate(#P_Electric,0)
@@ -131,8 +130,8 @@ INT_HV_current_Pos=If(#HV_Current,>,0,#HV_Current,0)
 INT_HV_current_Neg=If(#HV_Current,>,0,0,#HV_Current)
 INT_HV_current_Pos=Integrate(#INT_HV_current_Pos,0)
 INT_HV_current_Neg=Integrate(#INT_HV_current_Neg,0)
-INT_HV_current_Pos=/(#INT_HV_current_Pos,36)
-INT_HV_current_Neg=/(#INT_HV_current_Neg,36)
+INT_HV_current_Pos=/(#INT_HV_current_Pos,3.6)
+INT_HV_current_Neg=/(#INT_HV_current_Neg,3.6)
 INT_HV_current_Pos=Set(DIM='mAh')
 INT_HV_current_Neg=Set(DIM='mAh')
 

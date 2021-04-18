@@ -1,4 +1,4 @@
-;last modified 2021. 03. 25. 11:57:31 by pungorpeter    (8)
+;last modified 2021. 04. 18. 17:24:49 by pungorpeter    (1)
 
 [2021_Errors]
 
@@ -14,7 +14,7 @@ Interlock=/(#Interlock,32768)
 ERROR_HV_Cell_Voltage_Critical=If(#HV_Cell_Voltage_Critical,<,3400,1,0)
 
 ///// 1, ha melegebb, mint 55°C
-ERROR_HV_Cell_Temperature_Critical=If(#HV_Cell_Temperature_Critical,>,550,1,0)
+ERROR_HV_Cell_Temperature_Critical=If(#HV_Cell_Temperature_Critical,>,55,1,0)
 
 /////
 
@@ -54,3 +54,9 @@ TSALmcu = And(#HV_Accumulator_Status_32BIT, 0x00000200)
 TSALmcu =/(#TSALmcu ,512)
 
 /////
+
+Derating1 = Mod(#AMK_Status_1, 2)
+Derating2 = Mod(#AMK_Status_2, 2)
+Derating3 = Mod(#AMK_Status_3, 2)
+Derating4 = Mod(#AMK_Status_4, 2)
+
