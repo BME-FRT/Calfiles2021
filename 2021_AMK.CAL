@@ -1,8 +1,8 @@
-;last modified 2021. 02. 09. 20:02:05 by pungorpeter    (27)
+;last modified 2021. 04. 20. 23:38:51 by pungorpeter    (17)
 
 [2021_AMK]
 
-/////AMK_TorqueLimit
+[AMK_TorqueLimit]
 
 AMK_TorqueLimit_1 = +(#AMK_TorqueLimitNegative_1,#AMK_TorqueLimitPositive_1)
 AMK_TorqueLimit_2 = +(#AMK_TorqueLimitNegative_2,#AMK_TorqueLimitPositive_2)
@@ -13,11 +13,7 @@ AMK_TorqueLimit = +(#AMK_TorqueLimit,#AMK_TorqueLimit_3)
 AMK_TorqueLimit = +(#AMK_TorqueLimit,#AMK_TorqueLimit_4)
 AMK_TorqueLimitDerivate = Derivate(#AMK_TorqueLimit)
 
-AMK_Sum_ActualVelocity = +(#AMK_ActualVelocity_1,#AMK_ActualVelocity_2)
-AMK_Sum_ActualVelocity = +(#AMK_ActualVelocity,#AMK_ActualVelocity_3)
-AMK_Sum_ActualVelocity = +(#AMK_ActualVelocity,#AMK_ActualVelocity_4)
-
-/////Regeneration
+[Regeneration]
 
 TotalRegen1=If (#AMK_Torquecurrent_1, <, 0,#AMK_Torquecurrent_1, 0)
 TotalRegen1=Integrate (#TotalRegen1,0)

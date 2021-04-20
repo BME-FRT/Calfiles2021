@@ -1,4 +1,4 @@
-;last modified 2021. 04. 18. 17:21:01 by pungorpeter    (101)
+;last modified 2021. 04. 20. 23:36:05 by pungorpeter    (96)
 
 [2021_LV]
 
@@ -129,9 +129,3 @@ Delete(#LVID_C11)
 LV_Cell_Temperature_C12=FillFromBool(#LV_Cell_Temperature,#LVID_C12)
 LV_Cell_Temperature_C12=Set(Dim, °C)
 Delete(#LVID_C12)
-
-///
-
-SC_endline = And(#MCU_Support_Status, 0x000000FF)
-SC_endline = Set(Dim='V')
-
