@@ -1,4 +1,4 @@
-;last modified 2021. 04. 05. 0:23:48 by pungorpeter    (118)
+;last modified 2021. 04. 21. 11:48:25 by pungorpeter    (117)
 
 [2021_Speed]
 
@@ -148,7 +148,5 @@ Delete(#egy)
 
 Dist=Integrate(#VehicleSpeed)
 Dist=Set(DIM='m')
-
-AMK_RPM_average=/(#AMK_ActualVelocity,4)
 
 

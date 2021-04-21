@@ -1,4 +1,4 @@
-;last modified 2021. 04. 18. 17:33:16 by pungorpeter    (20)
+;last modified 2021. 04. 21. 11:54:54 by pungorpeter    (20)
 
 [2021_HV]
 
@@ -26,7 +26,7 @@ HV_Voltage_After_AIRs = And(#HV_Voltage_Before_&_After_AIRs, 0x0000FFFF)
 HV_Voltage_After_AIRs =/(#HV_Voltage_After_AIRs,10)
 HV_Voltage_After_AIRs = Set(Dim='V')
 
-HV_Current_filtered = F(#HV_Current, F(AVG 10 Sec))
+HV_Current_filtered = F(#HV_Current, F(AVG 50))
 
 [IdIq]
  Iq1=*(#AMK_Torquecurrent_1,107.2)

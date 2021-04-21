@@ -1,4 +1,4 @@
-;last modified 2021. 04. 01. 12:27:21 by pungorpeter    (15)
+;last modified 2021. 04. 21. 13:30:28 by pungorpeter    (1)
 
 [2021_Brake]
 
@@ -16,19 +16,13 @@ Brake_Pr_Front_Validity = /(#Brake_Pr_Front_Validity, 2147483648)
 Brake_Pr_Front_Validity = -(0, #Brake_Pr_Front_Validity)
 Brake_Pr_Front_Validity = Set(DIM = 'bool')
 
-Brake_Pressure_Front_Raw = And(#Brake_Pressure_32BIT, 0x0FFF0000)
-Brake_Pressure_Front_Raw = /(#Brake_Pressure_Front_Raw, 65536)
-
 Brake_Pressure_Front = And(#Brake_Pressure_32BIT, 0x0FFF0000)
 Brake_Pressure_Front = /(#Brake_Pressure_Front, 65536)
 Brake_Pressure_Front = Set(DIM = 'bar')
 
-
 Brake_Pr_Rear_Validity = And(#Brake_Pressure_32BIT, 0x00008000)
 Brake_Pr_Rear_Validity = /(#Brake_Pr_Rear_Validity, 32768)
 Brake_Pr_Rear_Validity = Set(DIM = 'bool')
-
-Brake_Pressure_Rear_Raw = And(#Brake_Pressure_32BIT, 0x00000FFF)
 
 Brake_Pressure_Rear = And(#Brake_Pressure_32BIT, 0x00000FFF)
 Brake_Pressure_Rear = Set(DIM = 'bar')
