@@ -1,17 +1,17 @@
-;last modified 22/03/2021 12:06:40 by pungorpeter    (62)
+;last modified 2021. 04. 23. 14:34:37 by pungorpeter    (1)
 
 [2021_Sensorbox_Rear]
 
 [Roll_Rate_Rear]
 
-Roll_Rate_Rearlb = And(#ACCEL2_REAR_1_32BIT, 0xFF000000)
+Roll_Rate_Rearlb = And(#ACCEL2_1_32_BIT, 0xFF000000)
 Roll_Rate_Rearlb = /(#Roll_Rate_Rearlb,16777216)
-Roll_Rate_Rearhb = And(#ACCEL2_REAR_1_32BIT, 0x00FF0000)
+Roll_Rate_Rearhb = And(#ACCEL2_1_32_BIT, 0x00FF0000)
 Roll_Rate_Rearhb = /(#Roll_Rate_Rearhb,65536)
 Roll_Rate_Rearhb = *(#Roll_Rate_Rearhb,256)
 Roll_Rate_Rear=+(#Roll_Rate_Rearhb,#Roll_Rate_Rearlb)
 Roll_Rate_Rear=-(#Roll_Rate_Rear,0x8000)
-Roll_Rate_Rear=*(#Roll_Rate_Rear,0.005)
+Roll_Rate_Rear=*(#Roll_Rate_Rear,-0.005)
 Roll_Rate_Rear= Set(DIM = '°/s')
 
 Delete(#Roll_Rate_Rearlb)
@@ -19,9 +19,9 @@ Delete(#Roll_Rate_Rearhb)
 
 [Yaw_Rate_Rear]
 
-Yaw_Rate_Rearlb= And(#ACCEL1_REAR_1_32BIT, 0xFF000000)
+Yaw_Rate_Rearlb= And(#ACCEL1_1_32BIT, 0xFF000000)   //autóban fel vannak cserélve
 Yaw_Rate_Rearlb=/(#Yaw_Rate_Rearlb,16777216)
-Yaw_Rate_Rearhb=And(#ACCEL1_REAR_1_32BIT, 0x00FF0000)
+Yaw_Rate_Rearhb=And(#ACCEL1_1_32BIT, 0x00FF0000)
 Yaw_Rate_Rearhb= /(#Yaw_Rate_Rearhb,65536)
 Yaw_Rate_Rearhb=*(#Yaw_Rate_Rearhb,256)
 Yaw_Rate_Rear=+(#Yaw_Rate_Rearlb,#Yaw_Rate_Rearhb)
@@ -34,15 +34,14 @@ Delete(#Yaw_Rate_Rearhb)
 
 [Acceleration_X_Rear]
 
-Acceleration_X_Rearlb = And(#ACCEL2_REAR_2_32BIT, 0xFF000000)
+Acceleration_X_Rearlb = And(#ACCEL2_2_32BIT, 0xFF000000)
 Acceleration_X_Rearlb = /(#Acceleration_X_Rearlb,16777216)
-Acceleration_X_Rearhb = And(#ACCEL2_REAR_2_32BIT, 0x00FF0000)
+Acceleration_X_Rearhb = And(#ACCEL2_2_32BIT, 0x00FF0000)
 Acceleration_X_Rearhb = /(#Acceleration_X_Rearhb, 65536)
 Acceleration_X_Rearhb =*(#Acceleration_X_Rearhb,256)
 Acceleration_X_Rear =+(#Acceleration_X_Rearlb,#Acceleration_X_Rearhb)
 Acceleration_X_Rear =-(#Acceleration_X_Rear, 0x8000)
-Acceleration_X_Rear = *(#Acceleration_X_Rear, 0.0001274)
-Acceleration_X_Rear = *(#Acceleration_X_Rear,-1)              //fordítva beszerelve
+Acceleration_X_Rear = *(#Acceleration_X_Rear, -0.0001274)
 Acceleration_X_Rear =Set(DIM = 'g')
 
 Delete(#Acceleration_X_Rearlb)
@@ -50,14 +49,14 @@ Delete(#Acceleration_X_Rearhb)
 
 [Acceleration_Y_Rear]
 
-Acceleration_Y_Rearlb= And(#ACCEL1_REAR_2_32BIT, 0xFF000000)
+Acceleration_Y_Rearlb= And(#ACCEL1_2_32BIT, 0xFF000000)
 Acceleration_Y_Rearlb=/(#Acceleration_Y_Rearlb,16777216)
-Acceleration_Y_Rearhb=And(#ACCEL1_REAR_2_32BIT, 0x00FF0000)
+Acceleration_Y_Rearhb=And(#ACCEL1_2_32BIT, 0x00FF0000)
 Acceleration_Y_Rearhb=/(#Acceleration_Y_Rearhb,65536)
 Acceleration_Y_Rearhb=*(#Acceleration_Y_Rearhb, 256)
 Acceleration_Y_Rear=+(#Acceleration_Y_Rearhb,#Acceleration_Y_Rearlb)
 Acceleration_Y_Rear=-(#Acceleration_Y_Rear, 0x8000)
-Acceleration_Y_Rear= *(#Acceleration_Y_Rear, 0.0001274)
+Acceleration_Y_Rear= *(#Acceleration_Y_Rear, -0.0001274)
 Acceleration_Y_Rear= Set(DIM = 'g')
 
 Delete(#Acceleration_Y_Rearlb)
@@ -65,15 +64,14 @@ Delete(#Acceleration_Y_Rearhb)
 
 [Accelerration_Z_Rear]
 
-Acceleration_Z_Rearlb= And(#ACCEL3_REAR_2_32BIT, 0xFF000000)
+Acceleration_Z_Rearlb= And(#ACCEL3_2_32BIT, 0xFF000000)
 Acceleration_Z_Rearlb=/(#Acceleration_Z_Rearlb,16777216)
-Acceleration_Z_Rearhb=And(#ACCEL3_REAR_2_32BIT, 0x00FF0000)
+Acceleration_Z_Rearhb=And(#ACCEL3_2_32BIT, 0x00FF0000)
 Acceleration_Z_Rearhb=/(#Acceleration_Z_Rearhb,65536)
 Acceleration_Z_Rearhb=*(#Acceleration_Z_Rearhb, 256)
 Acceleration_Z_Rear=+(#Acceleration_Z_Rearhb,#Acceleration_Z_Rearlb)
 Acceleration_Z_Rear=-(#Acceleration_Z_Rear, 0x8000)
 Acceleration_Z_Rear= *(#Acceleration_Z_Rear, 0.0001274)
-Acceleration_Z_Rear=+(#Acceleration_Z_Rear, 1)
 Acceleration_Z_Rear= Set(DIM = 'g')
 
 Delete(#Acceleration_Z_Rearlb)
