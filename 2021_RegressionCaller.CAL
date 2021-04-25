@@ -1,4 +1,4 @@
-;last modified 2021. 03. 30. 21:06:41 by pungorpeter    (2)
+;last modified 2021. 04. 26. 0:09:15 by pungorpeter    (1)
 
 [2021_RegressionCaller]
 
@@ -7,7 +7,7 @@ Lineáris regressziót hajt végre}
 
 
 //a Const 1. argumentumába írd be, ha van mértékegység-converzió. Ha nincs, akkor 1-et írj be.
-conv1=Const(-9.81,200)
+conv1=Const(9.81,200)
 conv2=Const(9.81,200)
 conv3=Const(1,200)
 
@@ -19,7 +19,8 @@ conv3=Const(1,200)
                       5. eleme -> ofszet; ennyivel van eltolva az egyenes az origóból
                       6. eleme -> mértékegység-konverzió
 }
-{$I 2021_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Rear,Roll_Gradient_Rear,'deg*s^2/m',Roll_offset,conv1)}
+{$I 2021_Regression.CAL, P(Acceleration_Y_Front,Roll_Angle_Front,Roll_Gradient_Front,'deg*s^2/m',Roll_offsetF,conv1)}
+{$I 2021_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Rear,Roll_Gradient_Rear,'deg*s^2/m',Roll_offsetR,conv1)}
 {$I 2021_Regression.CAL, P(Acceleration_X_Rear,Pitch_Angle,Pitch_Gradient,'deg*s^2/m',Pitch_offset,conv2)}
 {$I 2021_Regression.CAL, P(DamperPos_FL,Fz_1,Damper_Stiffness_1,'N/mm',Damper_offset1,conv3)}
 {$I 2021_Regression.CAL, P(DamperPos_FR,Fz_2,Damper_Stiffness_2,'N/mm',Damper_offset2,conv3)}

@@ -1,10 +1,10 @@
-;last modified 2021. 04. 21. 11:48:25 by pungorpeter    (117)
+;last modified 2021. 04. 26. 0:15:20 by pungorpeter    (1)
 
 [2021_Speed]
 
 /////Velocity
 
-V_GPS_corrected=Shift(#V_GPS,-0.25 Sec)        //GPS késése miatti eltolás
+V_GPS_corrected=Shift(#V_GPS,-0.2 Sec)        //GPS késése miatti eltolás
 
 [WheelSpeed_1]
 

@@ -1,4 +1,4 @@
-;last modified 2021. 04. 18. 17:12:43 by pungorpeter    (135)
+;last modified 2021. 04. 26. 0:13:34 by pungorpeter    (43)
 
 [2021_TestData]
 
@@ -64,8 +64,8 @@ Throttle_Steering=Set(DIM='°*%')
 
 [INT_Throttle_Steering]
 
-INT_Throttle_Steering=Integrate(#ThrottleSteering,0)
-INT_Throttle_Steering=/(#ThrottleSteering,Parameters.CIRCUIT_LENGTH)
+INT_Throttle_Steering=Integrate(#Throttle_Steering,0)
+INT_Throttle_Steering=/(#INT_Throttle_Steering,Parameters.CIRCUIT_LENGTH)
 INT_Throttle_Steering=Set(Dim='°*%*s/m)
 
 [INT Steering_Angle]
@@ -174,3 +174,4 @@ INT_Id3=Integrate(#INT_Id3)
 INT_Id4=Abs(#Id4)
 INT_Id4=Integrate(#INT_Id4)
 
+{$IfNotExists(#Roll_Gradient_Rear) 2021_RegressionCaller.CAL}
