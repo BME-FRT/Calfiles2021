@@ -1,4 +1,4 @@
-;last modified 2021. 04. 26. 0:09:15 by pungorpeter    (1)
+;last modified 2021. 04. 26. 17:12:56 by pungorpeter    (1)
 
 [2021_RegressionCaller]
 
@@ -8,7 +8,7 @@ Lineáris regressziót hajt végre}
 
 //a Const 1. argumentumába írd be, ha van mértékegység-converzió. Ha nincs, akkor 1-et írj be.
 conv1=Const(9.81,200)
-conv2=Const(9.81,200)
+conv2=Const(-9.81,200)
 conv3=Const(1,200)
 
 
