@@ -1,4 +1,4 @@
-;last modified 2021. 04. 23. 14:34:37 by pungorpeter    (1)
+;last modified 2021. 04. 28. 18:22:00 by pungorpeter    (1)
 
 [2021_Sensorbox_Rear]
 
@@ -26,7 +26,7 @@ Yaw_Rate_Rearhb= /(#Yaw_Rate_Rearhb,65536)
 Yaw_Rate_Rearhb=*(#Yaw_Rate_Rearhb,256)
 Yaw_Rate_Rear=+(#Yaw_Rate_Rearlb,#Yaw_Rate_Rearhb)
 Yaw_Rate_Rear=-(#Yaw_Rate_Rear,0x8000)
-Yaw_Rate_Rear=*(#Yaw_Rate_Rear,-0.005)
+Yaw_Rate_Rear=*(#Yaw_Rate_Rear,0.005)
 Yaw_Rate_Rear= Set(DIM = '°/s')
 
 Delete(#Yaw_Rate_Rearlb)
