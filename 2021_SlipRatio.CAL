@@ -1,4 +1,4 @@
-;last modified 2021. 02. 24. 19:00:27 by pungorpeter    (48)
+;last modified 2021. 04. 30. 16:39:47 by pungorpeter    (45)
 
 [2021_SlipRatio]
 
@@ -45,6 +45,7 @@ SlipRatio_1_Braking=If(#WheelSpeed_1,<,#VehicleSpeed,#VehicleSpeed,#WheelSpeed_1
 SlipRatio_1_Braking=/(#WheelSpeed_1,#SlipRatio_1_Braking)
 SlipRatio_1_Braking=-(#SlipRatio_1_Braking,1)
 SlipRatio_1_Braking=If(#WheelSpeed_1,=,0,0,#SlipRatio_1_Braking)
+SlipRatio_1_Braking=Word(#SlipRatio_1_Braking,-2,0)
 SlipRatio_1_Braking=Set(Dim='-')
 
 [SlipRatio_2_Braking]
@@ -53,6 +54,7 @@ SlipRatio_2_Braking=If(#WheelSpeed_2,<,#VehicleSpeed,#VehicleSpeed,#WheelSpeed_2
 SlipRatio_2_Braking=/(#WheelSpeed_2,#SlipRatio_2_Braking)
 SlipRatio_2_Braking=-(#SlipRatio_2_Braking,1)
 SlipRatio_2_Braking=If(#WheelSpeed_2,=,0,0,#SlipRatio_2_Braking)
+SlipRatio_2_Braking=Word(#SlipRatio_2_Braking,-2,0)
 SlipRatio_2_Braking=Set(Dim='-')
 
 [SlipRatio_3_Braking]
@@ -61,6 +63,7 @@ SlipRatio_3_Braking=If(#WheelSpeed_3,<,#VehicleSpeed,#VehicleSpeed,#WheelSpeed_3
 SlipRatio_3_Braking=/(#WheelSpeed_3,#SlipRatio_3_Braking)
 SlipRatio_3_Braking=-(#SlipRatio_3_Braking,1)
 SlipRatio_3_Braking=If(#WheelSpeed_3,=,0,0,#SlipRatio_3_Braking)
+SlipRatio_3_Braking=Word(#SlipRatio_3_Braking,-2,0)
 SlipRatio_3_Braking=Set(Dim='-')
 
 [SlipRatio_4_Braking]
@@ -69,6 +72,7 @@ SlipRatio_4_Braking=If(#WheelSpeed_4,<,#VehicleSpeed,#VehicleSpeed,#WheelSpeed_4
 SlipRatio_4_Braking=/(#WheelSpeed_4,#SlipRatio_4_Braking)
 SlipRatio_4_Braking=-(#SlipRatio_4_Braking,1)
 SlipRatio_4_Braking=If(#WheelSpeed_4,=,0,0,#SlipRatio_4_Braking)
+SlipRatio_4_Braking=Word(#SlipRatio_4_Braking,-2,0)
 SlipRatio_4_Braking=Set(Dim='-')
 
 

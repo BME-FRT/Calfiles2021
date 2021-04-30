@@ -1,4 +1,4 @@
-;last modified 2021. 04. 27. 16:50:17 by pungorpeter    (95)
+;last modified 2021. 04. 30. 17:31:04 by pungorpeter    (142)
 
 [2021_TestData]
 
@@ -23,11 +23,12 @@ INT_Mech_vs_RegBrake=Set(Dim='bar*s/m)
 bool1=If(#Brake_Pressure_Front,<,20,0,1)
 bool2=If(#Throttle_Position_1,<,5,0,1)
 Coast=+(#bool2,#bool1)
-bool3=If(#Throttle_Position_2,<,5,0,1)
+bool3=If(#Throttle_Position_2,<,500,0,1)
 Coast=+(#bool3,#Coast)
 Coast=If(#Coast,=,0,0.05,0)
 bool=If(#AMK_ActualVelocity_3,<,10,0,1)
 Coast=*(#bool,#Coast)
+Coast=*(#Coast,10000)
 Delete(#bool1)
 Delete(#bool2)
 Delete(#bool3)
@@ -36,7 +37,7 @@ Coast=Set(DIM='-')
 
 [INT_Coast]
 INT_Coast=Integrate(#Coast,0)
-INT_Coast=/(#Coast,Parameters.CIRCUIT_LENGTH)
+INT_Coast=/(#INT_Coast,Parameters.CIRCUIT_LENGTH)
 INT_Coast=Set(Dim='s/m)
 
 [INT_Throttle]
@@ -154,6 +155,8 @@ INT_OS_US=Set(DIM='s/m')
 INT_HV_Current=Integrate(#HV_Current,0)
 INT_HV_Current=/(#INT_HV_Current,3.6)
 INT_HV_Current=Set(Dim='mAh')
+
+AVG_HV_Current=Abs(#HV_Current) //minmaxtableben avg-je
 
 [INT_Id/iq]
 
