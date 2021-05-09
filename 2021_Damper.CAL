@@ -1,4 +1,4 @@
-;last modified 2021. 03. 25. 12:18:42 by pungorpeter    (46)
+;last modified 2021. 05. 10. 0:21:23 by pungorpeter    (1)
 
 [2021_Damper]
 
@@ -35,14 +35,14 @@ Damper_Velocity_4=Set(DIM='mm/s')
 
 [Roll]
 
-Roll_Angle_Front=-(#DamperPos_FL,#DamperPos_FR)
+Roll_Angle_Front=-(#DamperPos_FR,#DamperPos_FL)
 Roll_Angle_Front=/(#Roll_Angle_Front,1000)
 Roll_Angle_Front=/(#Roll_Angle_Front,Parameters.TRACK_FRONT)
 Roll_Angle_Front=ArcSin(#Roll_Angle_Front)
 Roll_Angle_Front=*(#Roll_Angle_Front,@RAD2DEG)
 Roll_Angle_Front=Set(DIM='°')
 
-Roll_Angle_Rear=-(#DamperPos_RL,#DamperPos_RR)
+Roll_Angle_Rear=-(#DamperPos_RR,#DamperPos_RL)
 Roll_Angle_Rear=/(#Roll_Angle_Rear,1000)
 Roll_Angle_Rear=/(#Roll_Angle_Rear,Parameters.TRACK_REAR)
 Roll_Angle_Rear=ArcSin(#Roll_Angle_Rear)

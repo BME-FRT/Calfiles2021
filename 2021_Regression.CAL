@@ -1,4 +1,4 @@
-;last modified 2021. 03. 22. 20:50:31 by pungorpeter    (8)
+;last modified 2021. 05. 02. 16:44:34 by pungorpeter    (15)
 
 [2021_Regression]
 
@@ -45,4 +45,4 @@ Delete(#szamlalo1)
 Delete(#szamlalo2)
 Delete(#nevezo1)
 Delete(#nevezo2)
-
+Delete(#cons)

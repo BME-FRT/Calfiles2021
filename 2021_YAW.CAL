@@ -1,4 +1,4 @@
-;last modified 2021. 03. 26. 21:57:28 by pungorpeter    (1)
+;last modified 2021. 05. 02. 17:10:55 by pungorpeter    (1)
 
 [2021_Yaw]
 
@@ -8,19 +8,21 @@ c_radius=/(#VehicleSpeed,3.6)
 c_radius=Power(#c_radius, 2)
 c_radius=/(#c_radius,#Acceleration_Y_Rear)
 c_radius=/(#c_radius,9.81)
+c_radius=F(#c_radius,F(AVG 20))
 c_radius=Set(Dim='m')
 c_radius=Limit(#c_radius, -100, 100)
 
 /////
 
-Wheel_Angle_Real=+(#Steering_Angle_1,#Steering_Angle_2)
+Wheel_Angle_Real=*(#Steering_Angle_1,1)
 Wheel_Angle_Real=/(#Wheel_Angle_Real,Parameters.STEERING_RATIO)
 Wheel_Angle_Real=/(#Wheel_Angle_Real,2)
 
-Wheel_Angle_Virtual=/(Parameters.WHEELBASE,#c_radius)    // Wheel_Angle_Virtual=ArcTan(Wheelbase/TurnRadius)
+Wheel_Angle_Virtual=/(Parameters.WHEELBASE,#c_radius)    // Wheel_Angle_Virtual=ArcTan(Wheelbase/c_radius)
 Wheel_Angle_Virtual=ArcTan(#Wheel_Angle_Virtual)
 Wheel_Angle_Virtual=*(#Wheel_Angle_Virtual,@RAD2DEG)
 Wheel_Angle_Virtual=If(#VehicleSpeed,<,5,#Wheel_Angle_Real,#Wheel_Angle_Virtual)
+Wheel_Angle_Virtual=F(#Wheel_Angle_Virtual,F(AVG 10))
 Wheel_Angle_Virtual=Set(Dim='°')
 
 Handling=/(#Wheel_Angle_Virtual,#Wheel_Angle_Real)

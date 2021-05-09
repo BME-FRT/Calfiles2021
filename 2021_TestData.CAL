@@ -1,4 +1,4 @@
-;last modified 2021. 04. 30. 17:31:04 by pungorpeter    (142)
+;last modified 2021. 05. 10. 0:14:27 by pungorpeter    (36)
 
 [2021_TestData]
 
@@ -23,7 +23,7 @@ INT_Mech_vs_RegBrake=Set(Dim='bar*s/m)
 bool1=If(#Brake_Pressure_Front,<,20,0,1)
 bool2=If(#Throttle_Position_1,<,5,0,1)
 Coast=+(#bool2,#bool1)
-bool3=If(#Throttle_Position_2,<,500,0,1)
+bool3=If(#Throttle_Position_2,<,5,0,1)
 Coast=+(#bool3,#Coast)
 Coast=If(#Coast,=,0,0.05,0)
 bool=If(#AMK_ActualVelocity_3,<,10,0,1)
@@ -49,7 +49,7 @@ INT_Throttle=Set(Dim='%*s/m')
 Delete(#Throttle)
 
 [INT_Brake_Force]
-INT_Brake_Force=Integrate(#Brake_Force,0)
+INT_Brake_Force=Integrate(#BrakeForce,0)
 INT_Brake_Force=/(#INT_Brake_Force,Parameters.CIRCUIT_LENGTH)
 INT_Brake_Force=Set(DIM='N*s/m')
 
