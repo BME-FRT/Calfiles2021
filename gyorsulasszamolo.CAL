@@ -1,0 +1,273 @@
+;last modified 2021. 05. 28. 13:46:18 by pungorpeter    (120)
+
+[gyorsulasszamolo]
+Pitch_Rate_Front=*(#Pitch_Angle,0)
+Pitch_Rate_Rear=*(#Pitch_Angle,0)
+
+//Ajnára//
+
+[FRONT]
+EpsilonX_Front=*(#Roll_Rate_Front,@DEG2RAD)
+EpsilonX_Front=Derivate(#EpsilonX_Front)
+EpsilonY_Front=*(#Pitch_Rate_Front,@DEG2RAD)
+EpsilonY_Front=Derivate(#EpsilonY_Front)
+EpsilonZ_Front=*(#Yaw_Rate_Front,@DEG2RAD)
+EpsilonZ_Front=Derivate(#EpsilonZ_Front)
+
+{A pont az elsõ gyorsulásszenzor helye az autó koordinátarendszerében
+innen kell átszámolni a gyorsulást a CoG-ba (B pont).
+L1 - az x irányú távolság a szenzor és a CoG között
+A1 - az y irányú távolság a szenzor és a CoG között
+Z1 - az z irányú távolság a szenzor és a CoG között
+
+Az autó koordinátarendszere adott :P, L1-et, A1-et, Z1-et ennek megfelelõen,
+a koordinátarendszerben elfoglalt helye alapján kell megadni.
+}
+
+//Ide csak az abszolút értékek kellenek
+L1=Const(0.77,200)
+A1=Const(0.15,200)
+Z1=Const(0.12,200)         //úgy van számolva, hogy lejjebb van a CoG-nál
+
+//Omega kereszt r_AB
+w_x_r_AB_X1=*(#Pitch_Rate_Front,@DEG2RAD)
+w_x_r_AB_X1=*(#w_x_r_AB_X1,#Z1)
+w_x_r_AB_X2=*(#Yaw_Rate_Front,@DEG2RAD)
+w_x_r_AB_X2=*(#w_x_r_AB_X2,#A1)
+w_x_r_AB_X=-(#w_x_r_AB_X1,#w_x_r_AB_X2)      //
+Delete(#w_x_r_AB_X1)
+Delete(#w_x_r_AB_X2)
+
+w_x_r_AB_Y1=*(#Roll_Rate_Front,@DEG2RAD)
+w_x_r_AB_Y1=*(#w_x_r_AB_Y1,#Z1)
+w_x_r_AB_Y1=*(#w_x_r_AB_Y1,-1)
+w_x_r_AB_Y2=*(#Yaw_Rate_Front,@DEG2RAD)
+w_x_r_AB_Y2=*(#w_x_r_AB_Y2,#L1)
+w_x_r_AB_Y2=*(#w_x_r_AB_Y2,-1)
+w_x_r_AB_Y=+(#w_x_r_AB_Y1,#w_x_r_AB_Y2)    //
+Delete(#w_x_r_AB_Y1)
+Delete(#w_x_r_AB_Y2)
+
+w_x_r_AB_Z1=*(#Roll_Rate_Front,@DEG2RAD)
+w_x_r_AB_Z1=*(#w_x_r_AB_Z1,#A1)
+w_x_r_AB_Z2=*(#Pitch_Rate_Front,@DEG2RAD)
+w_x_r_AB_Z2=*(#w_x_r_AB_Z2,#L1)
+w_x_r_AB_Z=+(#w_x_r_AB_Z1,#w_x_r_AB_Z2)   //
+Delete(#w_x_r_AB_Z1)
+Delete(#w_x_r_AB_Z2)
+
+//w x (w x r_AB)
+wxw_x_r_AB_X1=*(#Pitch_Rate_Front,@DEG2RAD)
+wxw_x_r_AB_X1=*(#wxw_x_r_AB_X1,#w_x_r_AB_Z)
+wxw_x_r_AB_X2=*(#Yaw_Rate_Front,@DEG2RAD)
+wxw_x_r_AB_X2=*(#wxw_x_r_AB_X2,#w_x_r_AB_Y)
+wxw_x_r_AB_X=-(#wxw_x_r_AB_X1,#wxw_x_r_AB_X2)   //wxw_x_r_AB_X
+wxw_x_r_AB_X=/(#wxw_x_r_AB_X,9.81)
+Delete(#wxw_x_r_AB_X1)
+Delete(#wxw_x_r_AB_X2)
+
+wxw_x_r_AB_Y1=*(#Roll_Rate_Front,@DEG2RAD)
+wxw_x_r_AB_Y1=*(#wxw_x_r_AB_Y1,#w_x_r_AB_Z)
+wxw_x_r_AB_Y2=*(#Yaw_Rate_Front,@DEG2RAD)
+wxw_x_r_AB_Y2=*(#wxw_x_r_AB_Y2,#w_x_r_AB_X)
+wxw_x_r_AB_Y=-(#wxw_x_r_AB_Y2,#wxw_x_r_AB_Y1)    //wxw_x_r_AB_Y
+wxw_x_r_AB_Y=/(#wxw_x_r_AB_Y,9.81)
+Delete(#wxw_x_r_AB_Y1)
+Delete(#wxw_x_r_AB_Y2)
+
+wxw_x_r_AB_Z1=*(#Roll_Rate_Front,@DEG2RAD)
+wxw_x_r_AB_Z1=*(#wxw_x_r_AB_Z1,#w_x_r_AB_Y)
+wxw_x_r_AB_Z2=*(#Pitch_Rate_Front,@DEG2RAD)
+wxw_x_r_AB_Z2=*(#wxw_x_r_AB_Z2,#w_x_r_AB_X)
+wxw_x_r_AB_Z=-(#wxw_x_r_AB_Z1,#wxw_x_r_AB_Z2)    //wxw_x_r_AB_Z
+wxw_x_r_AB_Z=/(#wxw_x_r_AB_Z,9.81)
+Delete(#wxw_x_r_AB_Z1)
+Delete(#wxw_x_r_AB_Z2)
+
+//Epsilon x r_AB
+Eps_x_r_AB_X1=*(#EpsilonY_Front,#Z1)
+Eps_x_r_AB_X2=*(#EpsilonZ_Front,#A1)
+Eps_x_r_AB_X=-(#Eps_x_r_AB_X1,#Eps_x_r_AB_X2)    //Eps_x_r_AB_X
+Eps_x_r_AB_X=/(#Eps_x_r_AB_X,9.81)
+Delete(#Eps_x_r_AB_X1)
+Delete(#Eps_x_r_AB_X2)
+
+Eps_x_r_AB_Y1=*(#EpsilonX_Front,#Z1)
+Eps_x_r_AB_Y1=*(#Eps_x_r_AB_Y1,-1)
+Eps_x_r_AB_Y2=*(#EpsilonZ_Front,#L1)
+Eps_x_r_AB_Y2=*(#Eps_x_r_AB_Y2,-1)
+Eps_x_r_AB_Y=+(#Eps_x_r_AB_Y1,#Eps_x_r_AB_Y2)    //Eps_x_r_AB_Y
+Eps_x_r_AB_Y=/(#Eps_x_r_AB_Y,9.81)
+Delete(#Eps_x_r_AB_Y1)
+Delete(#Eps_x_r_AB_Y2)
+
+Eps_x_r_AB_Z1=*(#EpsilonX_Front,#A1)
+Eps_x_r_AB_Z2=*(#EpsilonY_Front,#L1)
+Eps_x_r_AB_Z=+(#Eps_x_r_AB_Z1,#Eps_x_r_AB_Z2)    //Eps_x_r_AB_Z
+Eps_x_r_AB_Z=/(#Eps_x_r_AB_Z,9.81)
+Delete(#Eps_x_r_AB_Z1)
+Delete(#Eps_x_r_AB_Z2)
+
+
+//Konverzió
+AccX_Front_Converted=+(#Acceleration_X_Front, #Eps_x_r_AB_X)
+AccX_Front_Converted=+(#AccX_Front_Converted,#wxw_x_r_AB_X)
+AccX_Front_Converted=Set(Dim='g')
+
+AccY_Front_Converted=+(#Acceleration_Y_Front, #Eps_x_r_AB_Y)
+AccY_Front_Converted=+(#AccY_Front_Converted,#wxw_x_r_AB_Y)
+AccY_Front_Converted=Set(Dim='g')
+
+
+Delete(#EpsilonX_Front)
+Delete(#EpsilonY_Front)
+Delete(#EpsilonZ_Front)
+Delete(#wxw_x_r_AB_X)
+Delete(#wxw_x_r_AB_Y)
+Delete(#wxw_x_r_AB_Z)
+Delete(#Eps_x_r_AB_X)
+Delete(#Eps_x_r_AB_Y)
+Delete(#Eps_x_r_AB_Z)
+Delete(#L1)
+Delete(#A1)
+Delete(#Z1)
+
+
+[REAR]
+
+EpsilonX_Rear=*(#Roll_Rate_Rear,@DEG2RAD)
+EpsilonX_Rear=Derivate(#EpsilonX_Rear)
+EpsilonY_Rear=*(#Pitch_Rate_Rear,@DEG2RAD)
+EpsilonY_Rear=Derivate(#EpsilonY_Rear)
+EpsilonZ_Rear=*(#Yaw_Rate_Rear,@DEG2RAD)
+EpsilonZ_Rear=Derivate(#EpsilonZ_Rear)
+
+{C pont az hátsó gyorsulásszenzor helye az autó koordinátarendszerében
+innen kell átszámolni a gyorsulást a CoG-ba (B pont).
+L2 - az x irányú távolság a szenzor és a CoG között
+A2 - az y irányú távolság a szenzor és a CoG között
+Z2 - az z irányú távolság a szenzor és a CoG között
+
+Az autó koordinátarendszere adott :P, L2-t, A2-t, Z2-t ennek megfelelõen,
+a koordinátarendszerben elfoglalt helye alapján kell megadni.
+}
+//Ide csak az abszolút értékek kellenek
+L2=Const(0.65,200)
+A2=Const(0,200)
+Z2=Const(0.06,200)          //úgy van számolva, hogy feljebb van a CoG-nál
+
+//Omega kereszt r_CB
+w_x_r_CB_X1=*(#Pitch_Rate_Rear,@DEG2RAD)
+w_x_r_CB_X1=*(#w_x_r_CB_X1,#Z2)
+w_x_r_CB_X1=*(#w_x_r_CB_X1,-1)
+w_x_r_CB_X2=*(#Yaw_Rate_Rear,@DEG2RAD)
+w_x_r_CB_X2=*(#w_x_r_CB_X2,#A2)
+w_x_r_CB_X2=*(#w_x_r_CB_X2,-1)
+w_x_r_CB_X=+(#w_x_r_CB_X1,#w_x_r_CB_X2)      //
+Delete(#w_x_r_CB_X1)
+Delete(#w_x_r_CB_X2)
+
+w_x_r_CB_Y1=*(#Roll_Rate_Rear,@DEG2RAD)
+w_x_r_CB_Y1=*(#w_x_r_CB_Y1,#Z2)
+w_x_r_CB_Y2=*(#Yaw_Rate_Rear,@DEG2RAD)
+w_x_r_CB_Y2=*(#w_x_r_CB_Y2,#L2)
+w_x_r_CB_Y=+(#w_x_r_CB_Y1,#w_x_r_CB_Y2)    //
+Delete(#w_x_r_CB_Y1)
+Delete(#w_x_r_CB_Y2)
+
+w_x_r_CB_Z1=*(#Roll_Rate_Rear,@DEG2RAD)
+w_x_r_CB_Z1=*(#w_x_r_CB_Z1,#A2)
+w_x_r_CB_Z2=*(#Pitch_Rate_Rear,@DEG2RAD)
+w_x_r_CB_Z2=*(#w_x_r_CB_Z2,#L2)
+w_x_r_CB_Z=-(#w_x_r_CB_Z1,#w_x_r_CB_Z2)   //
+Delete(#w_x_r_CB_Z1)
+Delete(#w_x_r_CB_Z2)
+
+//w x (w x r_CB)
+wxw_x_r_CB_X1=*(#Pitch_Rate_Rear,@DEG2RAD)
+wxw_x_r_CB_X1=*(#wxw_x_r_CB_X1,#w_x_r_CB_Z)
+wxw_x_r_CB_X2=*(#Yaw_Rate_Rear,@DEG2RAD)
+wxw_x_r_CB_X2=*(#wxw_x_r_CB_X2,#w_x_r_CB_Y)
+wxw_x_r_CB_X=-(#wxw_x_r_CB_X1,#wxw_x_r_CB_X2)   //wxw_x_r_CB_X
+wxw_x_r_CB_X=/(#wxw_x_r_CB_X,9.81)
+Delete(#wxw_x_r_CB_X1)
+Delete(#wxw_x_r_CB_X2)
+
+wxw_x_r_CB_Y1=*(#Roll_Rate_Rear,@DEG2RAD)
+wxw_x_r_CB_Y1=*(#wxw_x_r_CB_Y1,#w_x_r_CB_Z)
+wxw_x_r_CB_Y2=*(#Yaw_Rate_Rear,@DEG2RAD)
+wxw_x_r_CB_Y2=*(#wxw_x_r_CB_Y2,#w_x_r_CB_X)
+wxw_x_r_CB_Y=-(#wxw_x_r_CB_Y2,#wxw_x_r_CB_Y1)    //wxw_x_r_CB_Y
+wxw_x_r_CB_Y=/(#wxw_x_r_CB_Y,9.81)
+Delete(#wxw_x_r_CB_Y1)
+Delete(#wxw_x_r_CB_Y2)
+
+wxw_x_r_CB_Z1=*(#Roll_Rate_Rear,@DEG2RAD)
+wxw_x_r_CB_Z1=*(#wxw_x_r_CB_Z1,#w_x_r_CB_Y)
+wxw_x_r_CB_Z2=*(#Pitch_Rate_Rear,@DEG2RAD)
+wxw_x_r_CB_Z2=*(#wxw_x_r_CB_Z2,#w_x_r_CB_X)
+wxw_x_r_CB_Z=-(#wxw_x_r_CB_Z1,#wxw_x_r_CB_Z2)    //wxw_x_r_CB_Z
+wxw_x_r_CB_Z=/(#wxw_x_r_CB_Z,9.81)
+Delete(#wxw_x_r_CB_Z1)
+Delete(#wxw_x_r_CB_Z2)
+
+//Epsilon x r_CB
+Eps_x_r_CB_X1=*(#EpsilonY_Rear,#Z2)
+Eps_x_r_CB_X1=*(#Eps_x_r_CB_X1,-1)
+Eps_x_r_CB_X2=*(#EpsilonZ_Rear,#A2)
+Eps_x_r_CB_X2=*(#Eps_x_r_CB_X2,-1)
+Eps_x_r_CB_X=+(#Eps_x_r_CB_X1,#Eps_x_r_CB_X2)    //Eps_x_r_CB_X
+Eps_x_r_CB_X=/(#Eps_x_r_CB_X,9.81)
+Delete(#Eps_x_r_CB_X1)
+Delete(#Eps_x_r_CB_X2)
+
+Eps_x_r_CB_Y1=*(#EpsilonX_Rear,#Z2)
+Eps_x_r_CB_Y2=*(#EpsilonZ_Rear,#L2)
+Eps_x_r_CB_Y=+(#Eps_x_r_CB_Y1,#Eps_x_r_CB_Y2)    //Eps_x_r_CB_Y
+Eps_x_r_CB_Y=/(#Eps_x_r_CB_Y,9.81)
+Delete(#Eps_x_r_CB_Y1)
+Delete(#Eps_x_r_CB_Y2)
+
+Eps_x_r_CB_Z1=*(#EpsilonX_Rear,#A2)
+Eps_x_r_CB_Z2=*(#EpsilonY_Rear,#L2)
+Eps_x_r_CB_Z=-(#Eps_x_r_CB_Z1,#Eps_x_r_CB_Z2)    //Eps_x_r_CB_Z
+Eps_x_r_CB_Z=/(#Eps_x_r_CB_Z,9.81)
+Delete(#Eps_x_r_CB_Z1)
+Delete(#Eps_x_r_CB_Z2)
+
+
+//Konverzió
+AccX_Rear_Converted=+(#Acceleration_X_Rear, #Eps_x_r_CB_X)
+AccX_Rear_Converted=+(#AccX_Rear_Converted,#wxw_x_r_CB_X)
+AccX_Rear_Converted=Set(Dim='g')
+
+AccY_Rear_Converted=+(#Acceleration_Y_Rear, #Eps_x_r_CB_Y)
+AccY_Rear_Converted=+(#AccY_Rear_Converted,#wxw_x_r_CB_Y)
+AccY_Rear_Converted=Set(Dim='g')
+
+
+Delete(#EpsilonX_Rear)
+Delete(#EpsilonY_Rear)
+Delete(#EpsilonZ_Rear)
+
+Delete(#w_x_r_AB_X)
+Delete(#w_x_r_AB_Y)
+Delete(#w_x_r_AB_Z)
+Delete(#w_x_r_CB_X)
+Delete(#w_x_r_CB_Y)
+Delete(#w_x_r_CB_Z)
+
+Delete(#wxw_x_r_CB_X)
+Delete(#wxw_x_r_CB_Y)
+Delete(#wxw_x_r_CB_Z)
+Delete(#Eps_x_r_CB_X)
+Delete(#Eps_x_r_CB_Y)
+Delete(#Eps_x_r_CB_Z)
+Delete(#L2)
+Delete(#A2)
+Delete(#Z2)
+
+Delete(#Pitch_Rate_Front)
+Delete(#Pitch_Rate_Rear)
+
+//gecc

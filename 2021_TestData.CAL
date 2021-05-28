@@ -1,4 +1,4 @@
-;last modified 2021. 05. 10. 0:14:27 by pungorpeter    (36)
+;last modified 2021. 05. 28. 12:33:17 by pungorpeter    (74)
 
 [2021_TestData]
 
@@ -68,6 +68,33 @@ Throttle_Steering=Set(DIM='°*%')
 INT_Throttle_Steering=Integrate(#Throttle_Steering,0)
 INT_Throttle_Steering=/(#INT_Throttle_Steering,Parameters.CIRCUIT_LENGTH)
 INT_Throttle_Steering=Set(Dim='°*%*s/m)
+
+[INT_Brake_Steering]
+
+st1=If(#BrakeForce,>,50,1,0)
+st2=Abs(#Steering_Angle_1)
+st3=If(#st2,>,30,1,0)
+
+st3=+(#st1,#st3)
+st3=If(#st3,=,2,1,0)
+Br_St=*(#st2,#BrakeForce)
+Brake_Steering=FillFromBool(#Br_St,#st3)
+INT_Brake_Steering=Integrate(#Brake_Steering,0)
+INT_Brake_Steering=/(#INT_Brake_Steering,Parameters.CIRCUIT_LENGTH)
+INT_Brake_Steering=Set(Dim='N*°*s/m')
+
+Delete(#st1)
+Delete(#st2)
+Delete(#st3)
+Delete(#Br_St)
+Delete(#Brake_Steering)
+
+[INT_M_Yaw]
+
+INT_M_Yaw=Abs(#M_Yaw)
+INT_M_Yaw=Integrate(#INT_M_Yaw,0)
+INT_M_Yaw=/(#INT_M_Yaw,Parameters.CIRCUIT_LENGTH)
+INT_M_Yaw=Set(Dim='Nm*s/m')
 
 [INT Steering_Angle]
 
@@ -139,9 +166,9 @@ INT_SlipRatio_4_Braking=*(#INT_SlipRatio_4_Braking,100)
 INT_SlipRatio_4_Braking=Set(Dim='s/m')
 
 [OS_US]
-INT_OS_US=/(#Acceleration_Y_Front,#VehicleSpeed)
+INT_OS_US=/(#AccY_Front_Converted,#VehicleSpeed)
 INT_OS_US=*(2023.5,#INT_OS_US)                      //const=3.6*180/PI*g
-INT_OS_US=/(#Yaw_Rate_Front_Filtered,#INT_OS_US)
+INT_OS_US=/(#Yaw_Rate_Front,#INT_OS_US)
 INT_OS_US=-(#INT_OS_US,1)
 INT_OS_US=If(#VehicleSpeed,>,5,#INT_OS_US,0)
 INT_OS_US=Limit(#INT_OS_US,-5,5)
@@ -163,27 +190,28 @@ AVG_HV_Current=Abs(#HV_Current) //minmaxtableben avg-je
 {$IfNotExists(#Iq1) 2021_HV.CAL}
 
 INT_Iq1=Abs(#Iq1)
-INT_Iq1=Integrate(#INT_Iq1)
+INT_Iq1=Integrate(#INT_Iq1,0)
 
 INT_Iq2=Abs(#Iq2)
-INT_Iq2=Integrate(#INT_Iq2)
+INT_Iq2=Integrate(#INT_Iq2,0)
 
 INT_Iq3=Abs(#Iq3)
-INT_Iq3=Integrate(#INT_Iq3)
+INT_Iq3=Integrate(#INT_Iq3,0)
 
 INT_Iq4=Abs(#Iq4)
-INT_Iq4=Integrate(#INT_Iq4)
+INT_Iq4=Integrate(#INT_Iq4,0)
 
 INT_Id1=Abs(#Id1)
-INT_Id1=Integrate(#INT_Id1)
+INT_Id1=Integrate(#INT_Id1,0)
 
 INT_Id2=Abs(#Id2)
-INT_Id2=Integrate(#INT_Id2)
+INT_Id2=Integrate(#INT_Id2,0)
 
 INT_Id3=Abs(#Id3)
-INT_Id3=Integrate(#INT_Id3)
+INT_Id3=Integrate(#INT_Id3,0)
 
 INT_Id4=Abs(#Id4)
-INT_Id4=Integrate(#INT_Id4)
+INT_Id4=Integrate(#INT_Id4,0)
 
+{$IfNotExists(#AccX_Front_Converted) gyorsulasszamolo.CAL}
 {$IfNotExists(#Roll_Gradient_Rear) 2021_RegressionCaller.CAL}

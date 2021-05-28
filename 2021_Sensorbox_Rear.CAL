@@ -1,4 +1,4 @@
-;last modified 2021. 04. 28. 18:22:00 by pungorpeter    (1)
+;last modified 2021. 05. 28. 13:49:49 by pungorpeter    (62)
 
 [2021_Sensorbox_Rear]
 
@@ -79,9 +79,9 @@ Delete(#Acceleration_Z_Rearhb)
 
 [Acceleration_Rear_Filtered]
 
-Acceleration_X_Rear_Filtered=F(#Acceleration_X_Rear, F(AVG 0.5 Sec))
-Acceleration_Y_Rear_Filtered=F(#Acceleration_Y_Rear, F(AVG 0.5 Sec))
-Acceleration_Z_Rear_Filtered=F(#Acceleration_Z_Rear, F(AVG 0.5 Sec))
+Acceleration_X_Rear_Filtered=F(#Acceleration_X_Rear, F(AVG 0.2 Sec))
+Acceleration_Y_Rear_Filtered=F(#Acceleration_Y_Rear, F(AVG 0.2 Sec))
+Acceleration_Z_Rear_Filtered=F(#Acceleration_Z_Rear, F(AVG 0.2 Sec))
 
 [Yaw_Rate_Rear_Filtered]
 

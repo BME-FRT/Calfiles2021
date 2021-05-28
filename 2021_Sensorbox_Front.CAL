@@ -1,4 +1,4 @@
-;last modified 2021. 04. 23. 14:37:10 by pungorpeter    (8)
+;last modified 2021. 05. 28. 13:49:40 by pungorpeter    (60)
 
 [2021_Sensorbox_Front]
 
@@ -79,9 +79,9 @@ Delete(#Acceleration_Z_Fronthb)
 
 [Acceleration_Front_Filtered]
 
-Acceleration_X_Front_Filtered=F(#Acceleration_X_Front, F(AVG 0.5 Sec))
-Acceleration_Y_Front_Filtered=F(#Acceleration_Y_Front, F(AVG 0.5 Sec))
-Acceleration_Z_Front_Filtered=F(#Acceleration_Z_Front, F(AVG 0.5 Sec))
+Acceleration_X_Front_Filtered=F(#Acceleration_X_Front, F(AVG 0.2 Sec))
+Acceleration_Y_Front_Filtered=F(#Acceleration_Y_Front, F(AVG 0.2 Sec))
+Acceleration_Z_Front_Filtered=F(#Acceleration_Z_Front, F(AVG 0.2 Sec))
 
 [Yaw_Rate_Front_Filtered]
 

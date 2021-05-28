@@ -1,4 +1,4 @@
-;last modified 2021. 04. 26. 17:12:56 by pungorpeter    (1)
+;last modified 2021. 05. 20. 19:02:15 by pungorpeter    (1)
 
 [2021_RegressionCaller]
 
@@ -19,9 +19,9 @@ conv3=Const(1,200)
                       5. eleme -> ofszet; ennyivel van eltolva az egyenes az origóból
                       6. eleme -> mértékegység-konverzió
 }
-{$I 2021_Regression.CAL, P(Acceleration_Y_Front,Roll_Angle_Front,Roll_Gradient_Front,'deg*s^2/m',Roll_offsetF,conv1)}
-{$I 2021_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Rear,Roll_Gradient_Rear,'deg*s^2/m',Roll_offsetR,conv1)}
-{$I 2021_Regression.CAL, P(Acceleration_X_Rear,Pitch_Angle,Pitch_Gradient,'deg*s^2/m',Pitch_offset,conv2)}
+{$I 2021_Regression.CAL, P(AccY_Front_Converted,Roll_Angle_Front,Roll_Gradient_Front,'deg*s^2/m',Roll_offsetF,conv1)}
+{$I 2021_Regression.CAL, P(AccY_Rear_Converted,Roll_Angle_Rear,Roll_Gradient_Rear,'deg*s^2/m',Roll_offsetR,conv1)}
+{$I 2021_Regression.CAL, P(AccX_Rear_Converted,Pitch_Angle,Pitch_Gradient,'deg*s^2/m',Pitch_offset,conv2)}
 {$I 2021_Regression.CAL, P(DamperPos_FL,Fz_1,Damper_Stiffness_1,'N/mm',Damper_offset1,conv3)}
 {$I 2021_Regression.CAL, P(DamperPos_FR,Fz_2,Damper_Stiffness_2,'N/mm',Damper_offset2,conv3)}
 {$I 2021_Regression.CAL, P(DamperPos_RL,Fz_3,Damper_Stiffness_3,'N/mm',Damper_offset3,conv3)}
