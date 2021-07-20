@@ -1,0 +1,47 @@
+;last modified 7/20/2021 9:09:12 PM by bekes    (1)
+
+[TCU]
+
+Braking_Torque_Multiplier = And(#TCU_Status_11_32BIT,0xFF000000)
+Braking_Torque_Multiplier = /(#Braking_Torque_Multiplier,0x01000000)
+Braking_Torque_Multiplier = /(#Braking_Torque_Multiplier,50)
+Driving_Torque_Multiplier = And(#TCU_Status_11_32BIT,0x00FF0000)
+Driving_Torque_Multiplier = /(#Driving_Torque_Multiplier,0x00010000)
+Driving_Torque_Multiplier = /(#Driving_Torque_Multiplier,100)
+RPM_Max = And(#TCU_Status_11_32BIT,0x0000FF00)
+RPM_Max = /(#RPM_Max,0x000000100)
+RPM_Max= *(#RPM_Max,500)
+Power_Max = And(#TCU_Status_11_32BIT,0x000000FF)
+Power_Max = *(#Power_Max ,1000)
+
+Yaw_Control_ON = And(#TCU_Status_12_32BIT,0x0100)
+Yaw_Control_ON = /(#Yaw_Control_ON,0x0100)
+Car_Standing = And(#TCU_Status_12_32BIT,0x2000)
+Car_Standing = /(#Car_Standing,0x2000)
+Safety_Mode_ON = And(#TCU_Status_12_32BIT,0x4000)
+Safety_Mode_ON = /(#Safety_Mode_ON,0x4000)
+
+Fz_TCU_FL = And(#TCU_Status_32_32_BIT, 0xFF000000)
+Fz_TCU_FL = /(#Fz_TCU_FL, 0x01000000)
+Fz_TCU_FR = And(#TCU_Status_32_32_BIT, 0x00FF0000)
+Fz_TCU_FR = /(#Fz_TCU_FR, 0x00010000)
+Fz_TCU_RL = And(#TCU_Status_32_32_BIT, 0x0000FF00)
+Fz_TCU_RL = /(#Fz_TCU_RL, 0x00000100)
+Fz_TCU_RR = And(#TCU_Status_32_32_BIT, 0x000000FF)
+
+Fz_TCU_FL = *(#Fz_TCU_FL,10)
+Fz_TCU_FR = *(#Fz_TCU_FR,10)
+Fz_TCU_RL = *(#Fz_TCU_RL,10)
+Fz_TCU_RR = *(#Fz_TCU_RR,10)
+
+Torque_Demand_TCU= And(#TCU_Status_31_32BIT,0x00FF0000)
+Torque_Demand_TCU = /(#Torque_Demand_TCU,0x00010000)
+Torque_Demand_TCU = -(#Torque_Demand_TCU,128)
+Torque_Demand_TCU = *(#Torque_Demand_TCU,0.659)
+
+dy =-(#Acceleration_Y_Front,#Acceleration_Y_Rear)
+dy = Abs(#dy)
+//dy = If(#dy,<,0.22,0,1)
+dx =-(#Acceleration_X_Front,#Acceleration_X_Rear)
+dx = Abs(#dx)
+//dx = If(#dx,<,0.1,0,1)

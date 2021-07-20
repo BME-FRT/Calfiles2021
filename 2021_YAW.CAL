@@ -1,4 +1,4 @@
-;last modified 2021. 05. 02. 17:10:55 by pungorpeter    (1)
+;last modified 6/8/2021 8:50:38 PM by bekes    (48)
 
 [2021_Yaw]
 
@@ -12,11 +12,8 @@ c_radius=F(#c_radius,F(AVG 20))
 c_radius=Set(Dim='m')
 c_radius=Limit(#c_radius, -100, 100)
 
-/////
-
-Wheel_Angle_Real=*(#Steering_Angle_1,1)
-Wheel_Angle_Real=/(#Wheel_Angle_Real,Parameters.STEERING_RATIO)
-Wheel_Angle_Real=/(#Wheel_Angle_Real,2)
+////
+Wheel_Angle_Real=/(#Steering_Angle_1,Parameters.STEERING_RATIO)
 
 Wheel_Angle_Virtual=/(Parameters.WHEELBASE,#c_radius)    // Wheel_Angle_Virtual=ArcTan(Wheelbase/c_radius)
 Wheel_Angle_Virtual=ArcTan(#Wheel_Angle_Virtual)
@@ -76,3 +73,19 @@ Delete(#Mz_1)
 Delete(#Mz_2)
 Delete(#Mz_3)
 Delete(#Mz_4)
+
+[Yaw_rate_des]
+k_us_v2=/(#E_Kinetic, 22.8)
+tmp = *(#k_us_v2,Parameters.BIAS)
+tmp = *(#tmp,2)
+k_us_v2 = -(#tmp,#k_us_v2)
+Yaw_Rate_Desired = +(Parameters.WHEELBASE, #k_us_v2)
+Yaw_Rate_Desired = /(#VehicleSpeed, #Yaw_Rate_Desired)
+Yaw_Rate_Desired = *(#Wheel_Angle_Real, #Yaw_Rate_Desired)
+Yaw_Rate_Desired = *(#Yaw_Rate_Desired , 0.5)
+Yaw_Rate_Desired = Set(DIM='°/s')
+
+//Delete(#k_us_v2)
+Delete(#tmp)
+
+Yaw_Rate_Error = -(#Yaw_Rate_Desired,#Yaw_Rate_Rear)
