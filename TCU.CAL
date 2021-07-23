@@ -1,4 +1,4 @@
-;last modified 7/20/2021 9:09:12 PM by bekes    (1)
+;last modified 7/20/2021 11:25:39 PM by bekes    (17)
 
 [TCU]
 
@@ -16,10 +16,17 @@ Power_Max = *(#Power_Max ,1000)
 
 Yaw_Control_ON = And(#TCU_Status_12_32BIT,0x0100)
 Yaw_Control_ON = /(#Yaw_Control_ON,0x0100)
+Powlim_Torque_ON = And(#TCU_Status_12_32BIT,0x0400)
+Powlim_Torque_ON = /(#Powlim_Torque_ON ,0x0400)
+Powlim_Throttle_ON = And(#TCU_Status_12_32BIT,0x0800)
+Powlim_Throttle_ON = /(#Powlim_Throttle_ON ,0x0800)
+Powlim_Hardcore_ON = And(#TCU_Status_12_32BIT,0x1000)
+Powlim_Hardcore_ON = /(#Powlim_Hardcore_ON,0x1000)
 Car_Standing = And(#TCU_Status_12_32BIT,0x2000)
 Car_Standing = /(#Car_Standing,0x2000)
 Safety_Mode_ON = And(#TCU_Status_12_32BIT,0x4000)
 Safety_Mode_ON = /(#Safety_Mode_ON,0x4000)
+
 
 Fz_TCU_FL = And(#TCU_Status_32_32_BIT, 0xFF000000)
 Fz_TCU_FL = /(#Fz_TCU_FL, 0x01000000)
