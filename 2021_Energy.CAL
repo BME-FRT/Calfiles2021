@@ -1,4 +1,4 @@
-;last modified 2021. 04. 18. 17:36:35 by pungorpeter    (1)
+;last modified 07/09/2021 19:21:54 by pungorpeter    (43)
 
 [2021_Energy]
 
@@ -41,19 +41,23 @@ Delete(#P_Regenerative_EM)
 
 [Rolling Resistance]
 
-P_downforce=Power(#VS,3)
-P_downforce=*(#P_downforce,Parameters.C_L)
-P_downforce=*(#P_downforce,Parameters.AREA)
-P_downforce=*(#P_downforce,1.225)         //air density
-P_downforce=*(#P_downforce,Parameters.ROLLING_COEFFICIENT)
-P_downforce=*(#P_downforce,#VS)
-P_RollRes=*(0.08829,#VS)
-P_RollRes=+(#P_RollRes,#P_downforce)
+P_RollRes=Power(#VS,2)
+P_RollRes=*(#P_RollRes,Parameters.C_L)
+P_RollRes=*(#P_RollRes,Parameters.AREA)
+P_RollRes=*(#P_RollRes,1.225)         //air density
+P_RollRes=*(#P_RollRes,0.5)
+P_d1=Const(1,200)
+P_d1=*(#P_d1,Parameters.MASS)
+P_d1=*(#P_d1,9.81)
+P_RollRes=+(#P_RollRes,#P_d1)
+P_RollRes=*(#P_RollRes,Parameters.ROLLING_COEFFICIENT)
+P_RollRes=*(#P_RollRes,#VS)
+Delete(#P_d1)
+
 //P_RollRes=If(#Throttle_Position_1,>,4,#P_RollRes,0)            //Szucsnek
 E_RollRes=Integrate(#P_RollRes,0)
 E_RollRes=/(#E_RollRes,1000)
 E_RollRes=Set(Dim='kJ')
-Delete(#P_downforce)
 
 [Drag]
 
@@ -62,7 +66,7 @@ P_Drag=Power(#VS,3)
 P_Drag=*(#P_Drag,Parameters.C_D)
 P_Drag=*(#P_Drag,Parameters.AREA)
 P_Drag=*(#P_Drag,1.225)
-P_Drag=/(#P_Drag,1000)
+P_Drag=/(#P_Drag,2000)       //(2*1000)
 P_Drag=Set(Dim='kW')
 E_Drag=Integrate(#P_Drag,0)
 Delete(#VS)

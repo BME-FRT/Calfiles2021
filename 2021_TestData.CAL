@@ -1,4 +1,4 @@
-;last modified 2021. 05. 28. 12:33:17 by pungorpeter    (74)
+;last modified 2021. 07. 20. 21:24:52 by pungorpeter    (39)
 
 [2021_TestData]
 
@@ -44,7 +44,7 @@ INT_Coast=Set(Dim='s/m)
 Throttle=+(#Throttle_Position_1,#Throttle_Position_2)
 Throttle=/(#Throttle,2)
 INT_Throttle=Integrate(#Throttle,0)
-INT_Throttle=/(#Throttle,Parameters.CIRCUIT_LENGTH)
+INT_Throttle=/(#INT_Throttle,Parameters.CIRCUIT_LENGTH)
 INT_Throttle=Set(Dim='%*s/m')
 Delete(#Throttle)
 

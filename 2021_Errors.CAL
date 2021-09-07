@@ -1,4 +1,4 @@
-;last modified 2021. 04. 21. 11:37:47 by pungorpeter    (1)
+;last modified 2021. 07. 29. 0:39:43 by pungorpeter    (29)
 
 [2021_Errors]
 
@@ -11,6 +11,9 @@ Interlock=And(#MCU_Support_Status,0x00008000)
 Interlock=/(#Interlock,32768)
 KS=And(#MCU_Support_Status,0x00010000)
 KS=/(#KS,65536)
+
+SC_State=And(#PDM_Status_1_32BIT,0x00200000)
+SC_State=/(#SC_State,2097152)
 
 ///// 1, ha kevesebb, mint 3400 mV
 ERROR_HV_Cell_Voltage_Critical=If(#HV_Cell_Voltage_Critical,<,3400,1,0)

@@ -1,4 +1,4 @@
-;last modified 2021. 04. 21. 11:54:54 by pungorpeter    (20)
+;last modified 2021. 08. 05. 19:46:41 by pungorpeter    (1)
 
 [2021_HV]
 
@@ -7,12 +7,12 @@ HV_Accumulator_Cell_ID = /(#HV_Accumulator_Cell_ID,256)
 
 HV_Cell_Voltage_Validity = If(#HV_Cell_Voltage,>,3000,1,0)
 HV_Cell_Voltage_Validity = FillFromBool(#HV_Cell_Voltage,#HV_Cell_Voltage_Validity)
-HV_Cell_Voltage_Critical = F(#HV_Cell_Voltage_Validity, F(Min 0.84 Sec))
+HV_Cell_Voltage_Critical = F(#HV_Cell_Voltage_Validity, F(Min 144))
 Delete(#HV_Cell_Voltage_Validity)
 
 HV_Cell_Temperature_Validity = If(#HV_Cell_Temperature,<,60,1,0)
 HV_Cell_Temperature_Validity = FillFromBool(#HV_Cell_Temperature,#HV_Cell_Temperature_Validity)
-HV_Cell_Temperature_Critical = F(#HV_Cell_Temperature_Validity, F(Max 0.84 Sec))
+HV_Cell_Temperature_Critical = F(#HV_Cell_Temperature_Validity, F(Max 144))
 Delete(#HV_Cell_Temperature_Validity)
 
 /////
