@@ -1,12 +1,21 @@
-;last modified 2022. 04. 12. 15:16:13 by pungorpeter    (29)
+;last modified 2022. 04. 12. 20:16:32 by pungorpeter    (29)
 
 [2022_Brake]
 
+Brake_Force_Validity = And(#Brake_SC_endline_2_32BIT, 0x00000100)
+Brake_Force_Validity = /(#Brake_Force_Validity, 256)
+
+{
 Brake_Force_Sensorlb = And(#Brake_SC_endline_1_32BIT, 0xFF000000)
 Brake_Force_Sensorlb = /(#Brake_Force_Sensorlb, 16777216)
 Brake_Force_Sensorhb = And(#Brake_SC_endline_1_32BIT, 0x00FF0000)
 Brake_Force_Sensorhb = /(#Brake_Force_Sensorhb, 65536 )
 Brake_Force_Sensor = +(#Brake_Force_Sensorlb, #Brake_Force_Sensorhb)
+Brake_Force_Sensor = Set(DIM = 'N')
+}
+
+Brake_Force_Sensor = And(#Brake_SC_endline_1_32BIT, 0xFFFF0000)
+Brake_Force_Sensor = /(#Brake_Force_Sensor, 65536)
 Brake_Force_Sensor = Set(DIM = 'N')
 
 //
@@ -15,10 +24,15 @@ Brake_Pr_Front_Validity = And(#Brake_SC_endline_2_32BIT, 0x00000200)
 Brake_Pr_Front_Validity = /(#Brake_Pr_Front_Validity, 512)
 Brake_Pr_Front_Validity = Set(DIM = 'bool')
 
+{
 Brake_Pr_Frontlb = And(#Brake_SC_endline_1_32BIT, 0x0000FF00)
 Brake_Pr_Frontlb = /(#Brake_Pr_Frontlb, 256)
 Brake_Pr_Fronthb = And(#Brake_SC_endline_32BIT, 0x000000FF)
 Brake_Pressure_Front = +(#Brake_Pr_Frontlb, #Brake_Pr_Fronthb)
+Brake_Pressure_Front = Set(DIM = 'bar')
+}
+
+Brake_Pressure_Front = And(#Brake_SC_endline_1_32BIT, 0x0000FFFF)
 Brake_Pressure_Front = Set(DIM = 'bar')
 
 //
@@ -27,20 +41,26 @@ Brake_Pr_Rear_Validity = And(#Brake_SC_endline_2_32BIT, 0x00000400)
 Brake_Pr_Rear_Validity = /(#Brake_Pr_Rear_Validity, 1024)
 Brake_Pr_Rear_Validity = Set(DIM = 'bool')
 
+{
 Brake_Pr_Rearlb = And(#Brake_SC_endline_2_32BIT, 0xFF000000)
 Brake_Pr_Rearlb = /(#Brake_Pr_Rearlb, 16777216)
 Brake_Pr_Rearhb = And(#Brake_SC_endline_2_32BIT, 0x00FF0000)
 Brake_Pr_Rearhb = /(#Brake_Pr_Rearhb, 65536)
 Brake_Pressure_Rear = +(#Brake_Pr_Rearlb, #Brake_Pr_Rearhb)
 Brake_Pressure_Rear = Set(DIM = 'bar')
+}
+
+Brake_Pressure_Rear = And(#Brake_SC_endline_2_32BIT, 0xFFFF0000)
+Brake_Pressure_Rear = /(#Brake_Pressure_Rear, 65536)
+Brake_Pressure_Rear = Set(DIM = 'bar')
 
 //
-Delete(#Brake_Force_Sensorlb)
-Delete(#Brake_Force_Sensorhb)
-Delete(#Brake_Pr_Frontlb)
-Delete(#Brake_Pr_Fronthb)
-Delete(#Brake_Pr_Rearlb)
-Delete(#Brake_Pr_Rearlb)
+;Delete(#Brake_Force_Sensorlb)
+;Delete(#Brake_Force_Sensorhb)
+;Delete(#Brake_Pr_Frontlb)
+;Delete(#Brake_Pr_Fronthb)
+;Delete(#Brake_Pr_Rearlb)
+;Delete(#Brake_Pr_Rearlb)
 
 [Forces]
 
