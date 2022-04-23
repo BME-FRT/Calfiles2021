@@ -1,4 +1,4 @@
-;last modified 2022. 04. 23. 22:30:42 by pungorpeter    (157)
+;last modified 2022. 04. 23. 22:32:35 by pungorpeter    (60)
 
 [2021_TestData]
 
@@ -49,7 +49,7 @@ INT_Throttle=Set(Dim='%*s/m')
 Delete(#Throttle)
 
 [INT_Brake_Force]
-INT_Brake_Force=Integrate(#BrakeForce,0)
+INT_Brake_Force=Integrate(#Brake_Force_Sensor,0)
 INT_Brake_Force=/(#INT_Brake_Force,Parameters.CIRCUIT_LENGTH)
 INT_Brake_Force=Set(DIM='N*s/m')
 
@@ -71,13 +71,13 @@ INT_Throttle_Steering=Set(Dim='°*%*s/m)
 
 [INT_Brake_Steering]
 
-st1=If(#BrakeForce,>,50,1,0)
+st1=If(#Brake_Force_Sensor,>,50,1,0)
 st2=Abs(#Steering_Angle_1)
 st3=If(#st2,>,30,1,0)
 
 st3=+(#st1,#st3)
 st3=If(#st3,=,2,1,0)
-Br_St=*(#st2,#BrakeForce)
+Br_St=*(#st2,#Brake_Force_Sensor)
 Brake_Steering=FillFromBool(#Br_St,#st3)
 INT_Brake_Steering=Integrate(#Brake_Steering,0)
 INT_Brake_Steering=/(#INT_Brake_Steering,Parameters.CIRCUIT_LENGTH)

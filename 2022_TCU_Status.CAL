@@ -1,4 +1,4 @@
-;last modified 4/23/2022 2:54:00 AM by olahb    (1)
+;last modified 2022. 04. 23. 22:02:01 by pungorpeter    (1)
 
 [TCU_Status_2022]
 
@@ -34,8 +34,8 @@ Yaw_Control_P=*(#Yaw_Control_P,100)
 btc_Error=And(#TCU_Status_12_32BIT, 0x8000)
 btc_Error=/(#btc_Error, 0x1000)
 
-Safety_Mode = And(#TCU_Status_12_32BIT, 0x4000)
-Safety_Mode = /(#Safety_Mode_ON, 0x1000)
+Safety_Mode_ON = And(#TCU_Status_12_32BIT, 0x4000)
+Safety_Mode_ON = /(#Safety_Mode_ON, 0x1000)
 
 Car_Standing = And(#TCU_Status_12_32BIT, 0x2000)
 Car_Standing = /(#Car_Standing, 0x1000)
@@ -197,18 +197,6 @@ Slip_Control_D=And(#TCU_Status_51_32BIT, 0x0000000F)
 Slip_Control_I=/(#Slip_Control_I, 25)
 
 Optimal_Slip=And(#TCU_Status_52_32BIT, 0xFF000000)
-Optimal_Slip=/(#TOptimal_Slip, 0x01000000)
+Optimal_Slip=/(#Optimal_Slip, 0x01000000)
 
-//______________________________________________________________________________
-//Miscellaneous
-//v_x=And(#TCU_Status_31_32BIT, 0xFF000000)
-//v_x=/(#v_x, 0x01000000)
-//v_x=/(#v_x, 50)
-
-dy =-(#Acceleration_Y_Front,#Acceleration_Y_Rear)
-dy = Abs(#dy)
-//dy = If(#dy,<,0.22,0,1)
-dx =-(#Acceleration_X_Front,#Acceleration_X_Rear)
-dx = Abs(#dx)
-//dx = If(#dx,<,0.1,0,1)
 
