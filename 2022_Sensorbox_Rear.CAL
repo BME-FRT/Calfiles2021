@@ -1,4 +1,4 @@
-;last modified 2022. 04. 23. 12:31:57 by pungorpeter    (17)
+;last modified 2022. 04. 23. 14:50:48 by pungorpeter    (3)
 
 [2022_Sensorbox_Rear]
 
@@ -31,7 +31,7 @@ Acceleration_Y_Rear_Filtered=F(#Acceleration_Y_Rear, F(AVG 0.2 Sec))
 
 [Yaw_Rate_Rear_Filtered]
 
-Yaw_Rate_Rear_Filtered=F(#Yaw_Rate_Front, F(AVG 0.2 Sec))
+Yaw_Rate_Rear_Filtered=F(#Yaw_Rate_Rear, F(AVG 0.2 Sec))
 
 [v_y]
 

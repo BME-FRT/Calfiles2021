@@ -1,4 +1,4 @@
-;last modified 2022. 04. 12. 20:16:32 by pungorpeter    (29)
+;last modified 2022. 04. 23. 14:26:53 by pungorpeter    (1)
 
 [2022_Brake]
 
@@ -27,13 +27,14 @@ Brake_Pr_Front_Validity = Set(DIM = 'bool')
 {
 Brake_Pr_Frontlb = And(#Brake_SC_endline_1_32BIT, 0x0000FF00)
 Brake_Pr_Frontlb = /(#Brake_Pr_Frontlb, 256)
-Brake_Pr_Fronthb = And(#Brake_SC_endline_32BIT, 0x000000FF)
+Brake_Pr_Fronthb = And(#Brake_SC_endline_1_32BIT, 0x000000FF)
 Brake_Pressure_Front = +(#Brake_Pr_Frontlb, #Brake_Pr_Fronthb)
 Brake_Pressure_Front = Set(DIM = 'bar')
 }
 
 Brake_Pressure_Front = And(#Brake_SC_endline_1_32BIT, 0x0000FFFF)
 Brake_Pressure_Front = Set(DIM = 'bar')
+
 
 //
 
@@ -54,13 +55,16 @@ Brake_Pressure_Rear = And(#Brake_SC_endline_2_32BIT, 0xFFFF0000)
 Brake_Pressure_Rear = /(#Brake_Pressure_Rear, 65536)
 Brake_Pressure_Rear = Set(DIM = 'bar')
 
+
 //
-;Delete(#Brake_Force_Sensorlb)
-;Delete(#Brake_Force_Sensorhb)
-;Delete(#Brake_Pr_Frontlb)
-;Delete(#Brake_Pr_Fronthb)
-;Delete(#Brake_Pr_Rearlb)
-;Delete(#Brake_Pr_Rearlb)
+{
+Delete(#Brake_Force_Sensorlb)
+Delete(#Brake_Force_Sensorhb)
+Delete(#Brake_Pr_Frontlb)
+Delete(#Brake_Pr_Fronthb)
+Delete(#Brake_Pr_Rearlb)
+Delete(#Brake_Pr_Rearlb)
+}
 
 [Forces]
 
