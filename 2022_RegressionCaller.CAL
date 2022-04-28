@@ -1,0 +1,39 @@
+;last modified 2022. 04. 29. 0:23:26 by pungorpeter    (1)
+
+[2022_RegressionCaller]
+
+{Ezzel a calfile-lal lehet meghívni a 2021_Regression.CAL-t.
+Lineáris regressziót hajt végre}
+
+
+//a Const 1. argumentumába írd be, ha van mértékegység-converzió. Ha nincs, akkor 1-et írj be.
+conv1=Const(1,200)
+conv2=Const(1,200)
+conv3=Const(1,200)
+
+
+{A 'P' argumentumának 1. eleme -> x tengely
+                      2. eleme -> y tengely
+                      3. eleme -> ez lesz a kiszámolt értéked, egyenes meredeksége
+                      4. eleme -> ' ' közé hogy szép mértékegység legyen
+                      5. eleme -> ofszet; ennyivel van eltolva az egyenes az origóból
+                      6. eleme -> mértékegység-konverzió
+}
+{$I 2021_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Front,Roll_Gradient_Front,'deg/G',Roll_offsetF,conv1)}
+{$I 2021_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Rear,Roll_Gradient_Rear,'deg/G',Roll_offsetR,conv1)}
+{$I 2021_Regression.CAL, P(Acceleration_X_Rear,Pitch_Angle,Pitch_Gradient,'deg/G',Pitch_offset,conv2)}
+{$I 2021_Regression.CAL, P(DamperPos_FL,Fz_1,Damper_Stiffness_1,'N/mm',Damper_offset1,conv3)}
+{$I 2021_Regression.CAL, P(DamperPos_FR,Fz_2,Damper_Stiffness_2,'N/mm',Damper_offset2,conv3)}
+{$I 2021_Regression.CAL, P(DamperPos_RL,Fz_3,Damper_Stiffness_3,'N/mm',Damper_offset3,conv3)}
+{$I 2021_Regression.CAL, P(DamperPos_RR,Fz_4,Damper_Stiffness_4,'N/mm',Damper_offset4,conv3)}
+;{$I 2021_Regression.CAL P( , , ,'', ,conv)}
+
+
+
+
+//Calculate!
+
+Delete(#conv1)
+Delete(#conv2)
+Delete(#conv3)
+

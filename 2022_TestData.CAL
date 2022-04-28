@@ -1,6 +1,6 @@
-;last modified 2022. 04. 23. 22:32:35 by pungorpeter    (60)
+;last modified 2022. 04. 29. 0:27:25 by pungorpeter    (185)
 
-[2021_TestData]
+[2022_TestData]
 
 [if]
 {$IfNotExists(#E_Kinetic) 2021_Energy.CAL}
@@ -166,7 +166,7 @@ INT_SlipRatio_4_Braking=*(#INT_SlipRatio_4_Braking,100)
 INT_SlipRatio_4_Braking=Set(Dim='s/m')
 
 [OS_US]
-INT_OS_US=/(#AccY_Front_Converted,#VehicleSpeed)
+INT_OS_US=/(#Acceleration_Y_Rear,#VehicleSpeed)
 INT_OS_US=*(2023.5,#INT_OS_US)                      //const=3.6*180/PI*g
 INT_OS_US=/(#Yaw_Rate_Rear,#INT_OS_US)
 INT_OS_US=-(#INT_OS_US,1)
@@ -213,5 +213,5 @@ INT_Id3=Integrate(#INT_Id3,0)
 INT_Id4=Abs(#Id4)
 INT_Id4=Integrate(#INT_Id4,0)
 
-{$IfNotExists(#AccX_Front_Converted) gyorsulasszamolo.CAL}
-{$IfNotExists(#Roll_Gradient_Rear) 2021_RegressionCaller.CAL}
+;{$IfNotExists(#AccX_Front_Converted) gyorsulasszamolo.CAL}
+{$IfNotExists(#Roll_Gradient_Rear) 2022_RegressionCaller.CAL}
