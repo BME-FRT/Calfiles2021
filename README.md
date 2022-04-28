@@ -31,6 +31,6 @@ CalcMileage
 2022_Damper 
 2022_FZ_i 
 2021_SlipRatio 
-2022_YAW
 2021_Energy 
+2022_YAW
 2022_TestData
