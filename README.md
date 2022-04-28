@@ -19,7 +19,7 @@ CalcMileage
 2021_Energy 
 2021_TestData
 
-Javasolt autocalc sorrend a 2021-es calfileok egy részéhez:
+Javasolt autocalc sorrend a 2022-es calfileok egy részéhez:
 
 CalcMileage
 2021_Sensorbox_Rear 
