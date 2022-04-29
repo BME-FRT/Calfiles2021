@@ -1,12 +1,13 @@
-;last modified 2022. 04. 23. 14:58:45 by pungorpeter    (1)
+;last modified 2022. 04. 29. 2:37:50 by pungorpeter    (1)
 
-[2021_Speed]
+[2022_Speed]
 
 /////Velocity
 
 V_GPS_corrected=Shift(#V_GPS,-0.2 Sec)        //GPS késése miatti eltolás
 v_x=And(#DynamicState_1_32BIT, 0xFF000000)      //vdc model estimation
 v_x=/(#v_x, 16777216)
+v_x=/(#v_x, 5)
 
 [WheelSpeed_1]
 

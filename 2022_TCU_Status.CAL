@@ -1,4 +1,4 @@
-;last modified 2022. 04. 23. 22:02:01 by pungorpeter    (1)
+;last modified 2022. 04. 29. 2:58:15 by pungorpeter    (29)
 
 [TCU_Status_2022]
 
@@ -35,7 +35,7 @@ btc_Error=And(#TCU_Status_12_32BIT, 0x8000)
 btc_Error=/(#btc_Error, 0x1000)
 
 Safety_Mode_ON = And(#TCU_Status_12_32BIT, 0x4000)
-Safety_Mode_ON = /(#Safety_Mode_ON, 0x1000)
+Safety_Mode_ON = /(#Safety_Mode_ON, 0x3000)
 
 Car_Standing = And(#TCU_Status_12_32BIT, 0x2000)
 Car_Standing = /(#Car_Standing, 0x1000)

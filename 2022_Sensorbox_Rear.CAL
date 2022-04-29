@@ -1,4 +1,4 @@
-;last modified 2022. 04. 23. 14:50:48 by pungorpeter    (3)
+;last modified 2022. 04. 29. 2:53:41 by pungorpeter    (1)
 
 [2022_Sensorbox_Rear]
 
@@ -6,22 +6,21 @@
 
 Yaw_Rate_Rear=And(#DynamicState_2_32BIT,0x0000FFFF)
 Yaw_Rate_Rear=-(#Yaw_Rate_Rear,0x8000)
-Yaw_Rate_Rear=*(#Yaw_Rate_Rear,0.005)
-Yaw_Rate_Rear= Set(DIM = '°/s')
+Yaw_Rate_Rear=*(#Yaw_Rate_Rear,0.0001)
+Yaw_Rate_Rear= Set(DIM = 'rad/s')
 
 [Acceleration_X_Rear]
 
 Acceleration_X_Rear =And(#DynamicState_1_32BIT, 0x0000FFFF)
 Acceleration_X_Rear =-(#Acceleration_X_Rear, 0x8000)
-Acceleration_X_Rear = *(#Acceleration_X_Rear, -0.0001274)
+Acceleration_X_Rear = *(#Acceleration_X_Rear, 0.000101937)  // scalingfactor /9.81
 Acceleration_X_Rear =Set(DIM = 'g')
 
 [Acceleration_Y_Rear]
 
-Acceleration_Y_Rear=And(#DynamicState_2_32BIT, 0xFFFF0000)
-Acceleration_Y_Rear=/(#Acceleration_Y_Rear, 65536)
+Acceleration_Y_Rear=And(#DynamicState_2_32BIT, 0x0000FFFF)
 Acceleration_Y_Rear=-(#Acceleration_Y_Rear, 0x8000)
-Acceleration_Y_Rear= *(#Acceleration_Y_Rear, -0.0001274)
+Acceleration_Y_Rear= *(#Acceleration_Y_Rear, 0.000101937)
 Acceleration_Y_Rear= Set(DIM = 'g')
 
 [Acceleration_Rear_Filtered]
@@ -38,7 +37,7 @@ Yaw_Rate_Rear_Filtered=F(#Yaw_Rate_Rear, F(AVG 0.2 Sec))
 v_y=And(#DynamicState_1_32BIT, 0x00FF0000)
 v_y=/(#v_y, 16777216)
 v_y=-(#v_y, 0x80)
-
+v_y=/(#v_y, 10)
 
 
 
