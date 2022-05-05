@@ -1,4 +1,4 @@
-;last modified 5/4/2022 9:50:52 PM by olahb    (106)
+;last modified 2022. 05. 05. 23:37:58 by pungorpeter    (130)
 
 [2022_SSGStatus]
 
@@ -135,7 +135,7 @@ HVECU_Heartbeat_error = And(#SSG_Status_12_32BIT, 0x00000100)
 HVECU_Heartbeat_error = /(#HVECU_Heartbeat_error, 0x00000100)
 
 PPS1 = And(#SSG_Status_12_32BIT, 0x000000FF)
-PPS1 = *(#PPS1, 10)
+PPS1 = /(#PPS1, 10)
 
 [SSGStatus2]
 
@@ -218,7 +218,7 @@ SC_DV_RELAY_FB = /(#SC_DV_RELAY_FB, 0x00010000)
 
 PPS2 = And(#SSG_Status_22_32BIT, 0x0000FF00)
 PPS2 = /(#PPS2, 0x00000100)
-PPS2 = *(#PPS2, 10)
+PPS2 = /(#PPS2, 10)
 
 SSG_Heartbeat = And(#SSG_Status_22_32BIT, 0x000000FF)
 
