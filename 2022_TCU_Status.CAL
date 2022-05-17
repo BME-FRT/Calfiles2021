@@ -1,4 +1,4 @@
-;last modified 2022. 04. 29. 2:58:15 by pungorpeter    (29)
+;last modified 2022. 05. 14. 23:14:18 by pungorpeter    (29)
 
 [TCU_Status_2022]
 
@@ -29,16 +29,16 @@ Drop_Parameter=/(#Drop_Parameter, 20)
 
 Yaw_Control_P=And(#TCU_Status_12_32BIT, 0x00FF0000)
 Yaw_Control_P=/(#Yaw_Control_P,65536)
-Yaw_Control_P=*(#Yaw_Control_P,100)
+Yaw_Control_P=*(#Yaw_Control_P,25)
 
 btc_Error=And(#TCU_Status_12_32BIT, 0x8000)
-btc_Error=/(#btc_Error, 0x1000)
+btc_Error=/(#btc_Error, 0x8000)
 
 Safety_Mode_ON = And(#TCU_Status_12_32BIT, 0x4000)
-Safety_Mode_ON = /(#Safety_Mode_ON, 0x3000)
+Safety_Mode_ON = /(#Safety_Mode_ON, 0x4000)
 
 Car_Standing = And(#TCU_Status_12_32BIT, 0x2000)
-Car_Standing = /(#Car_Standing, 0x1000)
+Car_Standing = /(#Car_Standing, 0x2000)
 
 Powlim_Hardcore_ON=And(#TCU_Status_12_32BIT, 0x00001000)
 Powlim_Hardcore_ON=/(#Powlim_Hardcore_ON,4096)   //be van kapcsolva, nem azt jelenti, hogy épp aktív
@@ -174,7 +174,6 @@ Throttle_Breakpoint=/(#Throttle_Breakpoint, 256)
 Throttle_Breakpoint=/(#Throttle_Breakpoint, 5)
 
 Target_SoC=And(#TCU_Status_44_16BIT, 0x00FF)
-Target_SoC=/(#Target_SoC, 500)
 
 //______________________________________________________________________________
 //TCU_Status5

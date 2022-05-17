@@ -1,7 +1,7 @@
 # Calfiles2021
 Earlier calfiles reviewed, corrected
+2D_GPSAuto.CCF is legyen bepipálva a felső mezőben.
 
-2D_GPSAuto.CCF is legyen bepioőáva a felső mezőben.
 
 Javasolt autocalc sorrend a 2021-es calfileok egy részéhez:
 CalcMileage 
@@ -22,7 +22,7 @@ CalcMileage
 Javasolt autocalc sorrend a 2022-es calfileok egy részéhez:
 
 CalcMileage
-2021_Sensorbox_Rear 
+2022_Sensorbox_Rear 
 2021_AMK 
 2021_HV 
 2022_Throttle_Steering 

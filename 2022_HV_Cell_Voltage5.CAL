@@ -1,0 +1,129 @@
+;last modified 2022. 05. 15. 19:17:18 by pungorpeter    (1)
+
+[2022_HV_Cell_Voltage5]
+
+/////Run 2021_HV first
+[if]
+{$IfNotExists(#HV_Accumulator_Cell_ID) 2021_HV.CAL}
+
+[Cells]
+
+IsID_S5M1C1 = If(#HV_Accumulator_Cell_ID, =, 104, 1, 0)
+HV_Cell_Voltage_S5M1C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M1C1)
+HV_Cell_Voltage_S5M1C1 = Set(DIM, mV)
+Delete(IsID_S5M1C1)
+
+IsID_S5M1C2 = If(#HV_Accumulator_Cell_ID, =, 105, 1, 0)
+HV_Cell_Voltage_S5M1C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M1C2)
+HV_Cell_Voltage_S5M1C2 = Set(DIM, mV)
+Delete(IsID_S5M1C2)
+
+IsID_S5M1C3 = If(#HV_Accumulator_Cell_ID, =, 106, 1, 0)
+HV_Cell_Voltage_S5M1C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M1C3)
+HV_Cell_Voltage_S5M1C3 = Set(DIM, mV)
+Delete(IsID_S5M1C3)
+
+IsID_S5M1C4 = If(#HV_Accumulator_Cell_ID, =, 107, 1, 0)
+HV_Cell_Voltage_S5M1C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M1C4)
+HV_Cell_Voltage_S5M1C4 = Set(DIM, mV)
+Delete(IsID_S5M1C4)
+
+IsID_S5M2C1 = If(#HV_Accumulator_Cell_ID, =, 108, 1, 0)
+HV_Cell_Voltage_S5M2C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M2C1)
+HV_Cell_Voltage_S5M2C1 = Set(DIM, mV)
+Delete(IsID_S5M2C1)
+
+IsID_S5M2C2 = If(#HV_Accumulator_Cell_ID, =, 109, 1, 0)
+HV_Cell_Voltage_S5M2C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M2C2)
+HV_Cell_Voltage_S5M2C2 = Set(DIM, mV)
+Delete(IsID_S5M2C2)
+
+IsID_S5M2C3 = If(#HV_Accumulator_Cell_ID, =, 110, 1, 0)
+HV_Cell_Voltage_S5M2C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M2C3)
+HV_Cell_Voltage_S5M2C3 = Set(DIM, mV)
+Delete(IsID_S5M2C3)
+
+IsID_S5M2C4 = If(#HV_Accumulator_Cell_ID, =, 111, 1, 0)
+HV_Cell_Voltage_S5M2C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M2C4)
+HV_Cell_Voltage_S5M2C4 = Set(DIM, mV)
+Delete(IsID_S5M2C4)
+
+IsID_S5M3C1 = If(#HV_Accumulator_Cell_ID, =, 112, 1, 0)
+HV_Cell_Voltage_S5M3C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M3C1)
+HV_Cell_Voltage_S5M3C1 = Set(DIM, mV)
+Delete(IsID_S5M3C1)
+
+IsID_S5M3C2 = If(#HV_Accumulator_Cell_ID, =, 113, 1, 0)
+HV_Cell_Voltage_S5M3C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M3C2)
+HV_Cell_Voltage_S5M3C2 = Set(DIM, mV)
+Delete(IsID_S5M3C2)
+
+IsID_S5M3C3 = If(#HV_Accumulator_Cell_ID, =, 114, 1, 0)
+HV_Cell_Voltage_S5M3C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M3C3)
+HV_Cell_Voltage_S5M3C3 = Set(DIM, mV)
+Delete(IsID_S5M3C3)
+
+IsID_S5M3C4 = If(#HV_Accumulator_Cell_ID, =, 115, 1, 0)
+HV_Cell_Voltage_S5M3C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M3C4)
+HV_Cell_Voltage_S5M3C4 = Set(DIM, mV)
+Delete(IsID_S5M3C4)
+
+IsID_S5M4C1 = If(#HV_Accumulator_Cell_ID, =, 117, 1, 0)
+HV_Cell_Voltage_S5M4C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M4C1)
+HV_Cell_Voltage_S5M4C1 = Set(DIM, mV)
+Delete(IsID_S5M4C1)
+
+IsID_S5M4C2 = If(#HV_Accumulator_Cell_ID, =, 118, 1, 0)
+HV_Cell_Voltage_S5M4C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M4C2)
+HV_Cell_Voltage_S5M4C2 = Set(DIM, mV)
+Delete(IsID_S5M4C2)
+
+IsID_S5M4C3 = If(#HV_Accumulator_Cell_ID, =, 119, 1, 0)
+HV_Cell_Voltage_S5M4C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M4C3)
+HV_Cell_Voltage_S5M4C3 = Set(DIM, mV)
+Delete(IsID_S5M4C3)
+
+IsID_S5M4C4 = If(#HV_Accumulator_Cell_ID, =, 120, 1, 0)
+HV_Cell_Voltage_S5M4C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M4C4)
+HV_Cell_Voltage_S5M4C4 = Set(DIM, mV)
+Delete(IsID_S5M4C4)
+
+IsID_S5M5C1 = If(#HV_Accumulator_Cell_ID, =, 121, 1, 0)
+HV_Cell_Voltage_S5M5C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M5C1)
+HV_Cell_Voltage_S5M5C1 = Set(DIM, mV)
+Delete(IsID_S5M5C1)
+
+IsID_S5M5C2 = If(#HV_Accumulator_Cell_ID, =, 122, 1, 0)
+HV_Cell_Voltage_S5M5C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M5C2)
+HV_Cell_Voltage_S5M5C2 = Set(DIM, mV)
+Delete(IsID_S5M5C2)
+
+IsID_S5M5C3 = If(#HV_Accumulator_Cell_ID, =, 123, 1, 0)
+HV_Cell_Voltage_S5M5C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M5C3)
+HV_Cell_Voltage_S5M5C3 = Set(DIM, mV)
+Delete(IsID_S5M5C3)
+
+IsID_S5M5C4 = If(#HV_Accumulator_Cell_ID, =, 124, 1, 0)
+HV_Cell_Voltage_S5M5C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M5C4)
+HV_Cell_Voltage_S5M5C4 = Set(DIM, mV)
+Delete(IsID_S5M5C4)
+
+IsID_S5M6C1 = If(#HV_Accumulator_Cell_ID, =, 125, 1, 0)
+HV_Cell_Voltage_S5M6C1 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M6C1)
+HV_Cell_Voltage_S5M6C1 = Set(DIM, mV)
+Delete(IsID_S5M6C1)
+
+IsID_S5M6C2 = If(#HV_Accumulator_Cell_ID, =, 126, 1, 0)
+HV_Cell_Voltage_S5M6C2 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M6C2)
+HV_Cell_Voltage_S5M6C2 = Set(DIM, mV)
+Delete(IsID_S5M6C2)
+
+IsID_S5M6C3 = If(#HV_Accumulator_Cell_ID, =, 127, 1, 0)
+HV_Cell_Voltage_S5M6C3 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M6C3)
+HV_Cell_Voltage_S5M6C3 = Set(DIM, mV)
+Delete(IsID_S5M6C3)
+
+IsID_S5M6C4 = If(#HV_Accumulator_Cell_ID, =, 128, 1, 0)
+HV_Cell_Voltage_S5M6C4 = FillFromBool(#HV_Cell_Voltage, #IsID_S5M6C4)
+HV_Cell_Voltage_S5M6C4 = Set(DIM, mV)
+Delete(IsID_S5M6C4)
