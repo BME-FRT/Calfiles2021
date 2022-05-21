@@ -1,0 +1,8 @@
+;last modified 2022. 05. 17. 0:32:17 by bekes    (1)
+
+[Xavier]
+
+Target_Speed = /(#Xavier_Setpoints_2_16BIT,1000)
+
+Target_Wheel_Angle = /(#Xavier_Setpoints_1_32BIT, 1000000)
+Target_Wheel_Angle = -(#Target_Wheel_Angle,10)
