@@ -1,4 +1,4 @@
-;last modified 2022. 05. 14. 23:14:18 by pungorpeter    (29)
+;last modified 2022. 05. 17. 22:36:54 by pungorpeter    (43)
 
 [TCU_Status_2022]
 
@@ -50,7 +50,7 @@ Powlim_Torque_ON=And(#TCU_Status_12_32BIT,0x00000400)
 Powlim_Torque_ON=/(#Powlim_Torque_ON,1024)
 
 Powlim_Efficiency_ON=And(#TCU_Status_12_32BIT, 0x200)
-Powlim_Efficiency_ON=/(#Powlim_Efficiency_ON, 0x100)
+Powlim_Efficiency_ON=/(#Powlim_Efficiency_ON, 0x200)
 
 Yaw_Control_ON = And(#TCU_Status_12_32BIT,0x0100)
 Yaw_Control_ON = /(#Yaw_Control_ON,0x0100)
@@ -59,7 +59,7 @@ Traction_Control_ON=And(#TCU_Status_12_32BIT,0x00000080)
 Traction_Control_ON=/(#Traction_Control_ON,128)
 
 Slip_Control_ON=And(#TCU_Status_12_32BIT, 0x40)
-Slip_Control_ON=/(#Slip_Control_ON, 0x10)
+Slip_Control_ON=/(#Slip_Control_ON, 0x40)
 
 Launch_Control_Enabled=And(#TCU_Status_12_32BIT, 0x20)
 Launch_Control_Enabled=/(#Launch_Control_Enabled, 0x10)
