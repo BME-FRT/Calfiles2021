@@ -1,4 +1,4 @@
-;last modified 2022. 04. 29. 2:03:39 by pungorpeter    (15)
+;last modified 2022. 05. 25. 12:24:44 by pungorpeter    (15)
 
 [2022_Throttle_Steering]
 
@@ -28,10 +28,12 @@ Throttle_Validity_2 = Set(DIM = 'bool')
 Steering_Angle_1 = And(#Throttle_Steering_1_32BIT, 0x0000FF00)
 Steering_Angle_1 = /(#Steering_Angle_1, 256)
 Steering_Angle_1 = -(#Steering_Angle_1,90)
+Steering_Angle_1 = *(#Steering_Angle_1, -1)
 Steering_Angle_1 = Set(DIM = '°')
 
 Steering_Angle_2 = And(#Throttle_Steering_1_32BIT, 0x000000FF)
 Steering_Angle_2 = -(#Steering_Angle_2,90)
+Steering_Angle_2 = *(#Steering_Angle_2, -1)
 Steering_Angle_2 = Set(DIM = '°')
 
 Steering_Plausibility = And(#Throttle_Steering_2_32BIT, 0x20000000)
