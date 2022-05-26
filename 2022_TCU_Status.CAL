@@ -1,4 +1,4 @@
-;last modified 2022. 05. 25. 12:34:02 by pungorpeter    (49)
+;last modified 2022. 05. 25. 18:02:40 by pungorpeter    (83)
 
 [TCU_Status_2022]
 
@@ -88,8 +88,8 @@ M_Yaw=And(#TCU_Status_21_32BIT, 0x00FF0000)
 M_Yaw=/(#M_Yaw, 0x00010000)
 M_Yaw=/(#M_Yaw, 20)
 
-Yaw_Control_Weight_Selector=And(#TCU_Status_21_32BIT, 0x00030000)
-Yaw_Control_Weight_Selector=/(#Yaw_Control_Weight_Selector, 0x00010000)
+Yaw_Control_Weight_Selector=And(#TCU_Status_21_32BIT, 0x0000C000)
+Yaw_Control_Weight_Selector=/(#Yaw_Control_Weight_Selector, 0x00004000)
 
 Yaw_Control_Balance=And(#TCU_Status_21_32BIT, 0x00003F00)
 Yaw_Control_Balance=/(#Yaw_Control_Balance,256)
@@ -116,7 +116,8 @@ Drop_Parameter_New=*(#Drop_Parameter_New, 0x00000100)
 
 Lateral_Balance=And(#TCU_Status_22_32BIT, 0x000000F0)
 Lateral_Balance=/(#Lateral_Balance, 16)
-Lateral_Balance=*(#Lateral_Balance, 50)
+Lateral_Balance=+(#Lateral_Balance, 45)
+Lateral_Balance=/(#Lateral_Balance, 50)
 
 MCU_State=And(#TCU_Status_22_32BIT, 0xC)
 MCU_State=/(#MCU_State, 4)
