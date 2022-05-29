@@ -1,4 +1,4 @@
-;last modified 2022. 05. 25. 18:02:40 by pungorpeter    (83)
+;last modified 5/29/2022 11:19:42 PM by olahb    (157)
 
 [TCU_Status_2022]
 
@@ -62,13 +62,13 @@ Slip_Control_ON=And(#TCU_Status_12_32BIT, 0x40)
 Slip_Control_ON=/(#Slip_Control_ON, 0x40)
 
 Launch_Control_Enabled=And(#TCU_Status_12_32BIT, 0x20)
-Launch_Control_Enabled=/(#Launch_Control_Enabled, 0x10)
+Launch_Control_Enabled=/(#Launch_Control_Enabled, 0x20)
 
 Yaw_Control_Braking_On=And(#TCU_Status_12_32BIT, 0x10)
 Yaw_Control_Braking_On=/(#Yaw_Control_Braking_On, 0x10)
 
 Disable_Regbrake_F=And(#TCU_Status_12_32BIT, 0x8)
-Disable_Regbrake_F=/(#Disable_Regbrake_F, 0x1)
+Disable_Regbrake_F=/(#Disable_Regbrake_F, 0x8)
 
 DV_mode=And(#TCU_Status_12_32BIT, 0x4)
 DV_mode=/(#DV_mode, 0x4)
@@ -82,7 +82,7 @@ Brake_Force_Max=/(#Brake_Force_Max, 100)
 
 M_Yaw_Limit=And(#TCU_Status_21_32BIT, 0x0F000000)
 M_Yaw_Limit=/(#M_Yaw_Limit, 0x01000000)
-M_Yaw_Limit=*(#M_Yaw_Limit, 100)
+M_Yaw_Limit=/(#M_Yaw_Limit, 100)
 
 M_Yaw=And(#TCU_Status_21_32BIT, 0x00FF0000)
 M_Yaw=/(#M_Yaw, 0x00010000)
@@ -112,17 +112,17 @@ Throttle_Bias=*(#Throttle_Bias, 40)
 
 Drop_Parameter_New=And(#TCU_Status_22_32BIT, 0x0000FF00)
 Drop_Parameter_New=/(#Drop_Parameter_New, 0x00000100)
-Drop_Parameter_New=*(#Drop_Parameter_New, 0x00000100)
+Drop_Parameter_New=*(#Drop_Parameter_New, 200)
 
 Lateral_Balance=And(#TCU_Status_22_32BIT, 0x000000F0)
 Lateral_Balance=/(#Lateral_Balance, 16)
-Lateral_Balance=+(#Lateral_Balance, 45)
-Lateral_Balance=/(#Lateral_Balance, 50)
+Lateral_Balance=*(#Lateral_Balance, 50)
 
-MCU_State=And(#TCU_Status_22_32BIT, 0xC)
+MCU_State=And(#TCU_Status_22_32BIT, 0x0000000C)
 MCU_State=/(#MCU_State, 4)
 
 EPOS_State=And(#TCU_Status_22_32BIT, 0x3)
+
 //______________________________________________________________________________
 //TCU_Status3
 Torque_Demand_TCU= And(#TCU_Status_31_32BIT,0x00FF0000)
@@ -152,7 +152,8 @@ Fz_TCU_RR = *(#Fz_TCU_RR,10)
 //______________________________________________________________________________
 //TCU_Status4
 Efficiency_Tune=And(#TCU_Status_41_16BIT,0xFF00)
-Efficiency_Tune=/(#Efficiency_Tune,25600)
+Efficiency_Tune=/(#Efficiency_Tune, 256)
+Efficiency_Tune =*(#Efficiency_Tune, 100)
 
 TC_Threshold=And(#TCU_Status_41_16BIT,0x00FF)
 
@@ -174,6 +175,7 @@ Throttle_Breakpoint=/(#Throttle_Breakpoint, 256)
 Throttle_Breakpoint=/(#Throttle_Breakpoint, 5)
 
 Target_SoC=And(#TCU_Status_44_16BIT, 0x00FF)
+Target_Soc=/(#Target_SoC, 500)
 
 //______________________________________________________________________________
 //TCU_Status5
@@ -193,9 +195,10 @@ Slip_Control_I=/(#Slip_Control_I, 0x00000010)
 Slip_Control_I=/(#Slip_Control_I, 25)
 
 Slip_Control_D=And(#TCU_Status_51_32BIT, 0x0000000F)
-Slip_Control_I=/(#Slip_Control_I, 25)
+Slip_Control_D=/(#Slip_Control_D, 25)
 
 Optimal_Slip=And(#TCU_Status_52_32BIT, 0xFF000000)
 Optimal_Slip=/(#Optimal_Slip, 0x01000000)
+Optimal_Slip=*(#Optimal_Slip, 100)
 
 
