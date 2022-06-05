@@ -1,4 +1,4 @@
-;last modified 5/29/2022 11:19:42 PM by olahb    (157)
+;last modified 2022. 06. 05. 21:01:36 by adama    (160)
 
 [TCU_Status_2022]
 
@@ -188,17 +188,17 @@ Track_Length=/(#Track_Length, 10)
 
 Slip_Control_P=And(#TCU_Status_51_32BIT, 0x0000FF00)
 Slip_Control_P=/(#Slip_Control_P, 0x00000100)
-Slip_Control_P=/(#Slip_Control_P, 50)
+Slip_Control_P=*(#Slip_Control_P, 50)
 
 Slip_Control_I=And(#TCU_Status_51_32BIT, 0x000000F0)
 Slip_Control_I=/(#Slip_Control_I, 0x00000010)
-Slip_Control_I=/(#Slip_Control_I, 25)
+Slip_Control_I=*(#Slip_Control_I, 25)
 
 Slip_Control_D=And(#TCU_Status_51_32BIT, 0x0000000F)
-Slip_Control_D=/(#Slip_Control_D, 25)
+Slip_Control_D=*(#Slip_Control_D, 25)
 
 Optimal_Slip=And(#TCU_Status_52_32BIT, 0xFF000000)
 Optimal_Slip=/(#Optimal_Slip, 0x01000000)
-Optimal_Slip=*(#Optimal_Slip, 100)
+Optimal_Slip=/(#Optimal_Slip, 100)
 
 
