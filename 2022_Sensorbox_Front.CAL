@@ -1,0 +1,36 @@
+;last modified 6/11/2022 11:41:11 PM by olahb    (1)
+
+[2022_Sensorbox_Front]
+
+//Acc_Front_AccX
+Acceleration_X_Front = And(#ASF_1_32BIT, 0xFFFF0000)
+Acceleration_X_Front =/(#Acceleration_X_Front, 0x00010000)
+Acceleration_X_Front =- (#Acceleration_X_Front, 0x8000)
+Acceleration_X_Front =*(#Acceleration_X_Front, 0.0001274) // scalingfactor/9.81
+Acceleration_X_Front =+ (#Acceleration_X_Front, 8.3492864)
+Acceleration_X_Front =Set(DIM = 'g')
+
+//Acc_Front_AccY
+Acceleration_Y_Front = And(#ASF_1_32BIT, 0x0000FFFF)
+Acceleration_Y_Front =- (#Acceleration_Y_Front, 0x8000)
+Acceleration_Y_Front =*(#Acceleration_Y_Front, 0.0001274) // scalingfactor/9.81
+Acceleration_Y_Front =Set(DIM = 'g')
+
+//Front Rollrate
+Roll_Rate_Front= And(#ASF_2_32BIT, 0xFFFF0000)
+Roll_Rate_Front= /(#Roll_Rate_Front, 0x00010000)
+Roll_Rate_Front=-(#Roll_Rate_Front, 0x8000)
+Roll_Rate_Front=*(#Roll_Rate_Front, 0.005)
+Roll_Rate_Front=*(#Roll_Rate_Front, 0.017453)
+Roll_Rate_Front=+(#Roll_Rate_Front, 5.713) //deg/s to rad/s
+Roll_Rate_Front =Set(DIM = 'rad/s')
+
+//Front Yawrate
+Yaw_Rate_Front= And(#ASF_2_32BIT, 0x0000FFFF)
+Yaw_Rate_Front=-(#Yaw_Rate_Front, 0x8000)
+Yaw_Rate_Front=*(#Yaw_Rate_Front, 0.005)
+Yaw_Rate_Front=*(#Yaw_Rate_Front, 0.017453)
+Yaw_Rate_Front =Set(DIM = 'rad/s')
+
+
+
