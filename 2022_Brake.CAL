@@ -1,4 +1,4 @@
-;last modified 2022. 04. 29. 2:50:26 by pungorpeter    (22)
+;last modified 2022. 05. 26. 22:00:28 by inyoc    (3)
 
 [2022_Brake]
 
@@ -39,15 +39,15 @@ F_Brake_Front=*(#F_Brake_Front, Parameters.BRAKE_MU)
 F_Brake_Front=*(#F_Brake_Front,Parameters.BRAKE_RADIUS)
 
 F_Brake_1=*(#AMK_TorqueLimitNegative_1,Parameters.PLANETARY_GEAR_RATIO)
-F_Brake_1=-(#F_Brake_Front,#F_Brake_1)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_1=/(#F_Brake_1,Parameters.WHEEL_RADIUS)
+F_Brake_1=-(#F_Brake_Front,#F_Brake_1)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_1=Set(DIM='N')
 
 //
 
 F_Brake_2=*(#AMK_TorqueLimitNegative_2,Parameters.PLANETARY_GEAR_RATIO)
-F_Brake_2=-(#F_Brake_Front,#F_Brake_2)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_2=/(#F_Brake_2,Parameters.WHEEL_RADIUS)
+F_Brake_2=-(#F_Brake_Front,#F_Brake_2)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_2=Set(DIM='N')
 
 //
@@ -58,15 +58,15 @@ F_Brake_Rear=*(#F_Brake_Rear, Parameters.BRAKE_MU)
 F_Brake_Rear=*(#F_Brake_Rear,Parameters.BRAKE_RADIUS)
 
 F_Brake_3=*(#AMK_TorqueLimitNegative_3,Parameters.PLANETARY_GEAR_RATIO)
-F_Brake_3=-(#F_Brake_Rear,#F_Brake_3)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_3=/(#F_Brake_3,Parameters.WHEEL_RADIUS)
+F_Brake_3=-(#F_Brake_Rear,#F_Brake_3)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_3=Set(DIM='N')
 
 //
 
 F_Brake_4=*(#AMK_TorqueLimitNegative_4,Parameters.PLANETARY_GEAR_RATIO)
-F_Brake_4=-(#F_Brake_Rear,#F_Brake_4)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_4=/(#F_Brake_4,Parameters.WHEEL_RADIUS)
+F_Brake_4=-(#F_Brake_Rear,#F_Brake_4)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_4=Set(DIM='N')
 
 /////

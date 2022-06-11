@@ -1,4 +1,4 @@
-;last modified 2022. 05. 05. 23:37:58 by pungorpeter    (130)
+;last modified 5/28/2022 1:20:40 AM by olahb    (115)
 
 [2022_SSGStatus]
 
@@ -28,14 +28,17 @@ MCU_EF_State = /(#MCU_EF_State, 0x02000000)
 External_TS_Button = And(#SSG_Status_11_32BIT, 0x01000000)
 External_TS_Button = /(#External_TS_Button, 0x01000000)
 
-ASSI_State = And(#SSG_Status_11_32BIT, 0x000E0000)
+ASSI_State = And(#SSG_Status_11_32BIT, 0x00E00000)
 ASSI_State = /(#ASSI_State , 0x00200000)
 
-AS_Mission_selected = And(#SSG_Status_11_32BIT, 0x0001C000)
+AS_Mission_selected = And(#SSG_Status_11_32BIT, 0x001C0000)
 AS_Mission_selected = /(#ASSI_State , 0x00040000)
 
 RTDS_Car_State = And(#SSG_Status_11_32BIT, 0x00020000)
 RTDS_Car_State = /(#RTDS_Car_State , 0x00020000)
+
+TCU_Power = And(#SSG_Status_11_32BIT, 0x00010000)
+TCU_Power = /(#TCU_Power, 0x00010000)
 
 SC_START = And(#SSG_Status_11_32BIT, 0x00008000)
 SC_START = /(#SC_START, 0x00008000)
@@ -135,7 +138,7 @@ HVECU_Heartbeat_error = And(#SSG_Status_12_32BIT, 0x00000100)
 HVECU_Heartbeat_error = /(#HVECU_Heartbeat_error, 0x00000100)
 
 PPS1 = And(#SSG_Status_12_32BIT, 0x000000FF)
-PPS1 = /(#PPS1, 10)
+PPS1 = /(#PPS1, 10) //TODO
 
 [SSGStatus2]
 

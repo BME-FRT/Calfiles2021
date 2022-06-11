@@ -1,4 +1,4 @@
-;last modified 2022. 04. 29. 0:23:34 by pungorpeter    (1)
+;last modified 2022. 05. 27. 1:34:58 by inyoc    (1)
 
 [2022_Yaw]
 
@@ -34,7 +34,6 @@ Delete(#c1)
 
 [YAW]
 Yaw=+(#Yaw_Rate_Rear,#Yaw_Rate_Rear)
-Yaw=/(#Yaw,@RAD2DEG)
 Yaw=/(#Yaw,2)
 Yaw=F(#Yaw,F(AVG 20))
 Mz_Real=Derivate(#Yaw)
