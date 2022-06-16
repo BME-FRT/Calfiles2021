@@ -1,4 +1,4 @@
-;last modified 2022. 04. 29. 0:27:25 by pungorpeter    (185)
+;last modified 2022. 06. 11. 19:05:57 by bekes    (188)
 
 [2022_TestData]
 
@@ -215,3 +215,11 @@ INT_Id4=Integrate(#INT_Id4,0)
 
 ;{$IfNotExists(#AccX_Front_Converted) gyorsulasszamolo.CAL}
 {$IfNotExists(#Roll_Gradient_Rear) 2022_RegressionCaller.CAL}
+
+[Lap]
+tmp = If(#AMK_Actualvelocity_1,>,-10000,1,0)
+tmp = Integrate(#tmp,0)
+tmp = Derivate(#tmp)
+tmp = If(#tmp,>,0,0,1)
+tmp = *(#tmp, 200)
+Lap = Integrate(#tmp)
