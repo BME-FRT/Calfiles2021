@@ -1,4 +1,4 @@
-;last modified 2022. 06. 05. 21:01:36 by adama    (160)
+;last modified 2022. 06. 23. 8:23:34 by pungorpeter    (146)
 
 [TCU_Status_2022]
 
@@ -159,7 +159,7 @@ TC_Threshold=And(#TCU_Status_41_16BIT,0x00FF)
 
 Launch_Control_Mu=And(#TCU_Status_42_16BIT, 0xFF00)
 Launch_Control_Mu=/(#Launch_Control_Mu, 256)
-Launch_Control_Mu=*(#Launch_Control_Mu, 50)
+Launch_Control_Mu=/(#Launch_Control_Mu, 20)
 
 Brake_Force_Filtered=And(#TCU_Status_42_16BIT, 0x00FF)
 Brake_Force_Filtered=/(#Brake_Force_Filtered, 10)

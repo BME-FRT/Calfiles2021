@@ -1,4 +1,4 @@
-;last modified 2022. 06. 12. 0:37:32 by pungorpeter    (1)
+;last modified 2022. 06. 22. 19:35:43 by pungorpeter    (1)
 
 [2022_Sensorbox_Front]
 
@@ -28,7 +28,7 @@ Yaw_Rate_Front= And(#ASF_2_32BIT, 0xFFFF0000)
 Yaw_Rate_Front= /(#Yaw_Rate_Front, 0x00010000)
 Yaw_Rate_Front=-(#Yaw_Rate_Front, 0x8000)
 Yaw_Rate_Front=*(#Yaw_Rate_Front, 0.005)
-Yaw_Rate_Front=+(#Yaw_Rate_Front, 327.68)
+;Yaw_Rate_Front=+(#Yaw_Rate_Front, 327.68)
 Yaw_Rate_Front=*(#Yaw_Rate_Front, @DEG2RAD)
 Yaw_Rate_Front =Set(DIM = 'rad/s')
 

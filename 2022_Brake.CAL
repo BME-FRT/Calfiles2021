@@ -1,4 +1,4 @@
-;last modified 2022. 05. 26. 22:00:28 by inyoc    (3)
+;last modified 2022. 06. 24. 13:03:07 by pungorpeter    (9)
 
 [2022_Brake]
 
@@ -30,6 +30,10 @@ Brake_Pressure_Rear = And(#Brake_SC_endline_2_32BIT, 0x0000FFFF)
 Brake_Pressure_Rear = /(#Brake_Pressure_Rear, 10)
 Brake_Pressure_Rear = Set(DIM = 'bar')
 
+Brake_Balance = +(#Brake_Pressure_Front, #Brake_Pressure_Rear)
+Brake_Balance = /(#Brake_Pressure_Front, #Brake_Balance)
+Brake_Balance = *(#Brake_Balance, 100)
+Brake_Balance = Set(DIM = '%')
 
 [Forces]
 
