@@ -1,4 +1,4 @@
-;last modified 2022. 07. 08. 13:33:24 by pungorpeter    (2)
+;last modified 2022. 07. 08. 13:35:08 by pungorpeter    (174)
 
 [TCU_Status_2022]
 
@@ -197,7 +197,6 @@ Slip_Control_I=*(#Slip_Control_I, 20)
 
 Slip_Control_D=And(#TCU_Status_51_32BIT, 0x0000000F)
 Slip_Control_D=*(#Slip_Control_D,5)
-Slip_Control_D=*(#Slip_Control_D, 5)
 
 Optimal_Slip=And(#TCU_Status_52_32BIT, 0xFF000000)
 Optimal_Slip=/(#Optimal_Slip, 0x01000000)
