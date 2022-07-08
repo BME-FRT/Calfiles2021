@@ -1,9 +1,12 @@
-;last modified 2022. 06. 24. 13:03:07 by pungorpeter    (9)
+;last modified 2022. 07. 04. 13:36:15 by pungorpeter    (1)
 
 [2022_Brake]
 
 Brake_Force_Validity = And(#Brake_SC_endline_2_32BIT, 0x00010000)
 Brake_Force_Validity = /(#Brake_Force_Validity, 65536)
+
+BFS_offset = And(#Brake_SC_endline_2_32BIT, 0x07000000)
+BFS_offset = *(#BFS_offset, 50)
 
 Brake_Force_Sensor = And(#Brake_SC_endline_1_32BIT, 0x0000FFFF)
 Brake_Force_Sensor = Set(DIM = 'N')
@@ -80,6 +83,7 @@ F_Brake_Rear=+(#F_Brake_3,#F_Brake_4)
 
 F_Brake_Front=Set(DIM='N')
 F_Brake_Rear=Set(DIM='N')
+
 
 
 
