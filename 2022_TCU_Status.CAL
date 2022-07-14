@@ -1,4 +1,6 @@
+
 ;last modified 2022. 07. 13. 22:30:02 by adama    (65)
+
 
 [TCU_Status_2022]
 
@@ -41,7 +43,7 @@ Car_Standing = And(#TCU_Status_12_32BIT, 0x2000)
 Car_Standing = /(#Car_Standing, 0x2000)
 
 Powlim_Hardcore_ON=And(#TCU_Status_12_32BIT, 0x00001000)
-Powlim_Hardcore_ON=/(#Powlim_Hardcore_ON,4096)   //be van kapcsolva, nem azt jelenti, hogy épp aktív
+Powlim_Hardcore_ON=/(#Powlim_Hardcore_ON,4096)   //be van kapcsolva, nem azt jelenti, hogy ï¿½pp aktï¿½v
 
 Powlim_Throttle_ON=And(#TCU_Status_12_32BIT,0x00000800)
 Powlim_Throttle_ON=/(#Powlim_Throttle_ON,2048)
@@ -78,15 +80,16 @@ DV_mode=/(#DV_mode, 0x4)
 
 Brake_Force_Max=And(#TCU_Status_21_32BIT, 0xF0000000)
 Brake_Force_Max=/(#Brake_Force_Max, 0x10000000)
-Brake_Force_Max=/(#Brake_Force_Max, 100)
+Brake_Force_Max=*(#Brake_Force_Max, 100)
 
 M_Yaw_Limit=And(#TCU_Status_21_32BIT, 0x0F000000)
 M_Yaw_Limit=/(#M_Yaw_Limit, 0x01000000)
-M_Yaw_Limit=/(#M_Yaw_Limit, 100)
+M_Yaw_Limit=*(#M_Yaw_Limit, 100)
 
-M_Yaw=And(#TCU_Status_21_32BIT, 0x00FF0000)
-M_Yaw=/(#M_Yaw, 0x00010000)
-M_Yaw=/(#M_Yaw, 20)
+M_Yaw_TCU=And(#TCU_Status_21_32BIT, 0x00FF0000)
+M_Yaw_TCU=/(#M_Yaw_TCU, 0x00010000)
+M_Yaw_TCU=-(#M_Yaw_TCU, 0x80)
+M_Yaw_TCU=*(#M_Yaw_TCU, 20)
 
 Yaw_Control_Weight_Selector=And(#TCU_Status_21_32BIT, 0x0000C000)
 Yaw_Control_Weight_Selector=/(#Yaw_Control_Weight_Selector, 0x00004000)
@@ -165,8 +168,9 @@ Brake_Force_Filtered=And(#TCU_Status_42_16BIT, 0x00FF)
 Brake_Force_Filtered=/(#Brake_Force_Filtered, 10)
 
 Static_Weight_Distribution=And(#TCU_Status_43_16BIT, 0xFF00)
-Static_Weight_Distribution=/(#Static_Weight_Distribution, 256)
-Static_Weight_Distribution=*(#Static_Weight_Distribution, 100)
+Static_Weight_Distribution=/(#Static_Weight_Distribution, 0x0100)
+Static_Weight_Distribution=+(#Static_Weight_Distribution, 42)
+Static_Weight_Distribution=/(#Static_Weight_Distribution, 100)
 
 Max_Motor_Torque=And(#TCU_Status_43_16BIT, 0x00FF)
 
@@ -175,7 +179,6 @@ Throttle_Breakpoint=/(#Throttle_Breakpoint, 256)
 Throttle_Breakpoint=/(#Throttle_Breakpoint, 5)
 
 Target_SoC=And(#TCU_Status_44_16BIT, 0x00FF)
-Target_Soc=/(#Target_SoC, 500)
 
 //______________________________________________________________________________
 //TCU_Status5
@@ -195,7 +198,7 @@ Slip_Control_I=/(#Slip_Control_I, 0x00000010)
 Slip_Control_I=*(#Slip_Control_I, 20)
 
 Slip_Control_D=And(#TCU_Status_51_32BIT, 0x0000000F)
-Slip_Control_D=*(#Slip_Control_D, 5)
+Slip_Control_D=*(#Slip_Control_D,5)
 
 Optimal_Slip=And(#TCU_Status_52_32BIT, 0xFF000000)
 Optimal_Slip=/(#Optimal_Slip, 0x01000000)
