@@ -1,4 +1,4 @@
-;last modified 2022. 06. 02. 21:42:08 by pungorpeter    (8)
+;last modified 2022. 07. 13. 23:18:56 by adama    (27)
 
 [2022_Sensorbox_Rear]
 
@@ -60,6 +60,11 @@ v_y=And(#DynamicState_1_32BIT, 0x0000FF00)
 v_y=/(#v_y, 0x00000100)
 v_y=-(#v_y, 0x80)
 v_y=/(#v_y, 10)
+
+
+Yaw_Rate_Rear_Raw=-(#Vectornav_yawrate_16BIT,0x8000)
+Yaw_Rate_Rear_Raw=/(#Yaw_Rate_Rear_Raw,10000)
+
 
 
 
