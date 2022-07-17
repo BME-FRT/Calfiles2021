@@ -1,5 +1,5 @@
+;last modified 2022. 07. 15. 0:13:28 by adama    (145)
 
-;last modified 2022. 07. 13. 22:30:02 by adama    (65)
 
 
 [TCU_Status_2022]
@@ -180,6 +180,7 @@ Throttle_Breakpoint=/(#Throttle_Breakpoint, 5)
 
 Target_SoC=And(#TCU_Status_44_16BIT, 0x00FF)
 
+
 //______________________________________________________________________________
 //TCU_Status5
 Laps=And(#TCU_Status_51_32BIT,0xFF000000)
@@ -187,7 +188,7 @@ Laps=/(#Laps,0x01000000)
 
 Track_Length=And(#TCU_Status_51_32BIT, 0x00FF0000)
 Track_Length=/(#Track_Length, 0x00010000)
-Track_Length=/(#Track_Length, 10)
+Track_Length=*(#Track_Length, 10)
 
 Slip_Control_P=And(#TCU_Status_51_32BIT, 0x0000FF00)
 Slip_Control_P=/(#Slip_Control_P, 0x00000100)
