@@ -1,0 +1,178 @@
+;last modified 2022. 07. 31. 23:11:12 by pungorpeter    (137)
+
+[2022_DV_DBC]
+
+
+///// 0x500
+
+Speed_actual = And(#DV_Driving_Dynamics11_32BIT, 0xFF000000)
+Speed_actual = /(#Speed_actual, 0x01000000)
+Speed_actual = Set(DIM = 'km/h')
+
+Speed_target= And(#DV_Driving_Dynamics11_32BIT, 0x00FF0000)
+Speed_target= /(#Speed_target, 0x00010000)
+Speed_target= Set(DIM = 'km/h')
+
+Steering_angle_actual = And(#DV_Driving_Dynamics11_32BIT, 0x0000FF00)
+Steering_angle_actual = /(#Steering_angle_actual, 0x00000100)
+Steering_angle_actual= Set(DIM = 'deg')
+
+Steering_angle_target = And(#DV_Driving_Dynamics11_32BIT, 0x000000FF)
+Steering_angle_target = Set(DIM = 'deg')
+
+Brake_hydr_actual = And(#DV_Driving_Dynamics12_32BIT, 0xFF000000)
+Brake_hydr_actual = And(#Brake_hydr_actual, 0x01000000)
+Brake_hydr_actual = Set(DIM = '%')
+
+Brake_hydr_target = And(#DV_Driving_Dynamics12_32BIT, 0x00FF0000)
+Brake_hydr_target = And(#Brake_hydr_target , 0x00010000)
+Brake_hydr_target = Set(DIM = '%')
+
+Motor_moment_actual= And(#DV_Driving_Dynamics12_32BIT, 0x0000FF00)
+Motor_moment_actual= And(#Motor_moment_actual, 0x00000100)
+Motor_moment_actual= Set(DIM = '%')
+
+Motor_moment_target= And(#DV_Driving_Dynamics12_32BIT, 0x0000FF00)
+Motor_moment_target= And(#Motor_moment_target, 0x00000100)
+Motor_moment_target= Set(DIM = '%')
+
+///// 0x501
+
+Acceleration_longitudinal = And(#DV_Driving_Dynamics21_32BIT, 0x0000FFFF)
+Acceleration_longitudinal = *(#Acceleration_longitudinal, 0.001953125)
+Acceleration_longitudinal = Set(DIM = 'm/s^2')
+
+Acceleration_lateral = And(#DV_Driving_Dynamics21_32BIT, 0xFFFF0000)
+Acceleration_lateral = *(#Acceleration_lateral , 0.001953125)
+Acceleration_lateral = Set(DIM = 'm/s^2')
+
+Yaw_rate = And(#DV_Driving_Dynamics22_16BIT, 0xFFFF0000)
+Yaw_rate = *(#Yaw_rate, 0.0078125)
+Yaw_rate = Set(DIM = 'deg/s')
+
+/////0x502
+
+AMI_state = And(#DV_System_Status1_32BIT, 0x000000E0)
+AMI_state = /(#AMI_state, 0x00000010)
+
+EBS_state = And(#DV_System_Status1_32BIT, 0x00000018)
+EBS_state = /(#EBS_state, 0x00000008)
+
+Lap_counter = And(#DV_System_Status1_32BIT, 0x00007800)
+Lap_counter = /(#Lap_counter, 0x00000800)
+
+Service_brake_state = And(#DV_System_Status1_32BIT, 0x00000600)
+Service_brake_state = /(#Service_brake_state, 0x00000200)
+
+Steering_state = And(#DV_System_Status1_32BIT, 0x00000100)
+Steering_state = /(#Steering_state, 0x00000100)
+
+Cones_count_actual = And(#DV_System_Status1_32BIT, 0x007F8000)
+Cones_count_actual = /(#Cones_count_actual, 0x00008000)
+
+Cones_count_all_a = And(#DV_System_Status1_32BIT, 0xFF800000)
+Cones_count_all_a = /(#Cones_count_all_a, 0x00800000)
+Cones_count_all_b = And(#DV_System_Status2_16BIT, 0x007F)
+Cones_count_all = +(#Cones_count_all_a, #Cones_count_all_b)
+Delete(#Cones_count_all_a)
+Delete(#Cones_count_all_b)
+
+///// 0x511
+
+EBS_Pressure_Front = And(#DV_Pressure_Values1_32BIT, 0x000000FF)
+EBS_Pressure_Front = *(#EBS_Pressure_Front, 0.001)
+EBS_Pressure_Front = Set(DIM = 'MPa')
+
+EBS_Pressure_Rear = And(#DV_Pressure_Values1_32BIT, 0x0000FF00)
+EBS_Pressure_Rear = /(#DV_Pressure_Values1_32BIT, 0x00000100)
+EBS_Pressure_Rear = *(#EBS_Pressure_Rear, 0.001)
+EBS_Pressure_Rear = Set(DIM = 'MPa')
+
+Hydraulic_Brake_Pressure_Front= And(#DV_Pressure_Values2_32BIT, 0x000000FF)
+Hydraulic_Brake_Pressure_Front= *(#Hydraulic_Brake_Pressure_Front, 0.001)
+Hydraulic_Brake_Pressure_Front= Set(DIM = 'MPa')
+
+Hydraulic_Brake_Pressure_Rear= And(#DV_Pressure_Values2_32BIT, 0x0000FF00)
+Hydraulic_Brake_Pressure_Rear= /(#Hydraulic_Brake_Pressure_Rear, 0x00000100)
+Hydraulic_Brake_Pressure_Rear= *(#Hydraulic_Brake_Pressure_Rear, 0.001)
+Hydraulic_Brake_Pressure_Rear= Set(DIM = 'MPa')
+
+///// 0x512
+
+nSet_driving_state = And(#DV_Nonprogrammable_Logic1_32BIT, 0x8000) //16 bites, csak elcsesztem az lddben a nevet
+nSet_driving_state = /(#nSet_driving_state , 0x8000)
+
+nEBS_set_active = And(#DV_Nonprogrammable_Logic1_32BIT, 0x4000)
+nEBS_set_active = /(#nEBS_set_active, 0x4000)
+
+nEBS_is_triggered = And(#DV_Nonprogrammable_Logic1_32BIT, 0x2000)
+nEBS_is_triggered = /(#nEBS_is_triggered , 0x2000)
+
+nBrake_engage = And(#DV_Nonprogrammable_Logic1_32BIT, 0x1000)
+nBrake_engage = /(#nBrake_engage , 0x1000)
+
+EBS_is_active = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0800)
+EBS_is_active = /(#EBS_is_active , 0x0800)
+
+EBS2_set_active = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0400)
+EBS2_set_active = /(#EBS2_set_active, 0x0400)
+
+EBS2_feedback = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0200)
+EBS2_feedback = /(#EBS2_feedback, 0x0200)
+
+EBS1_feedback = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0100)
+EBS1_feedback = /(#EBS1_feedback, 0x0100)
+
+to_EBS2_power_amplifier = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0080)
+to_EBS2_power_amplifier = /(#to_EBS2_power_amplifier, 0x0080)
+
+to_EBS1_power_amplifier = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0040)
+to_EBS1_power_amplifier = /(#to_EBS1_power_amplifier, 0x0040)
+
+Shutdown_close = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0020)
+Shutdown_close = /(#Shutdown_close, 0x0020)
+
+SDC_out = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0010)
+SDC_out = /(#SDC_out, 0x0010)
+
+SDC_is_ready = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0008)
+SDC_is_ready = /(#SDC_is_ready, 0x0008)
+
+SDC_in = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0004)
+SDC_in = /(#SDC_in, 0x0004)
+
+SDC_endline = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0002)
+SDC_endline = /(#SDC_endline, 0x0002)
+
+nSet_finish_state = And(#DV_Nonprogrammable_Logic1_32BIT, 0x0001)
+
+DV_SDC_relay_fb = And(#DV_Nonprogrammable_Logic2_16BIT, 0x1000)
+DV_SDC_relay_fb = /(#DV_SDC_relay_fb, 0x1000)
+
+ASMS_in = And(#DV_Nonprogrammable_Logic2_16BIT, 0x0800)
+ASMS_in = /(#ASMS_in, 0x0800)
+
+Driving_state_active = And(#DV_Nonprogrammable_Logic2_16BIT, 0x0400)
+Driving_state_active = /(#Driving_state_active, 0x0400)
+
+Watchdog = And(#DV_Nonprogrammable_Logic2_16BIT, 0x0200)
+Watchdog = /(#Watchdog, 0x0200)
+
+to_SDC_relay= And(#DV_Nonprogrammable_Logic2_16BIT, 0x0100)
+to_SDC_relay= /(#to_SDC_relay, 0x0100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
