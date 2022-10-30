@@ -1,4 +1,4 @@
-;last modified 2022. 10. 30. 19:19:00 by pungorpeter    (1)
+;last modified 2022. 10. 30. 19:20:55 by pungorpeter    (125)
 
 
 
@@ -129,9 +129,6 @@ EPOS_State=And(#TCU_Status_22_32BIT, 0x3)
 
 //______________________________________________________________________________
 //TCU_Status3
-CPU_usage = And(#TCU_Status_31_32BIT,0xFF000000)
-CPU_usage = /(#CPU_usage,0x01000000)
-CPU_usage = /(#CPU_usage,2.55)
 
 Torque_Demand_TCU= And(#TCU_Status_31_32BIT,0x00FF0000)
 Torque_Demand_TCU = /(#Torque_Demand_TCU,0x00010000)
