@@ -1,4 +1,4 @@
-;last modified 2022. 08. 01. 16:10:06 by pungorpeter    (36)
+;last modified 2022. 08. 05. 21:29:22 by pungorpeter    (85)
 
 [2022_DV_DBC]
 
@@ -15,11 +15,13 @@ Speed_target= Set(DIM = 'km/h')
 
 Steering_angle_actual = And(#DV_Driving_Dynamics11_32BIT, 0x0000FF00)
 Steering_angle_actual = /(#Steering_angle_actual, 0x00000100)
-Steering_angle_actual = Signed(#Steering_angle_actual)
+Steering_angle_actual = *(#Steering_angle_actual, 0.5)
+NewResult= Word(#Steering_angle_actual, -64, 63.5)
 Steering_angle_actual= Set(DIM = 'deg')
 
 Steering_angle_target = And(#DV_Driving_Dynamics11_32BIT, 0x000000FF)
-Steering_angle_target = Signed(#Steering_angle_target)
+Steering_angle_target = *(#Steering_angle_target, 0.5)
+NewResult= Word(#Steering_angle_target, -64, 63.5)
 Steering_angle_target = Set(DIM = 'deg')
 
 Brake_hydr_actual = And(#DV_Driving_Dynamics12_32BIT, 0xFF000000)
@@ -32,29 +34,29 @@ Brake_hydr_target = Set(DIM = '%')
 
 Motor_moment_actual= And(#DV_Driving_Dynamics12_32BIT, 0x0000FF00)
 Motor_moment_actual= And(#Motor_moment_actual, 0x00000100)
-Motor_moment_actual= Signed(#Motor_moment_actual)
+NewResult= Word(#Motor_moment_actual, -128, 127)
 Motor_moment_actual= Set(DIM = '%')
 
 Motor_moment_target= And(#DV_Driving_Dynamics12_32BIT, 0x0000FF00)
 Motor_moment_target= And(#Motor_moment_target, 0x00000100)
-Motor_moment_target= Signed(#Motor_moment_target)
+NewResult= Word(#Motor_moment_target, -128, 127)
 Motor_moment_target= Set(DIM = '%')
 
 ///// 0x501
 
 Acceleration_longitudinal = And(#DV_Driving_Dynamics21_32BIT, 0x0000FFFF)
 Acceleration_longitudinal = *(#Acceleration_longitudinal, 0.001953125)
-Acceleration_longitudinal = Signed(#Acceleration_longitudinal)
+NewResult= Word(#Acceleration_longitudinal, -64, 63.998)
 Acceleration_longitudinal = Set(DIM = 'm/s^2')
 
 Acceleration_lateral = And(#DV_Driving_Dynamics21_32BIT, 0xFFFF0000)
 Acceleration_lateral = *(#Acceleration_lateral , 0.001953125)
-Acceleration_lateral = Signed(#Acceleration_lateral)
+NewResult= Word(#Acceleration_lateral, -64, 63.998)
 Acceleration_lateral = Set(DIM = 'm/s^2')
 
 Yaw_rate = And(#DV_Driving_Dynamics22_16BIT, 0xFFFF0000)
 Yaw_rate = *(#Yaw_rate, 0.0078125)
-Yaw_rate = Signed(#Yaw_rate)
+NewResult= Word(#Yaw_rate, -256, 255.992)
 Yaw_rate = Set(DIM = 'deg/s')
 
 /////0x502
@@ -91,7 +93,7 @@ EBS_Pressure_Front = *(#EBS_Pressure_Front, 0.001)
 EBS_Pressure_Front = Set(DIM = 'MPa')
 
 EBS_Pressure_Rear = And(#DV_Pressure_Values1_32BIT, 0x0000FF00)
-EBS_Pressure_Rear = /(#DV_Pressure_Values1_32BIT, 0x00000100)
+EBS_Pressure_Rear = /(#EBS_Pressure_Rear, 0x00000100)
 EBS_Pressure_Rear = *(#EBS_Pressure_Rear, 0.001)
 EBS_Pressure_Rear = Set(DIM = 'MPa')
 

@@ -1,0 +1,13 @@
+;last modified 2022. 08. 06. 11:08:24 by pungorpeter    (1)
+
+[2022_Laptrigger]
+
+LapMeter = And(#Laptrigger1, 0xFF000000)
+LapMeter = /(#LapMeter, 0x01000000)
+
+Laps = And(#Laptrigger1, 0x00FF0000)
+Laps = /(#Laps, 0x00010000)
+
+Laptime = And(#Laptrigger2, 0xFFFFFFFF)
+
+

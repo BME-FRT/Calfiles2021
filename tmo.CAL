@@ -1,0 +1,8 @@
+;last modified 2022. 10. 17. 20:03:17 by pungorpeter    (1)
+
+[tmo]
+
+INT_HV_Current = Integrate(#HV_Current)
+INT_HV_Current = *(#INT_HV_Current, 0.2777778)
+
+

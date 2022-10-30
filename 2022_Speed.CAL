@@ -1,4 +1,4 @@
-;last modified 2022. 06. 01. 12:19:00 by pungorpeter    (1)
+;last modified 2022. 10. 08. 9:59:01 by pungorpeter    (1)
 
 [2022_Speed]
 
@@ -10,6 +10,7 @@ v_x=/(#v_x, 65536)
 v_x=/(#v_x, 1000)
 
 vx_kmph = *(#v_x, 3.6)
+vx_kmph = Set(DIM = 'km/h')
 
 [WheelSpeed_1]
 

@@ -1,4 +1,4 @@
-;last modified 2022. 05. 17. 0:32:17 by bekes    (1)
+;last modified 2022. 08. 10. 12:03:30 by pungorpeter    (1)
 
 [Xavier]
 
@@ -6,3 +6,5 @@ Target_Speed = /(#Xavier_Setpoints_2_16BIT,1000)
 
 Target_Wheel_Angle = /(#Xavier_Setpoints_1_32BIT, 1000000)
 Target_Wheel_Angle = -(#Target_Wheel_Angle,10)
+
+Xavier_heartbeat = And(#Xavier_Status11_32BIT, 0x0000000F)
