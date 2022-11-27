@@ -1,0 +1,43 @@
+;last modified 2022. 11. 03. 20:49:10 by pungorpeter    (1)
+
+[2023_Torque_Iq]
+
+tmp1 = *(#Id1, #Iq1)
+tmp1 = *(#tmp1,0.00012)
+tmp2 = *(#Iq1, 0.010365)
+tmp2 = +(#tmp2, #tmp1)
+Torque_Iq1 = *(#tmp2, 22.5)
+Torque_Iq1 = Set(DIM = 'Nm')
+
+Delete(#tmp1)
+Delete(#tmp2)
+
+tmp1 = *(#Id2, #Iq2)
+tmp1 = *(#tmp1,0.00012)
+tmp2 = *(#Iq2, 0.010365)
+tmp2 = +(#tmp2, #tmp1)
+Torque_Iq2 = *(#tmp2, 22.5)
+Torque_Iq2 = Set(DIM = 'Nm')
+
+Delete(#tmp1)
+Delete(#tmp2)
+
+tmp1 = *(#Id3, #Iq3)
+tmp1 = *(#tmp1,0.00012)
+tmp2 = *(#Iq3, 0.010365)
+tmp2 = +(#tmp2, #tmp1)
+Torque_Iq3 = *(#tmp2, 22.5)
+Torque_Iq3 = Set(DIM = 'Nm')
+
+Delete(#tmp1)
+Delete(#tmp2)
+
+tmp1 = *(#Id4, #Iq4)
+tmp1 = *(#tmp1,0.00012)
+tmp2 = *(#Iq4, 0.010365)
+tmp2 = +(#tmp2, #tmp1)
+Torque_Iq4 = *(#tmp2, 22.5)
+Torque_Iq4 = Set(DIM = 'Nm')
+
+Delete(#tmp1)
+Delete(#tmp2)
