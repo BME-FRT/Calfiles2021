@@ -1,4 +1,4 @@
-;last modified 2023. 01. 14. 20:34:27 by bekes    (42)
+;last modified 2023. 01. 14. 21:19:45 by pungorpeter    (29)
 
 [2023_Vectornav]
 
@@ -37,6 +37,7 @@ Vectornav_a_y_INS = Set(DIM = 'm/s^2')
 
 //yawrate
 Vectornav_YawRate1 = And(#Vectornav_Status_21_32BIT, 0x000000FF)
+Vectornav_YawRate1 = *(#Vectornav_YawRate1, 0x0100)
 Vectornav_YawRate2 = And(#Vectornav_Status_22_16BIT, 0xFF00)
 Vectornav_YawRate2 = /(#Vectornav_YawRate2, 0x0100)
 Vectornav_YawRate = +(#Vectornav_YawRate1, #Vectornav_YawRate2)
