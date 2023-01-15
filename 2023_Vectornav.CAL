@@ -1,4 +1,4 @@
-;last modified 2023. 01. 14. 21:19:45 by pungorpeter    (29)
+;last modified 2023. 01. 15. 20:21:48 by bekes    (52)
 
 [2023_Vectornav]
 
@@ -83,5 +83,7 @@ Vectornav_GPS_Long = And(#GPS_Status_2_32BIT,0x00FFFFFF)
 Vectornav_GPS_Long = *(#Vectornav_GPS_Long,0.0000215)
 Vectornav_GPS_Long = +(#Vectornav_GPS_Long,-180.355072)
 
+Vectornav_GPS_Pos_Valid = If(#GPS1_Fix,>,1,1,0)
+Vectornav_GPS_Pos_Valid = If(#GPS2_Fix,>,1,#Vectornav_GPS_Pos_Valid,0)
 
 
