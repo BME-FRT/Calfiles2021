@@ -1,4 +1,4 @@
-;last modified 2022. 06. 11. 19:05:57 by bekes    (188)
+;last modified 1/22/2023 7:48:49 PM by adama    (143)
 
 [2022_TestData]
 
@@ -169,6 +169,7 @@ INT_SlipRatio_4_Braking=Set(Dim='s/m')
 INT_OS_US=/(#Acceleration_Y_Rear,#VehicleSpeed)
 INT_OS_US=*(2023.5,#INT_OS_US)                      //const=3.6*180/PI*g
 INT_OS_US=/(#Yaw_Rate_Rear,#INT_OS_US)
+OS_US=*(#INT_OS_US,100)
 INT_OS_US=-(#INT_OS_US,1)
 INT_OS_US=If(#VehicleSpeed,>,5,#INT_OS_US,0)
 INT_OS_US=Limit(#INT_OS_US,-5,5)
