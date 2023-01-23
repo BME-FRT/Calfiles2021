@@ -1,22 +1,19 @@
-;last modified 1/21/2023 7:26:08 PM by adama    (1)
+;last modified 2023. 01. 23. 17:19:21 by pungorpeter    (11)
 
 [2023_D40]
 
 //GPS_Pos_front
-GPS_Lat_Front = (#GPS_Front_Lat)
-GPS_Lat_Front = *(#GPS_Lat_Front,0.000000042)
-GPS_Lat_Front = +(#GPS_Lat_Front,-90.1943132)
-GPS_Long_Front = (#GPS_Front_Long)
-GPS_Long_Front = *(#GPS_Long_Front,0.0000000084)
-GPS_Long_Front = +(#GPS_Long_Front,-180.388626)
+GPS_Lat_Front = -(#GPS_Front_Lat,0x80000000)
+GPS_Lat_Front = /(#GPS_Lat_Front , 23809523.8095)
+GPS_Long_Front = -(#GPS_Front_Long,0x80000000)
+GPS_Long_Front = /(#GPS_Long_Front ,11904761.9048)
 
-//GPS_Pos_front
-GPS_Lat_Rear = (#GPS_Rear_Lat)
-GPS_Lat_Rear = *(#GPS_Lat_Rear,0.000000042)
-GPS_Lat_Rear = +(#GPS_Lat_Rear,-90.1943132)
-GPS_Long_Rear = (#GPS_Rear_Long)
-GPS_Long_Rear = *(#GPS_Long_Rear,0.0000000084)
-GPS_Long_Rear = +(#GPS_Long_Rear,-180.388626)
+//GPS_Pos_rear
+GPS_Lat_Rear = -(#GPS_Rear_Lat,0x80000000)
+GPS_Lat_Rear = /(#GPS_Lat_Rear,23809523.8095)
+GPS_Long_Rear = -(#GPS_Rear_Long,0x80000000)
+GPS_Long_Rear = /(#GPS_Long_Rear ,11904761.9048)
+
 
 //GPS_Status
 GPS_Alt_Front = And(#GPS_Status_2_32BIT,0x0000FF00)
@@ -30,14 +27,31 @@ GPS_Sats_Rear = And(#GPS_Status_1_32BIT,0x00F00000)
 
 
 //INS_Position
-INS_Lateral = And(#INS_Lat, 0xFFFFFFFF)
-INS_Lateral = *(#INS_Lat, 0.000000042)
-INS_Lateral = +(#INS_Lat, -90.1943132)
+INS_Latitude = -(#INS_Lat, 0x80000000)
+INS_Latitude = /(#INS_Latitude, 23809523.8095)
 
-INS_Long = And(#INS_Long_1, 0xFFFF)
-INS_Long = *(#INS_Long, 0x10000)
-INS_Long_tmp = And(#INS_Long_2, 0xFFFF)
-INS_Long = +(#INS_Long, #INS_Long_tmp)
-INS_Long = *(#INS_Long, 0.000000084)
-INS_Long = +(#INS_Long, -180.38862639)
+INS_Long = *(#INS_Long_1, 0x10000)
+INS_Long = +(#INS_Long, #INS_Long_2)
+INS_Long = -(#INS_Long, 0x80000000)
+INS_Long = /(#INS_Long, 11904761.9048)
 
+{INS_Long_tmp = And(#INS_Long_1, 0xFF00)
+INS_Long_tmp = *(#INS_Long_tmp, 0x10000)
+INS_Long_tmp = -(#INS_Long_tmp, 0x80000000)
+INS_Long_tmp = /(#INS_Long_tmp, 23809523.8095)
+
+INS_Long_tmp2 = And(#INS_Long_1, 0x00FF)
+INS_Long_tmp2 = *(#INS_Long_tmp2, 0x10000)
+INS_Long_tmp2 = -(#INS_Long_tmp2, 0x80000000)
+INS_Long_tmp2 = /(#INS_Long_tmp2, 11904761.9048)
+
+INS_Long_tmp3 = -(#INS_Long_2, 0x80000000)
+INS_Long_tmp3 = /(#INS_Long_tmp3 , 11904761.9048)
+
+INS_Long = +(#INS_Long_tmp, #INS_Long_tmp2)
+INS_Long = +(#INS_Long , #INS_Long_tmp3)
+
+
+Delete(#INS_Long_tmp)
+Delete(#INS_Long_tmp2)
+Delete(#INS_Long_tmp3)
