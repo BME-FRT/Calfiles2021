@@ -1,4 +1,4 @@
-;last modified 2023. 01. 15. 20:21:48 by bekes    (52)
+;last modified 2023. 01. 23. 19:36:15 by pungorpeter    (22)
 
 [2023_Vectornav]
 
@@ -35,22 +35,16 @@ Vectornav_a_y_INS = -(#Vectornav_a_y_INS, 32.768)
 Vectornav_a_y_INS = *(#Vectornav_a_y_INS, 0.016)
 Vectornav_a_y_INS = Set(DIM = 'm/s^2')
 
-//yawrate
-Vectornav_YawRate1 = And(#Vectornav_Status_21_32BIT, 0x000000FF)
-Vectornav_YawRate1 = *(#Vectornav_YawRate1, 0x0100)
-Vectornav_YawRate2 = And(#Vectornav_Status_22_16BIT, 0xFF00)
-Vectornav_YawRate2 = /(#Vectornav_YawRate2, 0x0100)
-Vectornav_YawRate = +(#Vectornav_YawRate1, #Vectornav_YawRate2)
-Vectornav_YawRate = -(#Vectornav_YawRate , 0x8000)
-Vectornav_YawRate = *(#Vectornav_YawRate, 0.0001)
-Vectornav_YawRate = Set(DIM = 'rad/s')
-Delete(#Vectornav_YawRate1)
-Delete(#Vectornav_YawRate2)
+//rollrate
+Vectornav_RollRate = And(#Vectornav_Status_21_32BIT, 0x0000FFFF)
+Vectornav_RollRate = -(#Vectornav_RollRate, 0x8000)
+Vectornav_RollRate = /(#Vectornav_RollRate, 10000)
+Vectornav_RollRate = Set(DIM = 'rad/s')
  
-//GPS
-
-//INS
-
+//pitchrate
+Vectornav_PitchRate = -(#Vectornav_Status_22_16BIT, 0x8000)
+Vectornav_PitchRate = /(#Vectornav_PitchRate, 10000)
+ 
 [GPS_Status]
 
 GPS1_Sats = And(#GPS_Status_1_32BIT,0xFC000000)

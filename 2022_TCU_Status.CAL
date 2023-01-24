@@ -1,4 +1,4 @@
-;last modified 11/27/2022 11:25:52 AM by adama    (169)
+;last modified 2023. 01. 23. 17:53:39 by pungorpeter    (174)
 
 
 
@@ -73,8 +73,8 @@ Yaw_Control_Braking_On=/(#Yaw_Control_Braking_On, 0x10)
 Disable_Regbrake_F=And(#TCU_Status_12_32BIT, 0x8)
 Disable_Regbrake_F=/(#Disable_Regbrake_F, 0x8)
 
-DV_mode=And(#TCU_Status_12_32BIT, 0x4)
-DV_mode=/(#DV_mode, 0x4)
+DV_mode=And(#TCU_Status_12_32BIT, 0x10)
+DV_mode=/(#DV_mode, 0x10)
 
 //______________________________________________________________________________
 //TCU_Status2
