@@ -1,4 +1,4 @@
-;last modified 2023. 05. 07. 17:58:26 by Péter    (1)
+;last modified 2023. 05. 07. 18:19:07 by Péter    (111)
 
 [2023_TestData]
 
@@ -65,46 +65,46 @@ Delete(#Br_St)
 
 [M_Yaw]
 
-M_Yaw=Abs(#M_Yaw)
-M_Yaw=Set(Dim='Nm')
+AVG_M_Yaw=Abs(#M_Yaw)
+AVG_M_Yaw=Set(Dim='Nm')
 
 
 /////INT Traction
 {$IfNotExists(#SlipRatio_1_Traction) 2021_SlipRatio.CAL}
 
 [SlipRatio_1_Traction]
-SlipRatio_1_Traction=*(#SlipRatio_1_Traction,100)
-SlipRatio_1_Traction=Set(Dim='-')
+AVG_SlipRatio_1_Traction=*(#SlipRatio_1_Traction,100)
+AVG_SlipRatio_1_Traction=Set(Dim='-')
 
 [SlipRatio_2_Traction]
-SlipRatio_2_Traction=*(#SlipRatio_2_Traction,100)
-SlipRatio_2_Traction=Set(Dim='-')
+AVG_SlipRatio_2_Traction=*(#SlipRatio_2_Traction,100)
+AVG_SlipRatio_2_Traction=Set(Dim='-')
 
 [SlipRatio_3_Traction]
-SlipRatio_3_Traction=*(#SlipRatio_3_Traction,100)
-SlipRatio_3_Traction=Set(Dim='-')
+AVG_SlipRatio_3_Traction=*(#SlipRatio_3_Traction,100)
+AVG_SlipRatio_3_Traction=Set(Dim='-')
 
 [SlipRatio_4_Traction]
-SlipRatio_4_Traction=*(#SlipRatio_4_Traction,100)
-SlipRatio_4_Traction=Set(Dim='-')
+AVG_SlipRatio_4_Traction=*(#SlipRatio_4_Traction,100)
+AVG_SlipRatio_4_Traction=Set(Dim='-')
 
 /////INT Braking
 
 [SlipRatio_1_Braking]
-SlipRatio_1_Braking=*(#SlipRatio_1_Braking,100)
-SlipRatio_1_Braking=Set(Dim='-')
+AVG_SlipRatio_1_Braking=*(#SlipRatio_1_Braking,100)
+AVG_SlipRatio_1_Braking=Set(Dim='-')
 
 [SlipRatio_2_Braking]
-SlipRatio_2_Braking=*(#SlipRatio_2_Braking,100)
-SlipRatio_2_Braking=Set(Dim='-')
+AVG_SlipRatio_2_Braking=*(#SlipRatio_2_Braking,100)
+AVG_SlipRatio_2_Braking=Set(Dim='-')
 
 [SlipRatio_3_Braking]
-SlipRatio_3_Braking=*(#SlipRatio_3_Braking,100)
-SlipRatio_3_Braking=Set(Dim='-')
+AVG_SlipRatio_3_Braking=*(#SlipRatio_3_Braking,100)
+AVG_SlipRatio_3_Braking=Set(Dim='-')
 
 [SlipRatio_4_Braking]
-SlipRatio_4_Braking=*(#SlipRatio_4_Braking,100)
-SlipRatio_4_Braking=Set(Dim='-')
+AVG_SlipRatio_4_Braking=*(#SlipRatio_4_Braking,100)
+AVG_SlipRatio_4_Braking=Set(Dim='-')
 
 [OS_US]
 OS_US=/(#Acceleration_Y_Rear,#VehicleSpeed)
