@@ -1,0 +1,163 @@
+;last modified 2023. 05. 07. 17:58:26 by Péter    (1)
+
+[2023_TestData]
+
+[if]
+{$IfNotExists(#E_Kinetic) 2021_Energy.CAL}
+
+[Brake]
+
+Mech_vs_RegBrake=-(#Brake_Pressure_Front,30)
+Mech_vs_RegBrake=Set(Dim='bar)
+
+[Coast]    //no brake force & no throttle & the car is Not standing
+bool1=If(#Brake_Pressure_Front,<,20,0,1)
+bool2=If(#Throttle_Position_1,<,5,0,1)
+Coast=+(#bool2,#bool1)
+bool3=If(#Throttle_Position_2,<,5,0,1)
+Coast=+(#bool3,#Coast)
+Coast=If(#Coast,=,0,0.05,0)
+bool=If(#AMK_ActualVelocity_3,<,10,0,1)
+Coast=*(#bool,#Coast)
+Coast=*(#Coast,10000)
+Delete(#bool1)
+Delete(#bool2)
+Delete(#bool3)
+Delete(#bool)
+Coast=Set(DIM='-')
+
+
+[Throttle]
+Throttle=+(#Throttle_Position_1,#Throttle_Position_2)
+Throttle=/(#Throttle,2)
+Throttle=Set(Dim='%')
+
+
+
+[Throttle_Steering]
+Throttle_Steering=+(#Throttle_Position_1,#Throttle_Position_2)
+Throttle_Steering=/(#Throttle_Steering,2)
+SteeringAngle_tmp=+(#Steering_Angle_1,#Steering_Angle_2)
+SteeringAngle_tmp=/(#SteeringAngle_tmp,2)
+SteeringAngle_tmp=Abs(#SteeringAngle_tmp)
+Throttle_Steering=*(#Throttle_Steering,#SteeringAngle_tmp)
+Throttle_Steering=If(#SteeringAngle_tmp,>,30,#Throttle_Steering,0)
+Throttle_Steering=Set(DIM='°*%')
+
+
+[Brake_Steering]
+
+st1=If(#Brake_Force_Sensor,>,50,1,0)
+st2=Abs(#Steering_Angle_1)
+st3=If(#st2,>,30,1,0)
+
+st3=+(#st1,#st3)
+st3=If(#st3,=,2,1,0)
+Br_St=*(#st2,#Brake_Force_Sensor)
+Brake_Steering=FillFromBool(#Br_St,#st3)
+Brake_Steering=Set(Dim='N*°')
+
+Delete(#st1)
+Delete(#st2)
+Delete(#st3)
+Delete(#Br_St)
+
+
+[M_Yaw]
+
+M_Yaw=Abs(#M_Yaw)
+M_Yaw=Set(Dim='Nm')
+
+
+/////INT Traction
+{$IfNotExists(#SlipRatio_1_Traction) 2021_SlipRatio.CAL}
+
+[SlipRatio_1_Traction]
+SlipRatio_1_Traction=*(#SlipRatio_1_Traction,100)
+SlipRatio_1_Traction=Set(Dim='-')
+
+[SlipRatio_2_Traction]
+SlipRatio_2_Traction=*(#SlipRatio_2_Traction,100)
+SlipRatio_2_Traction=Set(Dim='-')
+
+[SlipRatio_3_Traction]
+SlipRatio_3_Traction=*(#SlipRatio_3_Traction,100)
+SlipRatio_3_Traction=Set(Dim='-')
+
+[SlipRatio_4_Traction]
+SlipRatio_4_Traction=*(#SlipRatio_4_Traction,100)
+SlipRatio_4_Traction=Set(Dim='-')
+
+/////INT Braking
+
+[SlipRatio_1_Braking]
+SlipRatio_1_Braking=*(#SlipRatio_1_Braking,100)
+SlipRatio_1_Braking=Set(Dim='-')
+
+[SlipRatio_2_Braking]
+SlipRatio_2_Braking=*(#SlipRatio_2_Braking,100)
+SlipRatio_2_Braking=Set(Dim='-')
+
+[SlipRatio_3_Braking]
+SlipRatio_3_Braking=*(#SlipRatio_3_Braking,100)
+SlipRatio_3_Braking=Set(Dim='-')
+
+[SlipRatio_4_Braking]
+SlipRatio_4_Braking=*(#SlipRatio_4_Braking,100)
+SlipRatio_4_Braking=Set(Dim='-')
+
+[OS_US]
+OS_US=/(#Acceleration_Y_Rear,#VehicleSpeed)
+OS_US=*(2023.5,#OS_US)                      //const=3.6*180/PI*g
+OS_US=/(#Yaw_Rate_Rear,#OS_US)
+OS_US=If(#VehicleSpeed,>,5,#OS_US,0)
+OS_US=Limit(#OS_US,-5,5)
+OS_US=*(#OS_US,100)
+
+
+[HV_Current]
+
+INT_HV_Current=Integrate(#HV_Current,0)
+INT_HV_Current=/(#INT_HV_Current,3.6)
+INT_HV_Current=Set(Dim='mAh')
+
+AVG_HV_Current=Abs(#HV_Current) //minmaxtableben avg-je
+
+[INT_Id/iq]
+
+{$IfNotExists(#Iq1) 2021_HV.CAL}
+
+INT_Iq1=Abs(#Iq1)
+INT_Iq1=Integrate(#INT_Iq1,0)
+
+INT_Iq2=Abs(#Iq2)
+INT_Iq2=Integrate(#INT_Iq2,0)
+
+INT_Iq3=Abs(#Iq3)
+INT_Iq3=Integrate(#INT_Iq3,0)
+
+INT_Iq4=Abs(#Iq4)
+INT_Iq4=Integrate(#INT_Iq4,0)
+
+INT_Id1=Abs(#Id1)
+INT_Id1=Integrate(#INT_Id1,0)
+
+INT_Id2=Abs(#Id2)
+INT_Id2=Integrate(#INT_Id2,0)
+
+INT_Id3=Abs(#Id3)
+INT_Id3=Integrate(#INT_Id3,0)
+
+INT_Id4=Abs(#Id4)
+INT_Id4=Integrate(#INT_Id4,0)
+
+;{$IfNotExists(#AccX_Front_Converted) gyorsulasszamolo.CAL}
+{$IfNotExists(#Roll_Gradient_Rear) 2022_RegressionCaller.CAL}
+
+[Lap]
+tmp = If(#AMK_Actualvelocity_1,>,-10000,1,0)
+tmp = Integrate(#tmp,0)
+tmp = Derivate(#tmp)
+tmp = If(#tmp,>,0,0,1)
+tmp = *(#tmp, 200)
+Lap = Integrate(#tmp)
