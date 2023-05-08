@@ -1,11 +1,12 @@
-;last modified 2023. 05. 08. 1:29:10 by pungorpeter    (15)
+;last modified 2023. 05. 08. 1:29:51 by pungorpeter    (22)
 
-[2021_Energy]
+[2023_Energy]
 
 [Kinetic_Energy]
-VS=/(#VehicleSpeed,3.6)
 
-E_Kinetic=Power(#VS,2)
+{$IfNotExists(#vx_mps) 2023_Speed.CAL}
+
+E_Kinetic=Power(#vx_mps,2)
 E_Kinetic=*(#E_Kinetic,Parameters.MASS)
 E_Kinetic=/(#E_Kinetic,2000)                   //2*1000
 E_Kinetic=Set(DIM='kJ')
@@ -18,10 +19,9 @@ P_Useful=Set(DIM='kW')
 E_Useful=Set(DIM='kJ')
 
 [Electric_Energy]
-
 P_Electric =  *(#HV_Voltage_Before_AIRs,#HV_Current)
 P_Electric =  /(#P_Electric, 1000)
-P_Electric = Set(DIM='kW')
+P_Electric = Set( DIM = 'kW')
 
 E_Electric= Integrate(#P_Electric,0)
 Ppos=If(#P_Electric,>,0,#P_Electric,0)
@@ -30,6 +30,11 @@ Delete(#Ppos)
 E_Electric=Set(Dim='kJ')
 E_Electric_pos=Set(Dim='kJ')
 
+Pneg=If(#P_Electric,<,0,#P_Electric,0)
+E_Electric_neg=Integrate(#Pneg,0)
+Delete(#Pneg)
+E_Electric_neg=Set(Dim='kJ')
+
 /////Electric Power for Rules compliant energy calculation
 
 P_Regenerative_EM = *(#P_Electric, 0.9)
@@ -37,12 +42,12 @@ P_Electric_EM = If(#P_Electric, >=, 0, #P_Electric, #P_Regenerative_EM)
 
 E_Electric_EM= Integrate(#P_Electric_EM,0)
 E_Electric_EM = /(#E_Electric_EM,3.6)
-E_Electric_EM = Set(DIM='Wh')
+E_Electric_EM = Set(DIM = 'Wh')
 Delete(#P_Regenerative_EM)
 
 [Rolling Resistance]
 
-P_RollRes=Power(#VS,2)
+P_RollRes=Power(#vx_mps,2)
 P_RollRes=*(#P_RollRes,Parameters.C_L)
 P_RollRes=*(#P_RollRes,Parameters.AREA)
 P_RollRes=*(#P_RollRes,1.225)         //air density
@@ -52,25 +57,22 @@ P_d1=*(#P_d1,Parameters.MASS)
 P_d1=*(#P_d1,9.81)
 P_RollRes=+(#P_RollRes,#P_d1)
 P_RollRes=*(#P_RollRes,Parameters.ROLLING_COEFFICIENT)
-P_RollRes=*(#P_RollRes,#VS)
+P_RollRes=*(#P_RollRes,#vx_mps)
 Delete(#P_d1)
 
-//P_RollRes=If(#Throttle_Position_1,>,4,#P_RollRes,0)            //Szucsnek
 E_RollRes=Integrate(#P_RollRes,0)
 E_RollRes=/(#E_RollRes,1000)
 E_RollRes=Set(Dim='kJ')
 
 [Drag]
 
-P_Drag=Power(#VS,3)
-//P_Drag=If(#Throttle_Position_1,>,4,#P_Drag,0)                  //Szucsnek
+P_Drag=Power(#vx_mps,3)
 P_Drag=*(#P_Drag,Parameters.C_D)
 P_Drag=*(#P_Drag,Parameters.AREA)
 P_Drag=*(#P_Drag,1.225)
 P_Drag=/(#P_Drag,2000)       //(2*1000)
 P_Drag=Set(Dim='kW')
 E_Drag=Integrate(#P_Drag,0)
-Delete(#VS)
 
 [Motor mechanical Power]
 
@@ -139,5 +141,3 @@ INT_HV_current_Pos=/(#INT_HV_current_Pos,3.6)
 INT_HV_current_Neg=/(#INT_HV_current_Neg,3.6)
 INT_HV_current_Pos=Set(DIM='mAh')
 INT_HV_current_Neg=Set(DIM='mAh')
-
-Delete(#VS)

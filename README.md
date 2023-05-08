@@ -34,3 +34,20 @@ CalcMileage
 2021_Energy 
 2022_YAW
 2022_TestData
+
+
+Javasolt autocalc sorrend a 2023-as calfileok egy részéhez:
+
+CalcMileage
+2023_Sensorbox_Rear 
+2023_AMK 
+2023_HV 
+2023_Throttle_Steering 
+2023_Speed 
+2023_Brake 
+2023_Damper 
+2023_FZ_i 
+2023_Slip_Control
+2023_Energy 
+2023_YAW
+2023_TestData

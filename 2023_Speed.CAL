@@ -1,0 +1,159 @@
+;last modified 2023. 05. 08. 1:17:36 by pungorpeter    (125)
+
+[2023_Speed]
+
+/////Velocity
+
+V_GPS_corrected=Shift(#V_GPS,-0.2 Sec)        //GPS késése miatti eltolás
+vx_mps=And(#DynamicState_1_32BIT, 0xFFFF0000)      //vdc model estimation
+vx_mps=/(#vx_mps, 65536)
+vx_mps=/(#vx_mps, 1000)
+vx_kmph = Set(DIM = 'm/s')
+
+vx_kmph = *(#vx_mps, 3.6)
+vx_kmph = Set(DIM = 'km/h')
+
+[WheelSpeed_1]
+
+IfExists(#AMK_Actualvelocity_1)
+WheelSpeed_1=*(#AMK_Actualvelocity_1,Parameters.RPM2KMPH)
+WheelSpeed_1=F(#WheelSpeed_1,F(AVG 20))
+WheelSpeed_1=Set(DIM='km/h')
+
+[WheelSpeed_2]
+
+IfExists(#AMK_Actualvelocity_2)
+WheelSpeed_2=*(#AMK_Actualvelocity_2,Parameters.RPM2KMPH)
+WheelSpeed_2=F(#WheelSpeed_2,F(AVG 20))
+WheelSpeed_2=Set(DIM='km/h')
+
+[WheelSpeed_3]
+
+IfExists(#AMK_Actualvelocity_3)
+WheelSpeed_3=*(#AMK_Actualvelocity_3,Parameters.RPM2KMPH)
+WheelSpeed_3=F(#WheelSpeed_3,F(AVG 20))
+WheelSpeed_3=Set(DIM='km/h')
+
+[WheelSpeed_4]
+
+IfExists(#AMK_Actualvelocity_4)
+WheelSpeed_4=*(#AMK_Actualvelocity_4,Parameters.RPM2KMPH);
+WheelSpeed_4=F(#WheelSpeed_4,F(AVG 20))
+WheelSpeed_4=Set(DIM='km/h')
+
+[VehicleSpeed]
+
+// [m/s]
+
+y1=*(#AMK_Actualvelocity_1,@Pi)
+y1=/(#AMK_Actualvelocity_1,30)
+y1=/(#AMK_Actualvelocity_1,16)
+y1=*(#AMK_Actualvelocity_1,Parameters.WHEEL_RADIUS)
+
+y2=*(#AMK_Actualvelocity_2,@Pi)
+y2=/(#AMK_Actualvelocity_2,30)
+y2=/(#AMK_Actualvelocity_2,16)
+y2=*(#AMK_Actualvelocity_2,Parameters.WHEEL_RADIUS)
+
+y3=*(#AMK_Actualvelocity_3,@Pi)
+y3=/(#AMK_Actualvelocity_3,30)
+y3=/(#AMK_Actualvelocity_3,16)
+y3=*(#AMK_Actualvelocity_3,Parameters.WHEEL_RADIUS)
+
+y4=*(#AMK_Actualvelocity_4,@Pi)
+y4=/(#AMK_Actualvelocity_4,30)
+y4=/(#AMK_Actualvelocity_4,16)
+y4=*(#AMK_Actualvelocity_4,Parameters.WHEEL_RADIUS)
+
+//
+
+der_y1=Derivate(#y1)
+der_y1=Abs(#der_y1)
+der_y1=F(#der_y1,F(AVG 5))
+der_y2=Derivate(#y2)
+der_y2=Abs(#der_y2)
+der_y2=F(#der_y2,F(AVG 5))
+der_y3=Derivate(#y3)
+der_y3=Abs(#der_y3)
+der_y3=F(#der_y3,F(AVG 5))
+der_y4=Derivate(#y4)
+der_y4=Abs(#der_y4)
+der_y4=F(#der_y4,F(AVG 5))
+
+//Weights
+egy=Const(1,200)
+egy=*(#egy,100)
+
+n1_tmp=*(#der_y1,-0.1)
+n1_tmp=+(#n1_tmp,300)
+n1_tmp=Min(#egy,#n1_tmp)
+n1=If(#der_y1,>,2999,0,#n1_tmp)
+
+n2_tmp=*(#der_y2,-0.1)
+n2_tmp=+(#n2_tmp,300)
+n2_tmp=Min(#egy,#n2_tmp)
+n2=If(#der_y2,>,2999,0,#n2_tmp)
+
+n3_tmp=*(#der_y3,-0.1)
+n3_tmp=+(#n3_tmp,300)
+n3_tmp=Min(#egy,#n3_tmp)
+n3=If(#der_y3,>,2999,0,#n3_tmp)
+
+n4_tmp=*(#der_y4,-0.1)
+n4_tmp=+(#n4_tmp,300)
+n4_tmp=Min(#egy,#n4_tmp)
+n4=If(#der_y4,>,2999,0,#n4_tmp)
+
+//
+
+out1=*(#y1,#n1)
+out2=*(#y2,#n2)
+out3=*(#y3,#n3)
+out4=*(#y4,#n4)
+
+//
+
+sumn=+(#n1,#n2)
+sumn=+(#sumn,#n3)
+sumn=+(#sumn,#n4)
+
+sumout=+(#out1,#out2)
+sumout=+(#sumout,#out3)
+sumout=+(#sumout,#out4)
+
+VehicleSpeed=/(#sumout,#sumn)
+VehicleSpeed=*(#VehicleSpeed,0.024)
+VehicleSpeed=RcLp(#VehicleSpeed,0.23)
+VehicleSpeed=F(#VehicleSpeed, F(AVG 0.05 sec))
+VehicleSpeed=Shift(#VehicleSpeed,-0.1 sec)
+VehicleSpeed=Set(Dim='km/h')
+
+
+Delete(#y1)
+Delete(#y2)
+Delete(#y3)
+Delete(#y4)
+Delete(#der_y1)
+Delete(#der_y2)
+Delete(#der_y3)
+Delete(#der_y4)
+Delete(#n1)
+Delete(#n2)
+Delete(#n3)
+Delete(#n4)
+Delete(#n1_tmp)
+Delete(#n2_tmp)
+Delete(#n3_tmp)
+Delete(#n4_tmp)
+Delete(#out1)
+Delete(#out2)
+Delete(#out3)
+Delete(#out4)
+Delete(#sumn)
+Delete(#sumout)
+Delete(#egy)
+
+Dist=Integrate(#vx_kmph)
+Dist=Set(DIM='m')
+
+

@@ -1,0 +1,14 @@
+;last modified 2023. 05. 08. 1:46:01 by pungorpeter    (1)
+
+[2023_AMK]
+
+[AMK_TorqueLimit]
+
+AMK_TorqueLimit_1 = +(#AMK_TorqueLimitNegative_1,#AMK_TorqueLimitPositive_1)
+AMK_TorqueLimit_2 = +(#AMK_TorqueLimitNegative_2,#AMK_TorqueLimitPositive_2)
+AMK_TorqueLimit_3 = +(#AMK_TorqueLimitNegative_3,#AMK_TorqueLimitPositive_3)
+AMK_TorqueLimit_4 = +(#AMK_TorqueLimitNegative_4,#AMK_TorqueLimitPositive_4)
+AMK_TorqueLimit =  +(#AMK_TorqueLimit_1,#AMK_TorqueLimit_2)
+AMK_TorqueLimit = +(#AMK_TorqueLimit,#AMK_TorqueLimit_3)
+AMK_TorqueLimit = +(#AMK_TorqueLimit,#AMK_TorqueLimit_4)
+AMK_TorqueLimitDerivate = Derivate(#AMK_TorqueLimit)

@@ -1,0 +1,212 @@
+;last modified 2023. 05. 08. 1:20:46 by pungorpeter    (1)
+
+[2023_TCU_Status]
+
+//______________________________________________________________________________
+//TCU_Status1
+
+Braking_Torque_Multiplier = And(#TCU_Status_11_32BIT,0xFF000000)
+Braking_Torque_Multiplier = /(#Braking_Torque_Multiplier,0x01000000)
+Braking_Torque_Multiplier = /(#Braking_Torque_Multiplier,100)
+
+Driving_Torque_Multiplier = And(#TCU_Status_11_32BIT,0x00FF0000)
+Driving_Torque_Multiplier = /(#Driving_Torque_Multiplier,0x00010000)
+Driving_Torque_Multiplier = /(#Driving_Torque_Multiplier,100)
+
+RPM_Max = And(#TCU_Status_11_32BIT,0x0000FF00)
+RPM_Max = /(#RPM_Max,0x000000100)
+RPM_Max= *(#RPM_Max,500)
+
+Power_Max = And(#TCU_Status_11_32BIT,0x000000FF)
+Power_Max = *(#Power_Max ,1000)
+
+Characteristics=And(#TCU_Status_12_32BIT, 0xF0000000)
+Characteristics=/(#Characteristics, 0x10000000)
+
+Drop_Parameter=And(#TCU_Status_12_32BIT, 0x0F000000)
+Drop_Parameter=/(#Drop_Parameter, 0x01000000)
+Drop_Parameter=/(#Drop_Parameter, 20)
+
+Yaw_Control_P=And(#TCU_Status_12_32BIT, 0x00FF0000)
+Yaw_Control_P=/(#Yaw_Control_P,65536)
+Yaw_Control_P=*(#Yaw_Control_P,25)
+
+btc_Error=And(#TCU_Status_12_32BIT, 0x8000)
+btc_Error=/(#btc_Error, 0x8000)
+
+Safety_Mode_ON = And(#TCU_Status_12_32BIT, 0x4000)
+Safety_Mode_ON = /(#Safety_Mode_ON, 0x4000)
+
+Car_Standing = And(#TCU_Status_12_32BIT, 0x2000)
+Car_Standing = /(#Car_Standing, 0x2000)
+
+Powlim_Hardcore_ON=And(#TCU_Status_12_32BIT, 0x00001000)
+Powlim_Hardcore_ON=/(#Powlim_Hardcore_ON,4096)   //be van kapcsolva, nem azt jelenti, hogy �pp akt�v
+
+Powlim_Throttle_ON=And(#TCU_Status_12_32BIT,0x00000800)
+Powlim_Throttle_ON=/(#Powlim_Throttle_ON,2048)
+
+Powlim_Torque_ON=And(#TCU_Status_12_32BIT,0x00000400)
+Powlim_Torque_ON=/(#Powlim_Torque_ON,1024)
+
+Powlim_Efficiency_ON=And(#TCU_Status_12_32BIT, 0x200)
+Powlim_Efficiency_ON=/(#Powlim_Efficiency_ON, 0x200)
+
+Yaw_Control_ON = And(#TCU_Status_12_32BIT,0x0100)
+Yaw_Control_ON = /(#Yaw_Control_ON,0x0100)
+
+Traction_Control_ON=And(#TCU_Status_12_32BIT,0x00000080)
+Traction_Control_ON=/(#Traction_Control_ON,128)
+
+Slip_Control_ON=And(#TCU_Status_12_32BIT, 0x40)
+Slip_Control_ON=/(#Slip_Control_ON, 0x40)
+
+Launch_Control_Enabled=And(#TCU_Status_12_32BIT, 0x20)
+Launch_Control_Enabled=/(#Launch_Control_Enabled, 0x20)
+
+Yaw_Control_Braking_On=And(#TCU_Status_12_32BIT, 0x10)
+Yaw_Control_Braking_On=/(#Yaw_Control_Braking_On, 0x10)
+
+Disable_Regbrake_F=And(#TCU_Status_12_32BIT, 0x8)
+Disable_Regbrake_F=/(#Disable_Regbrake_F, 0x8)
+
+DV_mode=And(#TCU_Status_12_32BIT, 0x10)
+DV_mode=/(#DV_mode, 0x10)
+
+//______________________________________________________________________________
+//TCU_Status2
+
+Brake_Force_Max=And(#TCU_Status_21_32BIT, 0xF0000000)
+Brake_Force_Max=/(#Brake_Force_Max, 0x10000000)
+Brake_Force_Max=*(#Brake_Force_Max, 100)
+
+M_Yaw_Limit=And(#TCU_Status_21_32BIT, 0x0F000000)
+M_Yaw_Limit=/(#M_Yaw_Limit, 0x01000000)
+M_Yaw_Limit=*(#M_Yaw_Limit, 100)
+
+M_Yaw_TCU=And(#TCU_Status_21_32BIT, 0x00FF0000)
+M_Yaw_TCU=/(#M_Yaw_TCU, 0x00010000)
+M_Yaw_TCU=-(#M_Yaw_TCU, 0x80)
+M_Yaw_TCU=*(#M_Yaw_TCU, 20)
+
+Yaw_Control_Weight_Selector=And(#TCU_Status_21_32BIT, 0x0000C000)
+Yaw_Control_Weight_Selector=/(#Yaw_Control_Weight_Selector, 0x00004000)
+
+Yaw_Control_Balance=And(#TCU_Status_21_32BIT, 0x00003F00)
+Yaw_Control_Balance=/(#Yaw_Control_Balance,256)
+Yaw_Control_Balance=/(#Yaw_Control_Balance,50)
+
+Brake_Force_Treshold=And(#TCU_Status_21_32BIT, 0x000000FF)
+Brake_Force_Treshold=/(#Brake_Force_Treshold, 5)
+
+Powlim_Approx=And(#TCU_Status_22_32BIT, 0xFF000000)
+Powlim_Approx=/(#Powlim_Approx, 0x01000000)
+Powlim_Approx=*(#Powlim_Approx, 1000)
+
+Rear_Reduction=And(#TCU_Status_22_32BIT, 0x00F00000)
+Rear_Reduction=/(#Rear_Reduction, 0x00100000)
+Rear_Reduction=*(#Rear_Reduction, -50)
+
+Throttle_Bias=And(#TCU_Status_22_32BIT, 0x000F0000)
+Throttle_Bias=/(#Throttle_Bias, 0x00010000)
+Throttle_Bias=*(#Throttle_Bias, 40)
+
+Drop_Parameter_New=And(#TCU_Status_22_32BIT, 0x0000FF00)
+Drop_Parameter_New=/(#Drop_Parameter_New, 0x00000100)
+Drop_Parameter_New=/(#Drop_Parameter_New, 200)
+
+Lateral_Balance=And(#TCU_Status_22_32BIT, 0x000000F0)
+Lateral_Balance=/(#Lateral_Balance, 16)
+Lateral_Balance=*(#Lateral_Balance, 50)
+
+MCU_State=And(#TCU_Status_22_32BIT, 0x0000000C)
+MCU_State=/(#MCU_State, 4)
+
+EPOS_State=And(#TCU_Status_22_32BIT, 0x3)
+
+//______________________________________________________________________________
+//TCU_Status3
+
+Torque_Demand_TCU= And(#TCU_Status_31_32BIT,0x00FF0000)
+Torque_Demand_TCU = /(#Torque_Demand_TCU,0x00010000)
+Torque_Demand_TCU = -(#Torque_Demand_TCU,128)
+Torque_Demand_TCU = *(#Torque_Demand_TCU,0.659)
+
+TCU_CPU_Usage_Max=And(#TCU_Status_31_32BIT,0xFF000000)
+TCU_CPU_Usage_Max = /(#TCU_CPU_Usage_Max,0x01000000)
+TCU_CPU_Usage_Max = *(#TCU_CPU_Usage_Max,0.39216)
+
+//Regbrake_Front=And(#TCU_Status_31_32BIT, 0x0000FF00)
+//Regbrake_Front=/(#Regbrake_Front, 0x00000100)
+//Regbrake_Front=/(#Regbrake_Front, -12.1506682868)
+
+//Regbrake_Rear=And(#TCU_Status_31_32BIT, 0x000000FF)
+//Regbrake_Rear=/(#Regbrake_Rear, -12.1506682868)
+
+Fz_TCU_FL = And(#TCU_Status_32_32BIT, 0xFF000000)
+Fz_TCU_FL = /(#Fz_TCU_FL, 0x01000000)
+Fz_TCU_FR = And(#TCU_Status_32_32BIT, 0x00FF0000)
+Fz_TCU_FR = /(#Fz_TCU_FR, 0x00010000)
+Fz_TCU_RL = And(#TCU_Status_32_32BIT, 0x0000FF00)
+Fz_TCU_RL = /(#Fz_TCU_RL, 0x00000100)
+Fz_TCU_RR = And(#TCU_Status_32_32BIT, 0x000000FF)
+
+Fz_TCU_FL = *(#Fz_TCU_FL,10)
+Fz_TCU_FR = *(#Fz_TCU_FR,10)
+Fz_TCU_RL = *(#Fz_TCU_RL,10)
+Fz_TCU_RR = *(#Fz_TCU_RR,10)
+//______________________________________________________________________________
+//TCU_Status4
+Efficiency_Tune=And(#TCU_Status_41_16BIT,0xFF00)
+Efficiency_Tune=/(#Efficiency_Tune, 256)
+Efficiency_Tune =/(#Efficiency_Tune, 100)
+
+TC_Threshold=And(#TCU_Status_41_16BIT,0x00FF)
+
+Launch_Control_Mu=And(#TCU_Status_42_16BIT, 0xFF00)
+Launch_Control_Mu=/(#Launch_Control_Mu, 256)
+Launch_Control_Mu=/(#Launch_Control_Mu, 20)
+
+Brake_Force_Filtered=And(#TCU_Status_42_16BIT, 0x00FF)
+Brake_Force_Filtered=/(#Brake_Force_Filtered, 10)
+
+Static_Weight_Distribution=And(#TCU_Status_43_16BIT, 0xFF00)
+Static_Weight_Distribution=/(#Static_Weight_Distribution, 0x0100)
+Static_Weight_Distribution=+(#Static_Weight_Distribution, 42)
+Static_Weight_Distribution=/(#Static_Weight_Distribution, 100)
+
+Max_Motor_Torque=And(#TCU_Status_43_16BIT, 0x00FF)
+
+Throttle_Breakpoint=And(#TCU_Status_44_16BIT, 0xFF00)
+Throttle_Breakpoint=/(#Throttle_Breakpoint, 256)
+Throttle_Breakpoint=*(#Throttle_Breakpoint, 5)
+
+Target_SoC=And(#TCU_Status_44_16BIT, 0x00FF)
+
+
+//______________________________________________________________________________
+//TCU_Status5
+Laps=And(#TCU_Status_51_32BIT,0xFF000000)
+Laps=/(#Laps,0x01000000)
+
+Track_Length=And(#TCU_Status_51_32BIT, 0x00FF0000)
+Track_Length=/(#Track_Length, 0x00010000)
+Track_Length=*(#Track_Length, 10)
+
+Slip_Control_P=And(#TCU_Status_51_32BIT, 0x0000FF00)
+Slip_Control_P=/(#Slip_Control_P, 0x000000100)
+
+Slip_Control_I=And(#TCU_Status_51_32BIT, 0x000000F0)
+Slip_Control_I=/(#Slip_Control_I, 0x00000010)
+Slip_Control_I=*(#Slip_Control_I, 4)
+
+Slip_Control_D=And(#TCU_Status_51_32BIT, 0x0000000F)
+Slip_Control_D=/(#Slip_Control_D,10)
+
+Optimal_Slip=And(#TCU_Status_52_32BIT, 0xFF000000)
+Optimal_Slip=/(#Optimal_Slip, 0x01000000)
+Optimal_Slip=/(#Optimal_Slip, 100)
+
+
+
+

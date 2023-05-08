@@ -1,0 +1,65 @@
+;last modified 2023. 05. 08. 1:48:08 by pungorpeter    (29)
+
+[2023_Damper]
+
+[Ride_Height]
+
+Ride_Height_1=*(#DamperPos_FL, Parameters.MOTION_RATIO_FRONT)
+Ride_Height_2=*(#DamperPos_FR, Parameters.MOTION_RATIO_FRONT)
+Ride_Height_3=*(#DamperPos_RL, Parameters.MOTION_RATIO_REAR)
+Ride_Height_4=*(#DamperPos_RR, Parameters.MOTION_RATIO_REAR)
+
+Ride_Height_Front=+(#Ride_Height_1,#Ride_Height_2)
+Ride_Height_Front=/(#Ride_Height_Front,2)
+Ride_Height_Front=+(#Ride_Height_Front,Parameters.RH_STATIC_FRONT)
+Ride_Height_Front=Set(DIM='mm')
+
+Ride_Height_Rear=+(#Ride_Height_3,#Ride_Height_4)
+Ride_Height_Rear=/(#Ride_Height_Rear,2)
+Ride_Height_Rear=+(#Ride_Height_Rear,Parameters.RH_STATIC_REAR)
+Ride_Height_Rear=Set(DIM='mm')
+
+[Damper_Velocity]
+
+Damper_Velocity_1=Derivate(#DamperPos_FL)
+Damper_Velocity_1=Set(DIM='mm/s')
+
+Damper_Velocity_2=Derivate(#DamperPos_FR)
+Damper_Velocity_2=Set(DIM='mm/s')
+
+Damper_Velocity_3=Derivate(#DamperPos_RL)
+Damper_Velocity_3=Set(DIM='mm/s')
+
+Damper_Velocity_4=Derivate(#DamperPos_RR)
+Damper_Velocity_4=Set(DIM='mm/s')
+
+[Roll]
+
+Roll_Angle_Front=-(#DamperPos_FR,#DamperPos_FL)
+Roll_Angle_Front=/(#Roll_Angle_Front,1000)
+Roll_Angle_Front=/(#Roll_Angle_Front,Parameters.TRACK_FRONT)
+Roll_Angle_Front=ArcSin(#Roll_Angle_Front)
+Roll_Angle_Front=*(#Roll_Angle_Front,@RAD2DEG)
+Roll_Angle_Front=Set(DIM='°')
+
+Roll_Angle_Rear=-(#DamperPos_RR,#DamperPos_RL)
+Roll_Angle_Rear=/(#Roll_Angle_Rear,1000)
+Roll_Angle_Rear=/(#Roll_Angle_Rear,Parameters.TRACK_REAR)
+Roll_Angle_Rear=ArcSin(#Roll_Angle_Rear)
+Roll_Angle_Rear=*(#Roll_Angle_Rear,@RAD2DEG)
+Roll_Angle_Rear=Set(DIM='deg')
+
+Roll_Angle=+(#Roll_Angle_Front,#Roll_Angle_Rear)
+Roll_Angle=/(#Roll_Angle,2)
+
+/////
+
+[Pitch]
+
+Pitch_Angle=-(#Ride_Height_Rear,#Ride_Height_Front)
+Pitch_Angle=/(#Pitch_Angle,-1000)                       //elõre bólintás pozitív
+Pitch_Angle=/(#Pitch_Angle,Parameters.WHEELBASE)
+Pitch_Angle=ArcSin(#Pitch_Angle)
+Pitch_Angle=*(#Pitch_Angle,@RAD2DEG)
+Pitch_Angle=Set(DIM='°')
+
