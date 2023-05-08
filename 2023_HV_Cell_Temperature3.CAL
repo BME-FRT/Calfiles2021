@@ -1,0 +1,130 @@
+;last modified 2023. 05. 08. 19:02:38 by pungorpeter    (94)
+
+[2023_HV_Cell_Temperature3]
+
+/////Run 2021_HV first
+[if]
+{$IfNotExists(#HV_Accumulator_Cell_ID) 2023_HV.CAL}
+
+[Cells]
+
+HV_Cell_Temperature_S3M1T1 = If(#HV_Accumulator_Cell_ID, =, 60, 1, 0)
+HV_Cell_Temperature_S3M1T1 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M1T1)
+HV_Cell_Temperature_S3M1T1 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M1T2 = If(#HV_Accumulator_Cell_ID, =, 61, 1, 0)
+HV_Cell_Temperature_S3M1T2 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M1T2)
+HV_Cell_Temperature_S3M1T2 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M1T3 = If(#HV_Accumulator_Cell_ID, =, 62, 1, 0)
+HV_Cell_Temperature_S3M1T3 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M1T3)
+HV_Cell_Temperature_S3M1T3 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M1T4 = If(#HV_Accumulator_Cell_ID, =, 63, 1, 0)
+HV_Cell_Temperature_S3M1T4 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M1T4)
+HV_Cell_Temperature_S3M1T4 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M1T5 = If(#HV_Accumulator_Cell_ID, =, 64, 1, 0)
+HV_Cell_Temperature_S3M1T5 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M1T5)
+HV_Cell_Temperature_S3M1T5 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M2T1 = If(#HV_Accumulator_Cell_ID, =, 65, 1, 0)
+HV_Cell_Temperature_S3M2T1 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M2T1)
+HV_Cell_Temperature_S3M2T1 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M2T2 = If(#HV_Accumulator_Cell_ID, =, 66, 1, 0)
+HV_Cell_Temperature_S3M2T2 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M2T2)
+HV_Cell_Temperature_S3M2T2 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M2T3 = If(#HV_Accumulator_Cell_ID, =, 67, 1, 0)
+HV_Cell_Temperature_S3M2T3 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M2T3)
+HV_Cell_Temperature_S3M2T3 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M2T4 = If(#HV_Accumulator_Cell_ID, =, 68, 1, 0)
+HV_Cell_Temperature_S3M2T4 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M2T4)
+HV_Cell_Temperature_S3M2T4 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M2T5 = If(#HV_Accumulator_Cell_ID, =, 69, 1, 0)
+HV_Cell_Temperature_S3M2T5 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M2T5)
+HV_Cell_Temperature_S3M2T5 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M3T1 = If(#HV_Accumulator_Cell_ID, =, 70, 1, 0)
+HV_Cell_Temperature_S3M3T1 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M3T1)
+HV_Cell_Temperature_S3M3T1 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M3T2 = If(#HV_Accumulator_Cell_ID, =, 71, 1, 0)
+HV_Cell_Temperature_S3M3T2 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M3T2)
+HV_Cell_Temperature_S3M3T2 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M3T3 = If(#HV_Accumulator_Cell_ID, =, 72, 1, 0)
+HV_Cell_Temperature_S3M3T3 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M3T3)
+HV_Cell_Temperature_S3M3T3 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M3T4 = If(#HV_Accumulator_Cell_ID, =, 73, 1, 0)
+HV_Cell_Temperature_S3M3T4 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M3T4)
+HV_Cell_Temperature_S3M3T4 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M3T5 = If(#HV_Accumulator_Cell_ID, =, 74, 1, 0)
+HV_Cell_Temperature_S3M3T5 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M3T5)
+HV_Cell_Temperature_S3M3T5 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M4T1 = If(#HV_Accumulator_Cell_ID, =, 75, 1, 0)
+HV_Cell_Temperature_S3M4T1 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M4T1)
+HV_Cell_Temperature_S3M4T1 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M4T2 = If(#HV_Accumulator_Cell_ID, =, 76, 1, 0)
+HV_Cell_Temperature_S3M4T2 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M4T2)
+HV_Cell_Temperature_S3M4T2 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M4T3 = If(#HV_Accumulator_Cell_ID, =, 77, 1, 0)
+HV_Cell_Temperature_S3M4T3 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M4T3)
+HV_Cell_Temperature_S3M4T3 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M4T4 = If(#HV_Accumulator_Cell_ID, =, 78, 1, 0)
+HV_Cell_Temperature_S3M4T4 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M4T4)
+HV_Cell_Temperature_S3M4T4 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M4T5 = If(#HV_Accumulator_Cell_ID, =, 79, 1, 0)
+HV_Cell_Temperature_S3M4T5 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M4T5)
+HV_Cell_Temperature_S3M4T5 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M5T1 = If(#HV_Accumulator_Cell_ID, =, 80, 1, 0)
+HV_Cell_Temperature_S3M5T1 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M5T1)
+HV_Cell_Temperature_S3M5T1 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M5T2 = If(#HV_Accumulator_Cell_ID, =, 81, 1, 0)
+HV_Cell_Temperature_S3M5T2 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M5T2)
+HV_Cell_Temperature_S3M5T2 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M5T3 = If(#HV_Accumulator_Cell_ID, =, 82, 1, 0)
+HV_Cell_Temperature_S3M5T3 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M5T3)
+HV_Cell_Temperature_S3M5T3 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M5T4 = If(#HV_Accumulator_Cell_ID, =, 83, 1, 0)
+HV_Cell_Temperature_S3M5T4 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M5T4)
+HV_Cell_Temperature_S3M5T4 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M5T5 = If(#HV_Accumulator_Cell_ID, =, 84, 1, 0)
+HV_Cell_Temperature_S3M5T5 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M5T5)
+HV_Cell_Temperature_S3M5T5 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M6T1 = If(#HV_Accumulator_Cell_ID, =, 85, 1, 0)
+HV_Cell_Temperature_S3M6T1 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M6T1)
+HV_Cell_Temperature_S3M6T1 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M6T2 = If(#HV_Accumulator_Cell_ID, =, 86, 1, 0)
+HV_Cell_Temperature_S3M6T2 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M6T2)
+HV_Cell_Temperature_S3M6T2 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M6T3 = If(#HV_Accumulator_Cell_ID, =, 87, 1, 0)
+HV_Cell_Temperature_S3M6T3 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M6T3)
+HV_Cell_Temperature_S3M6T3 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M6T4 = If(#HV_Accumulator_Cell_ID, =, 88, 1, 0)
+HV_Cell_Temperature_S3M6T4 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M6T4)
+HV_Cell_Temperature_S3M6T4 = Set(DIM = '°C')
+
+HV_Cell_Temperature_S3M6T5 = If(#HV_Accumulator_Cell_ID, =, 89, 1, 0)
+HV_Cell_Temperature_S3M6T5 = FillFromBool(#HV_Cell_Temperature, #HV_Cell_Temperature_S3M6T5)
+HV_Cell_Temperature_S3M6T5 = Set(DIM = '°C')
+

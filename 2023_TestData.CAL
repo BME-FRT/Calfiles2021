@@ -1,4 +1,4 @@
-;last modified 2023. 05. 08. 1:07:59 by pungorpeter    (71)
+;last modified 2023. 05. 08. 18:47:57 by pungorpeter    (29)
 
 [2023_TestData]
 
@@ -6,31 +6,31 @@
 {$IfNotExists(#E_Kinetic) 2023_Energy.CAL}
 
 [Brake]
-
-Mech_vs_RegBrake=-(#Brake_Pressure_Front,30)
-Mech_vs_RegBrake=Set(Dim='bar)
-
-[Coast]    //no brake force & no throttle & the car is Not standing
-bool1=If(#Brake_Pressure_Front,<,20,0,1)
-bool2=If(#Throttle_Position_1,<,5,0,1)
-Coast=+(#bool2,#bool1)
-bool3=If(#Throttle_Position_2,<,5,0,1)
-Coast=+(#bool3,#Coast)
-Coast=If(#Coast,=,0,0.05,0)
-bool=If(#AMK_ActualVelocity_3,<,10,0,1)
-Coast=*(#bool,#Coast)
-Coast=*(#Coast,10000)
-Delete(#bool1)
-Delete(#bool2)
-Delete(#bool3)
-Delete(#bool)
-Coast=Set(DIM='-')
-
+condition = If(#Brake_Force_Sensor,>,200,1,0)
+Mech_vs_RegBrake = If(#condition,=,1,#Brake_Pressure_Front,0)
+Mech_vs_RegBrake=Set(Dim='bar')
+Delete(#condition)
 
 [Throttle]
 Throttle=+(#Throttle_Position_1,#Throttle_Position_2)
 Throttle=/(#Throttle,2)
 Throttle=Set(Dim='%')
+
+[Coast]    //no brake force & no throttle & the car is Not standing
+bool1=If(#Brake_Pressure_Front,<,10,0,1)
+bool2=If(#Throttle,<,5,0,1)
+bool3=If(#Brake_Force_Sensor,<,30,0,1)
+Coast=+(#bool1,#bool2)
+Coast=+(#Coast,#bool3)
+Coast=If(#Coast,=,0,1,0)
+bool=If(#AMK_ActualVelocity_3,<,100,0,1)
+Coast=*(#bool,#Coast)
+Coast=*(#Coast,100)
+Delete(#bool1)
+Delete(#bool2)
+Delete(#bool3)
+Delete(#bool)
+Coast=Set(DIM='-')
 
 
 [Throttle_Steering]
@@ -47,18 +47,15 @@ Throttle_Steering=Set(DIM='deg*%')
 [Brake_Steering]
 
 st1=If(#Brake_Force_Sensor,>,50,1,0)
-st2=Abs(#Steering_Angle_1)
-st3=If(#st2,>,30,1,0)
-
-st3=+(#st1,#st3)
-st3=If(#st3,=,2,1,0)
-Br_St=*(#st2,#Brake_Force_Sensor)
-Brake_Steering=FillFromBool(#Br_St,#st3)
+st2=If(#AVG_Steering_Angle,>,30,1,0)    //avg_steering_angle absolutban van
+st2=+(#st1,#st2)
+st2=If(#st2,=,2,1,0)
+Br_St=*(#AVG_Steering_Angle,#Brake_Force_Sensor)
+Brake_Steering=FillFromBool(#Br_St,#st2)
 Brake_Steering=Set(Dim='N*deg')
 
 Delete(#st1)
 Delete(#st2)
-Delete(#st3)
 Delete(#Br_St)
 
 
