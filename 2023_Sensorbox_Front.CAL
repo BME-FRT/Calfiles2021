@@ -1,7 +1,9 @@
-;last modified 2023. 05. 08. 1:17:04 by pungorpeter    (1)
+;last modified 2023. 05. 09. 23:53:57 by pungorpeter    (38)
 
 [2023_Sensorbox_Front]
 
+[Bosch]
+IfExists(#ASF_1_32BIT)
 //Acc_Front_AccX
 Acceleration_X_Front = And(#ASF_1_32BIT, 0x0000FFFF)
 Acceleration_X_Front = -(#Acceleration_X_Front, 0x8000)
@@ -33,4 +35,33 @@ Yaw_Rate_Front=*(#Yaw_Rate_Front, @DEG2RAD)
 Yaw_Rate_Front =Set(DIM = 'rad/s')
 
 
+[Pedalnode]
+IfExists(#PN_IMU_Acc_X)
+
+Acceleration_X_PN = -(#PN_IMU_Acc_X, 0x8000)
+Acceleration_X_PN =*(#Acceleration_X_PN,0.0001220703125)
+Acceleration_X_PN = Set(DIM = 'g')
+
+Acceleration_Y_PN = -(#PN_IMU_Acc_Y, 0x8000)
+Acceleration_Y_PN = *(#Acceleration_Y_PN,0.0001220703125)
+Acceleration_Y_PN = Set(DIM = 'g')
+
+Acceleration_Z_PN = -(#PN_IMU_Acc_Z, 0x8000)
+Acceleration_Z_PN = *(#Acceleration_Z_PN,0.0001220703125)
+Acceleration_Z_PN = Set(DIM = 'g')
+
+Yaw_Rate_PN = -(#PN_IMU_Yawrate, 0x8000)
+Yaw_Rate_PN = *(#Yaw_Rate_PN ,0.00762939453125)
+Yaw_Rate_PN = Set(DIM = 'rad/s')
+
+Pitch_Rate_PN = And(#PN_IMU_Pitch_Roll, 0xFFFF0000)
+Pitch_Rate_PN = /(#Pitch_Rate_PN, 0x00010000)
+Pitch_Rate_PN = -(#Pitch_Rate_PN, 0x8000)
+Pitch_Rate_PN = *(#Pitch_Rate_PN ,0.00762939453125)
+Pitch_Rate_PN = Set(DIM = 'rad/s')
+
+Roll_Rate_PN = And(#PN_IMU_Pitch_Roll, 0x0000FFFF)
+Roll_Rate_PN = -(#Roll_Rate_PN , 0x8000)
+Roll_Rate_PN = *(#Roll_Rate_PN ,0.00762939453125)
+Roll_Rate_PN = Set(DIM = 'rad/s')
 
