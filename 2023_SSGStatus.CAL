@@ -1,233 +1,136 @@
-;last modified 2023. 05. 08. 19:10:14 by pungorpeter    (1)
+;last modified 2023. 05. 10. 21:41:16 by pungorpeter    (39)
 
 [2023_SSGStatus]
 
-[SSGStatus1]
+[SSGStatus11]
+IfExists(#SSG_Status11_32BIT)
 
-START_Car_State = And(#SSG_Status_11_32BIT, 0x80000000)
-START_Car_State = /(#START_Car_State, 0x80000000)
+nEBS_ENGAGE = And(#SSG_Status11_32BIT, 0x40000000)
+nEBS_ENGAGE = /(#nEBS_ENGAGE, 0x40000000)
 
-ON_Car_State = And(#SSG_Status_11_32BIT, 0x40000000)
-ON_Car_State = /(#ON_Car_State, 0x40000000)
+TCU_Power= And(#SSG_Status11_32BIT, 0x20000000)
+TCU_Power= /(#TCU_Power, 0x20000000)
 
-OFF_Car_State = And(#SSG_Status_11_32BIT, 0x20000000)
-OFF_Car_State = /(#OFF_Car_State, 0x20000000)
+Car_state = And(#SSG_Status11_32BIT, 0x18000000)
+Car_state = /(#Car_state, 0x08000000)
 
-MCU_RF_State = And(#SSG_Status_11_32BIT, 0x10000000)
-MCU_RF_State = /(#MCU_RF_State, 0x10000000)
+MCU_ENABLE = And(#SSG_Status11_32BIT, 0x04000000)
+MCU_ENABLE = /(#MCU_ENABLE, 0x04000000)
 
-MCU_REAR_SUPPLY = And(#SSG_Status_11_32BIT, 0x08000000)
-MCU_REAR_SUPPLY = /(#MCU_REAR_SUPPLY, 0x08000000)
+MCU_SUPPLY = And(#SSG_Status11_32BIT, 0x02000000)
+MCU_SUPPLY = /(#MCU_SUPPLY, 0x02000000)
 
-MCU_FRONT_SUPPLY = And(#SSG_Status_11_32BIT, 0x04000000)
-MCU_FRONT_SUPPLY = /(#MCU_FRONT_SUPPLY, 0x04000000)
+External_TS_Button= And(#SSG_Status11_32BIT, 0x01000000)
+External_TS_Button= /(#External_TS_Button, 0x01000000)
 
-MCU_EF_State = And(#SSG_Status_11_32BIT, 0x02000000)
-MCU_EF_State = /(#MCU_EF_State, 0x02000000)
+WATCHDOG = And(#SSG_Status11_32BIT, 0x00800000)
+WATCHDOG = /(#WATCHDOG, 0x00800000)
 
-External_TS_Button = And(#SSG_Status_11_32BIT, 0x01000000)
-External_TS_Button = /(#External_TS_Button, 0x01000000)
+SB_FB= And(#SSG_Status11_32BIT, 0x00400000)
+SB_FB= /(#SB_FB, 0x00400000)
 
-ASSI_State = And(#SSG_Status_11_32BIT, 0x00E00000)
-ASSI_State = /(#ASSI_State , 0x00200000)
+nSB_ENGAGE= And(#SSG_Status11_32BIT, 0x00200000)
+nSB_ENGAGE= /(#nSB_ENGAGE, 0x00200000)
 
-AS_Mission_selected = And(#SSG_Status_11_32BIT, 0x001C0000)
-AS_Mission_selected = /(#ASSI_State , 0x00040000)
+SC_START= And(#SSG_Status11_32BIT, 0x00100000)
+SC_START= /(#SC_START, 0x00100000)
 
-RTDS_Car_State = And(#SSG_Status_11_32BIT, 0x00020000)
-RTDS_Car_State = /(#RTDS_Car_State , 0x00020000)
+EBS_FB= And(#SSG_Status11_32BIT, 0x00080000)
+EBS_FB= /(#EBS_FB, 0x00080000)
 
-TCU_Power = And(#SSG_Status_11_32BIT, 0x00010000)
-TCU_Power = /(#TCU_Power, 0x00010000)
+Initial_Checkup_State= And(#SSG_Status11_32BIT, 0x00070000)
+Initial_Checkup_State= /(#Initial_Checkup_State, 0x00010000)
 
-SC_START = And(#SSG_Status_11_32BIT, 0x00008000)
-SC_START = /(#SC_START, 0x00008000)
+Datalogger_2D_12V= And(#SSG_Status11_32BIT, 0x00008000)
+Datalogger_2D_12V= /(#Datalogger_2D_12V, 0x00008000)
 
-SC_Close = And(#SSG_Status_11_32BIT, 0x00004000)
-SC_Close = /(#SC_Close, 0x00004000)
+Brake_Light= And(#SSG_Status11_32BIT, 0x00004000)
+Brake_Light= /(#Brake_Light, 0x00004000)
 
-EBS_FB = And(#SSG_Status_11_32BIT, 0x00002000)
-EBS_FB = /(#EBS_FB, 0x00002000)
+Xavier_12V= And(#SSG_Status11_32BIT, 0x00002000)
+Xavier_12V= /(#Xavier_12V, 0x00002000)
 
-SET_FINISH_STATE = And(#SSG_Status_11_32BIT, 0x00001000)
-SET_FINISH_STATE = /(#SET_FINISH_STATE, 0x00001000)
+DRS = And(#SSG_Status11_32BIT, 0x00001000)
+DRS = /(#DRS, 0x00001000)
 
-Initial_Checkup_state = And(#SSG_Status_11_32BIT, 0x00000F00)
-Initial_Checkup_state = /(#Initial_Checkup_state, 0x00000100)
+Cooling = And(#SSG_Status11_32BIT, 0x00000800)
+Cooling = /(#Cooling, 0x00000800)
 
-Driving_State_Active = And(#SSG_Status_11_32BIT, 0x00000080)
-Driving_State_Active = /(#Driving_State_Active, 0x00000080)
+Buzzer = And(#SSG_Status11_32BIT, 0x00000400)
+Buzzer = /(#Buzzer, 0x00000400)
 
-SB_FB = And(#SSG_Status_11_32BIT, 0x00000040)
-SB_FB = /(#SB_FB, 0x00000040)
+ASMS = And(#SSG_Status11_32BIT, 0x00000200)
+ASMS = /(#ASMS, 0x00000200)
 
-SB_ENGAGE = And(#SSG_Status_11_32BIT, 0x00000020)
-SB_ENGAGE = /(#SB_ENGAGE, 0x00000020)
+AS_GO_Signal = And(#SSG_Status11_32BIT, 0x00000100)
+AS_GO_Signal = /(#AS_GO_Signal, 0x00000100)
 
-nSet_Driving_State = And(#SSG_Status_11_32BIT, 0x00000010)
-nSet_Driving_State = /(#nSet_Driving_State, 0x00000010)
+BAG_START = And(#SSG_Status11_32BIT, 0x00000040)
+BAG_START = /(#BAG_START, 0x00000040)
 
-nEBS_SET_ACTIVE = And(#SSG_Status_11_32BIT, 0x00000008)
-nEBS_SET_ACTIVE = /(#nEBS_SET_ACTIVE, 0x00000008)
+TCU_Heartbeat_error = And(#SSG_Status11_32BIT, 0x00000020)
+TCU_Heartbeat_error = /(#TCU_Heartbeat_error, 0x00000020)
 
-nEBS_IS_TRIGGERED = And(#SSG_Status_11_32BIT, 0x00000004)
-nEBS_IS_TRIGGERED = /(#nEBS_IS_TRIGGERED, 0x00000004)
+Dashboard_Heartbeat_error = And(#SSG_Status11_32BIT, 0x00000010)
+Dashboard_Heartbeat_error = /(#Dashboard_Heartbeat_error, 0x00000010)
 
-nEBS_ENGAGE = And(#SSG_Status_11_32BIT, 0x00000002)
-nEBS_ENGAGE = /(#nEBS_ENGAGE, 0x00000002)
+Steering_Heartbeat_error = And(#SSG_Status11_32BIT, 0x00000008)
+Steering_Heartbeat_error = /(#Steering_Heartbeat_error , 0x00000008)
 
-EBS_IS_ACTIVE = And(#SSG_Status_11_32BIT, 0x00000001)
+Pedal_Node_Heartbeat_error = And(#SSG_Status11_32BIT, 0x00000004)
+Pedal_Node_Heartbeat_error = /(#Pedal_Node_Heartbeat_error, 0x00000004)
 
-//
+MCU_Heartbeat_error = And(#SSG_Status11_32BIT, 0x00000002)
+MCU_Heartbeat_error = /(#MCU_Heartbeat_error, 0x00000002)
 
-Calibration_State = And(#SSG_Status_12_32BIT, 0xE0000000)
-Calibration_State = /(#Calibration_State, 0x20000000)
+HVECU_Heartbeat_error = And(#SSG_Status11_32BIT, 0x00000001)
 
-Calibration_Enabled = And(#SSG_Status_12_32BIT, 0x10000000)
-Calibration_Enabled = /(#Calibration_Enabled, 0x10000000)
+[SSGStatus12]
+IfExists(#SSG_Status12_32BIT)
 
-Buzzer = And(#SSG_Status_12_32BIT, 0x08000000)
-Buzzer = /(#Buzzer, 0x08000000)
+MCU_LED = And(#SSG_Status12_32BIT, 0xC0000000)
+MCU_LED = /(#MCU_LED, 0x40000000)
 
-ASMS = And(#SSG_Status_12_32BIT, 0x04000000)
-ASMS = /(#ASMS, 0x04000000)
+IMD_LED = And(#SSG_Status12_32BIT, 0x30000000)
+IMD_LED = /(#IMD_LED, 0x10000000)
 
-AS_GO_Signal = And(#SSG_Status_12_32BIT, 0x02000000)
-AS_GO_Signal = /(#AS_GO_Signal, 0x02000000)
+TS_OFF_LED= And(#SSG_Status12_32BIT, 0x0C000000)
+TS_OFF_LED= /(#TS_OFF_LED, 0x04000000)
 
-WATCHDOG = And(#SSG_Status_12_32BIT, 0x01000000)
-WATCHDOG = /(#WATCHDOG, 0x01000000)
+AMS_LED = And(#SSG_Status12_32BIT, 0x03000000)
+AMS_LED = /(#AMS_LED, 0x01000000)
 
-TCU_Heartbeat_error = And(#SSG_Status_12_32BIT, 0x00800000)
-TCU_Heartbeat_error = /(#TCU_Heartbeat_error, 0x00800000)
+SC_MCU_FB = And(#SSG_Status12_32BIT, 0x00800000)
+SC_MCU_FB = /(#SC_MCU_FB, 0x00800000)
 
-Xavier_12V = And(#SSG_Status_12_32BIT, 0x00400000)
-Xavier_12V = /(#Xavier_12V, 0x00400000)
+SC_HOOP_FB = And(#SSG_Status12_32BIT, 0x00400000)
+SC_HOOP_FB = /(#SC_HOOP_FB, 0x00400000)
 
-Datalogger_2D_12V = And(#SSG_Status_12_32BIT, 0x00200000)
-Datalogger_2D_12V = /(#Datalogger_2D_12V, 0x00200000)
+SC_FRONT_FB = And(#SSG_Status12_32BIT, 0x00200000)
+SC_FRONT_FB = /(#SC_FRONT_FB, 0x00200000)
 
-CAN_Nodes_24V = And(#SSG_Status_12_32BIT, 0x00100000)
-CAN_Nodes_24V = /(#CAN_Nodes_24V, 0x00100000)
+SC_RES_FB = And(#SSG_Status12_32BIT, 0x00100000)
+SC_RES_FB = /(#SC_RES_FB, 0x00100000)
 
-ASF_BFS_Vectornav_12V = And(#SSG_Status_12_32BIT, 0x00080000)
-ASF_BFS_Vectornav_12V = /(#ASF_BFS_Vectornav_12V, 0x00080000)
+Xavier_LED = And(#SSG_Status12_32BIT, 0x000C0000)
+Xavier_LED = /(#Xavier_LED, 0x00040000)
 
-Pump = And(#SSG_Status_12_32BIT, 0x00040000)
-Pump = /(#Pump, 0x00040000)
+TCU_LED = And(#SSG_Status12_32BIT, 0x00030000)
+TCU_LED = /(#TCU_LED, 0x00010000)
 
-CAN_Nodes_Configured = And(#SSG_Status_12_32BIT, 0x00020000)
-CAN_Nodes_Configured = /(#CAN_Nodes_Configured, 0x00020000)
+ASSI_state = And(#SSG_Status12_32BIT, 0x0000E000)
+ASSI_state = /(#ASSI_state, 0x00002000)
 
-Dashboard_Heartbeat_error = And(#SSG_Status_12_32BIT, 0x00010000)
-Dashboard_Heartbeat_error = /(#Dashboard_Heartbeat_error, 0x00010000)
+AS_Mission_selected = And(#SSG_Status12_32BIT, 0x00001C00)
+AS_Mission_selected = /(#AS_Mission_selected, 0x00000400)
 
-AS_State = And(#SSG_Status_12_32BIT, 0x00007000)
-AS_State = /(#AS_State, 0x00001000)
+SC_HVECU_TSMS_FB = And(#SSG_Status12_32BIT, 0x00000200)
+SC_HVECU_TSMS_FB = /(#SC_HVECU_TSMS_FB, 0x00000200)
 
-Steering_Heartbeat_error = And(#SSG_Status_12_32BIT, 0x00000800)
-Steering_Heartbeat_error = /(#Steering_Heartbeat_error, 0x00000800)
+SC_BSPD_FB = And(#SSG_Status12_32BIT, 0x00000100)
+SC_BSPD_FB = /(#SC_BSPD_FB, 0x00000100)
 
-Pedal_Node_Heartbeat_error = And(#SSG_Status_12_32BIT, 0x00000400)
-Pedal_Node_Heartbeat_error = /(#Pedal_Node_Heartbeat_error, 0x00000400)
+SSG_Heartbeat = And(#SSG_Status12_32BIT, 0x00000078)
+SSG_Heartbeat = /(#SSG_Heartbeat, 0x00000008)
 
-MCU_Heartbeat_error = And(#SSG_Status_12_32BIT, 0x00000200)
-MCU_Heartbeat_error = /(#MCU_Heartbeat_error, 0x00000200)
-
-HVECU_Heartbeat_error = And(#SSG_Status_12_32BIT, 0x00000100)
-HVECU_Heartbeat_error = /(#HVECU_Heartbeat_error, 0x00000100)
-
-PPS1 = And(#SSG_Status_12_32BIT, 0x000000FF)
-PPS1 = /(#PPS1, 10) //TODO
-
-[SSGStatus2]
-
-AUTOX_LED = And(#SSG_Status_21_32BIT, 0xC0000000)
-AUTOX_LED = /(#AUTOX_LED, 0x40000000)
-
-ASB_ERROR_LED = And(#SSG_Status_21_32BIT, 0x30000000)
-ASB_ERROR_LED = /(#ASB_ERROR_LED, 0x10000000)
-
-AMS_LED = And(#SSG_Status_21_32BIT, 0x0C000000)
-AMS_LED = /(#AMS_LED, 0x04000000)
-
-ACCELERATION_LED = And(#SSG_Status_21_32BIT, 0x03000000)
-ACCELERATION_LED = /(#ACCELERATION_LED, 0x01000000)
-
-INSPECTION_LED = And(#SSG_Status_21_32BIT, 0x00C00000)
-INSPECTION_LED = /(#INSPECTION_LED, 0x00400000)
-
-IMD_LED = And(#SSG_Status_21_32BIT, 0x00300000)
-IMD_LED = /(#IMD_LED, 0x00100000)
-
-HV_LED = And(#SSG_Status_21_32BIT, 0x000C0000)
-HV_LED = /(#HV_LED, 0x00040000)
-
-EBS_TEST_LED = And(#SSG_Status_21_32BIT, 0x00030000)
-EBS_TEST_LED = /(#EBS_TEST_LED, 0x00010000)
-
-MCU3_LED = And(#SSG_Status_21_32BIT, 0x0000C000)
-MCU3_LED = /(#MCU3_LED, 0x00004000)
-
-MCU2_LED = And(#SSG_Status_21_32BIT, 0x00003000)
-MCU2_LED = /(#MCU2_LED, 0x00001000)
-
-MCU1_LED = And(#SSG_Status_21_32BIT, 0x00000C00)
-MCU1_LED = /(#MCU1_LED, 0x00000400)
-
-MANUAL_MODE_LED = And(#SSG_Status_21_32BIT, 0x00000300)
-MANUAL_MODE_LED = /(#MANUAL_MODE_LED, 0x00000100)
-
-TRACKDRIVE_LED = And(#SSG_Status_21_32BIT, 0x000000C0)
-TRACKDRIVE_LED = /(#TRACKDRIVE_LED, 0x00000040)
-
-TCU_LED = And(#SSG_Status_21_32BIT, 0x00000030)
-TCU_LED = /(#TCU_LED, 0x00000010)
-
-SKIDPAD_LED = And(#SSG_Status_21_32BIT, 0x0000000C)
-SKIDPAD_LED = /(#SKIDPAD_LED, 0x00000004)
-
-MCU4_LED = And(#SSG_Status_21_32BIT, 0x00000003)
-MCU4_LED = /(#MCU4_LED, 0x00000001)
-
-//
-
-SC_EBS_FB = And(#SSG_Status_22_32BIT, 0x80000000)
-SC_EBS_FB = /(#SC_EBS_FB, 0x80000000)
-
-SC_FRONT_FB = And(#SSG_Status_22_32BIT, 0x40000000)
-SC_FRONT_FB = /(#SC_FRONT_FB, 0x40000000)
-
-SC_HOOP_FB = And(#SSG_Status_22_32BIT, 0x20000000)
-SC_HOOP_FB = /(#SC_HOOP_FB, 0x20000000)
-
-SC_MCU_FB = And(#SSG_Status_22_32BIT, 0x10000000)
-SC_MCU_FB = /(#SC_MCU_FB, 0x10000000)
-
-SC_DV_FB = And(#SSG_Status_22_32BIT, 0x08000000)
-SC_DV_FB = /(#SC_DV_FB, 0x08000000)
-
-SC_BSPD_FB = And(#SSG_Status_22_32BIT, 0x04000000)
-SC_BSPD_FB = /(#SC_BSPD_FB, 0x04000000)
-
-TS_OFF_LED = And(#SSG_Status_22_32BIT, 0x03000000)
-TS_OFF_LED = /(#TS_OFF_LED, 0x01000000)
-
-Brake_Light = And(#SSG_Status_22_32BIT, 0x00020000)
-Brake_Light = /(#Brake_Light, 0x00020000)
-
-SC_DV_RELAY_FB = And(#SSG_Status_22_32BIT, 0x00010000)
-SC_DV_RELAY_FB = /(#SC_DV_RELAY_FB, 0x00010000)
-
-PPS2 = And(#SSG_Status_22_32BIT, 0x0000FF00)
-PPS2 = /(#PPS2, 0x00000100)
-PPS2 = /(#PPS2, 10)
-
-SSG_Heartbeat = And(#SSG_Status_22_32BIT, 0x000000FF)
-
-
-
-
-
-
-
+AS_State = And(#SSG_Status12_32BIT, 0x00000007)
