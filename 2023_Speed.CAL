@@ -1,4 +1,4 @@
-;last modified 2023. 05. 31. 17:33:06 by pungorpeter    (1)
+;last modified 2023. 05. 31. 23:44:01 by pungorpeter    (1)
 
 [2023_Speed]
 
@@ -8,7 +8,7 @@ V_GPS_corrected=Shift(#V_GPS,-0.2 Sec)        //GPS késése miatti eltolás
 vx_mps=And(#Speed1_32BIT, 0xFFFF0000)      //vdc model estimation
 vx_mps=/(#vx_mps, 65536)
 vx_mps=/(#vx_mps, 1000)
-vx_kmph = Set(DIM = 'm/s')
+vx_mps= Set(DIM = 'm/s')
 
 vx_kmph = *(#vx_mps, 3.6)
 vx_kmph = Set(DIM = 'km/h')
