@@ -1,4 +1,4 @@
-;last modified 2023. 05. 08. 1:20:46 by pungorpeter    (1)
+;last modified 2023. 06. 01. 21:38:41 by pungorpeter    (29)
 
 [2023_TCU_Status]
 
@@ -20,10 +20,10 @@ RPM_Max= *(#RPM_Max,500)
 Power_Max = And(#TCU_Status_11_32BIT,0x000000FF)
 Power_Max = *(#Power_Max ,1000)
 
-Characteristics=And(#TCU_Status_12_32BIT, 0xF0000000)
-Characteristics=/(#Characteristics, 0x10000000)
+{Characteristics=And(#TCU_Status_12_32BIT, 0xF0000000)
+Characteristics=/(#Characteristics, 0x10000000)}
 
-Drop_Parameter=And(#TCU_Status_12_32BIT, 0x0F000000)
+Drop_Parameter=And(#TCU_Status_12_32BIT, 0x3F000000)
 Drop_Parameter=/(#Drop_Parameter, 0x01000000)
 Drop_Parameter=/(#Drop_Parameter, 20)
 
@@ -41,7 +41,7 @@ Car_Standing = And(#TCU_Status_12_32BIT, 0x2000)
 Car_Standing = /(#Car_Standing, 0x2000)
 
 Powlim_Hardcore_ON=And(#TCU_Status_12_32BIT, 0x00001000)
-Powlim_Hardcore_ON=/(#Powlim_Hardcore_ON,4096)   //be van kapcsolva, nem azt jelenti, hogy �pp akt�v
+Powlim_Hardcore_ON=/(#Powlim_Hardcore_ON,4096)
 
 Powlim_Throttle_ON=And(#TCU_Status_12_32BIT,0x00000800)
 Powlim_Throttle_ON=/(#Powlim_Throttle_ON,2048)
@@ -55,23 +55,19 @@ Powlim_Efficiency_ON=/(#Powlim_Efficiency_ON, 0x200)
 Yaw_Control_ON = And(#TCU_Status_12_32BIT,0x0100)
 Yaw_Control_ON = /(#Yaw_Control_ON,0x0100)
 
-Traction_Control_ON=And(#TCU_Status_12_32BIT,0x00000080)
-Traction_Control_ON=/(#Traction_Control_ON,128)
+Traction_Control_ON=And(#TCU_Status_12_32BIT,0x80)
+Traction_Control_ON=/(#Traction_Control_ON,80)
 
 Slip_Control_ON=And(#TCU_Status_12_32BIT, 0x40)
 Slip_Control_ON=/(#Slip_Control_ON, 0x40)
 
-Launch_Control_Enabled=And(#TCU_Status_12_32BIT, 0x20)
-Launch_Control_Enabled=/(#Launch_Control_Enabled, 0x20)
-
-Yaw_Control_Braking_On=And(#TCU_Status_12_32BIT, 0x10)
-Yaw_Control_Braking_On=/(#Yaw_Control_Braking_On, 0x10)
-
-Disable_Regbrake_F=And(#TCU_Status_12_32BIT, 0x8)
-Disable_Regbrake_F=/(#Disable_Regbrake_F, 0x8)
+Disable_Regbrake_F=And(#TCU_Status_12_32BIT, 0x20)
+Disable_Regbrake_F=/(#Disable_Regbrake_F, 0x20)
 
 DV_mode=And(#TCU_Status_12_32BIT, 0x10)
 DV_mode=/(#DV_mode, 0x10)
+
+Iterative_On = And(#TCU_Status_12_32BIT, 0x1)
 
 //______________________________________________________________________________
 //TCU_Status2
