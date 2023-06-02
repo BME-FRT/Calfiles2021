@@ -1,38 +1,68 @@
-;last modified 2023. 05. 16. 23:15:49 by Péter    (1)
+;last modified 2023. 06. 02. 21:23:17 by FRT_Admin    (75)
 
 [2023_Sensorbox_Front]
 
 [Bosch]
 IfExists(#ASF_1_32BIT)
-//Acc_Front_AccX
-Acceleration_X_Front = And(#ASF_1_32BIT, 0x0000FFFF)
-Acceleration_X_Front = -(#Acceleration_X_Front, 0x8000)
-Acceleration_X_Front = *(#Acceleration_X_Front, 0.0001274) // scalingfactor
-Acceleration_X_Front = Set(DIM = 'g')
 
-//Acc_Front_AccY
-Acceleration_Y_Front = And(#ASF_1_32BIT, 0xFFFF0000)
-Acceleration_Y_Front = /(#Acceleration_Y_Front , 0x00010000)
-Acceleration_Y_Front = -(#Acceleration_Y_Front , 0x8000)
-Acceleration_Y_Front = *(#Acceleration_Y_Front , 0.0001274) // scalingfactor
-Acceleration_Y_Front = +(#Acceleration_Y_Front, 8.323072)
-Acceleration_Y_Front = Set(DIM = 'g')
+//Front AccX
+Acceleration_X_Frontlb = And(#ASF_1_32BIT, 0xFF000000)
+Acceleration_X_Frontlb = /(#Acceleration_X_Frontlb,0x01000000)
+Acceleration_X_Fronthb = And(#ASF_1_32BIT, 0x00FF0000)
+Acceleration_X_Fronthb = /(#Acceleration_X_Fronthb,0x00010000)
+Acceleration_X_Fronthb =*(#Acceleration_X_Fronthb,0x100)
+Acceleration_X_Front =+(#Acceleration_X_Frontlb,#Acceleration_X_Fronthb)
+Acceleration_X_Front =-(#Acceleration_X_Front, 0x8000)
+Acceleration_X_Front = *(#Acceleration_X_Front, 0.0001274)
+Acceleration_X_Front =Set(DIM = 'g')
+
+Delete(#Acceleration_X_Frontlb)
+Delete(#Acceleration_X_Fronthb)
+
+
+//Front AccY
+Acceleration_Y_Frontlb = And(#ASF_1_32BIT, 0x0000FF00)
+Acceleration_Y_Frontlb = /(#Acceleration_Y_Frontlb,0x00000100)
+Acceleration_Y_Fronthb = And(#ASF_1_32BIT, 0x000000FF)
+Acceleration_Y_Fronthb =*(#Acceleration_Y_Fronthb,0x100)
+Acceleration_Y_Front =+(#Acceleration_Y_Frontlb,#Acceleration_Y_Fronthb)
+Acceleration_Y_Front =-(#Acceleration_Y_Front, 0x8000)
+Acceleration_Y_Front = *(#Acceleration_Y_Front, 0.0001274)
+Acceleration_Y_Front =Set(DIM = 'g')
+
+Delete(#Acceleration_Y_Frontlb)
+Delete(#Acceleration_Y_Fronthb)
+
 
 //Front Rollrate
-Roll_Rate_Front= And(#ASF_2_32BIT, 0x0000FFFF)
-Roll_Rate_Front=-(#Roll_Rate_Front, 0x8000)
-Roll_Rate_Front=*(#Roll_Rate_Front, 0.005)
-Roll_Rate_Front=*(#Roll_Rate_Front, @DEG2RAD)
+Roll_Rate_Front_Frontlb = And(#ASF_2_32BIT, 0xFF000000)
+Roll_Rate_Front_Frontlb = /(#Roll_Rate_Front_Frontlb,0x01000000)
+Roll_Rate_Front_Fronthb = And(#ASF_2_32BIT, 0x00FF0000)
+Roll_Rate_Front_Fronthb = /(#Roll_Rate_Front_Fronthb, 0x00010000)
+Roll_Rate_Front_Fronthb = *(#Roll_Rate_Front_Fronthb,0x100)
+Roll_Rate_Front = +(#Roll_Rate_Front_Frontlb,#Roll_Rate_Front_Fronthb)
+Roll_Rate_Front = -(#Roll_Rate_Front, 0x8000)
+Roll_Rate_Front = *(#Roll_Rate_Front, 0.005)
+Roll_Rate_Front = *(#Roll_Rate_Front, @DEG2RAD)
 Roll_Rate_Front =Set(DIM = 'rad/s')
 
+Delete(#Roll_Rate_Front_Frontlb)
+Delete(#Roll_Rate_Front_Fronthb)
+
+
 //Front Yawrate
-Yaw_Rate_Front= And(#ASF_2_32BIT, 0xFFFF0000)
-Yaw_Rate_Front= /(#Yaw_Rate_Front, 0x00010000)
-Yaw_Rate_Front=-(#Yaw_Rate_Front, 0x8000)
-Yaw_Rate_Front=*(#Yaw_Rate_Front, 0.005)
-Yaw_Rate_Front=+(#Yaw_Rate_Front, 327.68)
-Yaw_Rate_Front=*(#Yaw_Rate_Front, @DEG2RAD)
+Yaw_Rate_Front_Frontlb = And(#ASF_2_32BIT, 0x0000FF00)
+Yaw_Rate_Front_Frontlb = /(#Yaw_Rate_Front_Frontlb,0x00000100)
+Yaw_Rate_Front_Fronthb = And(#ASF_2_32BIT, 0x000000FF)
+Yaw_Rate_Front_Fronthb = *(#Yaw_Rate_Front_Fronthb,0x100)
+Yaw_Rate_Front = +(#Yaw_Rate_Front_Frontlb,#Yaw_Rate_Front_Fronthb)
+Yaw_Rate_Front = -(#Yaw_Rate_Front, 0x8000)
+Yaw_Rate_Front = *(#Yaw_Rate_Front, 0.005)
+Yaw_Rate_Front = *(#Yaw_Rate_Front, @DEG2RAD)
 Yaw_Rate_Front =Set(DIM = 'rad/s')
+
+Delete(#Yaw_Rate_Front_Frontlb)
+Delete(#Yaw_Rate_Front_Fronthb)
 
 
 [Pedalnode]
@@ -46,7 +76,7 @@ Acceleration_Y_PN = -(#PN_IMU_Acc_Y, 0x8000)
 Acceleration_Y_PN = *(#Acceleration_Y_PN,0.0001220703125)
 Acceleration_Y_PN = Set(DIM = 'g')
 
-Acceleration_Z_PN = -(#PN_IMU_Acc_Z, 0x8000)
+{Acceleration_Z_PN = -(#PN_IMU_Acc_Z, 0x8000)
 Acceleration_Z_PN = *(#Acceleration_Z_PN,0.0001220703125)
 Acceleration_Z_PN = Set(DIM = 'g')
 
@@ -63,5 +93,6 @@ Pitch_Rate_PN = Set(DIM = 'rad/s')
 Roll_Rate_PN = And(#PN_IMU_Pitch_Roll, 0x0000FFFF)
 Roll_Rate_PN = -(#Roll_Rate_PN , 0x8000)
 Roll_Rate_PN = *(#Roll_Rate_PN ,0.00762939453125)
-Roll_Rate_PN = Set(DIM = 'rad/s')
+Roll_Rate_PN = Set(DIM = 'rad/s')  }
+
 
