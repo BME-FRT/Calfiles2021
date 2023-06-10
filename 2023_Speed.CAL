@@ -1,4 +1,4 @@
-;last modified 2023. 05. 31. 23:44:01 by pungorpeter    (1)
+;last modified 2023. 06. 11. 0:07:57 by pungorpeter    (99)
 
 [2023_Speed]
 
@@ -17,28 +17,24 @@ vx_kmph = Set(DIM = 'km/h')
 
 IfExists(#AMK_Actualvelocity_1)
 WheelSpeed_1=*(#AMK_Actualvelocity_1,Parameters.RPM2KMPH)
-WheelSpeed_1=F(#WheelSpeed_1,F(AVG 20))
 WheelSpeed_1=Set(DIM='km/h')
 
 [WheelSpeed_2]
 
 IfExists(#AMK_Actualvelocity_2)
 WheelSpeed_2=*(#AMK_Actualvelocity_2,Parameters.RPM2KMPH)
-WheelSpeed_2=F(#WheelSpeed_2,F(AVG 20))
 WheelSpeed_2=Set(DIM='km/h')
 
 [WheelSpeed_3]
 
 IfExists(#AMK_Actualvelocity_3)
 WheelSpeed_3=*(#AMK_Actualvelocity_3,Parameters.RPM2KMPH)
-WheelSpeed_3=F(#WheelSpeed_3,F(AVG 20))
 WheelSpeed_3=Set(DIM='km/h')
 
 [WheelSpeed_4]
 
 IfExists(#AMK_Actualvelocity_4)
 WheelSpeed_4=*(#AMK_Actualvelocity_4,Parameters.RPM2KMPH);
-WheelSpeed_4=F(#WheelSpeed_4,F(AVG 20))
 WheelSpeed_4=Set(DIM='km/h')
 
 [VehicleSpeed]
@@ -47,22 +43,22 @@ WheelSpeed_4=Set(DIM='km/h')
 
 y1=*(#AMK_Actualvelocity_1,@Pi)
 y1=/(#AMK_Actualvelocity_1,30)
-y1=/(#AMK_Actualvelocity_1,16)
+y1=/(#AMK_Actualvelocity_1,Parameters.PLANETARY_GEAR_RATIO)
 y1=*(#AMK_Actualvelocity_1,Parameters.WHEEL_RADIUS)
 
 y2=*(#AMK_Actualvelocity_2,@Pi)
 y2=/(#AMK_Actualvelocity_2,30)
-y2=/(#AMK_Actualvelocity_2,16)
+y2=/(#AMK_Actualvelocity_2,Parameters.PLANETARY_GEAR_RATIO)
 y2=*(#AMK_Actualvelocity_2,Parameters.WHEEL_RADIUS)
 
 y3=*(#AMK_Actualvelocity_3,@Pi)
 y3=/(#AMK_Actualvelocity_3,30)
-y3=/(#AMK_Actualvelocity_3,16)
+y3=/(#AMK_Actualvelocity_3,Parameters.PLANETARY_GEAR_RATIO)
 y3=*(#AMK_Actualvelocity_3,Parameters.WHEEL_RADIUS)
 
 y4=*(#AMK_Actualvelocity_4,@Pi)
 y4=/(#AMK_Actualvelocity_4,30)
-y4=/(#AMK_Actualvelocity_4,16)
+y4=/(#AMK_Actualvelocity_4,Parameters.PLANETARY_GEAR_RATIO)
 y4=*(#AMK_Actualvelocity_4,Parameters.WHEEL_RADIUS)
 
 //
@@ -122,9 +118,9 @@ sumout=+(#sumout,#out3)
 sumout=+(#sumout,#out4)
 
 VehicleSpeed=/(#sumout,#sumn)
-VehicleSpeed=*(#VehicleSpeed,0.024)
-VehicleSpeed=RcLp(#VehicleSpeed,0.23)
-VehicleSpeed=F(#VehicleSpeed, F(AVG 0.05 sec))
+VehicleSpeed=*(#VehicleSpeed,0.0292)
+VehicleSpeed=RcLp(#VehicleSpeed,0.16)
+VehicleSpeed=F(#VehicleSpeed, F(AVG 0.01 sec))
 VehicleSpeed=Shift(#VehicleSpeed,-0.1 sec)
 VehicleSpeed=Set(Dim='km/h')
 
