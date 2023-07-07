@@ -1,4 +1,4 @@
-;last modified 2023. 05. 08. 18:47:57 by pungorpeter    (29)
+;last modified 2023. 07. 07. 21:36:39 by Vince    (112)
 
 [2023_TestData]
 
@@ -6,24 +6,24 @@
 {$IfNotExists(#E_Kinetic) 2023_Energy.CAL}
 
 [Brake]
-condition = If(#Brake_Force_Sensor,>,200,1,0)
-Mech_vs_RegBrake = If(#condition,=,1,#Brake_Pressure_Front,0)
+condition = If(#Brake_Force_sensor,>,200,1,0)
+Mech_vs_RegBrake = If(#condition,=,1,#Brake_pressure_front,0)
 Mech_vs_RegBrake=Set(Dim='bar')
 Delete(#condition)
 
 [Throttle]
-Throttle=+(#Throttle_Position_1,#Throttle_Position_2)
+Throttle=+(#APPS1_position,#APPS2_position)
 Throttle=/(#Throttle,2)
 Throttle=Set(Dim='%')
 
 [Coast]    //no brake force & no throttle & the car is Not standing
-bool1=If(#Brake_Pressure_Front,<,10,0,1)
+bool1=If(#Brake_pressure_front,<,10,0,1)
 bool2=If(#Throttle,<,5,0,1)
-bool3=If(#Brake_Force_Sensor,<,30,0,1)
+bool3=If(#Brake_Force_sensor,<,30,0,1)
 Coast=+(#bool1,#bool2)
 Coast=+(#Coast,#bool3)
 Coast=If(#Coast,=,0,1,0)
-bool=If(#AMK_ActualVelocity_3,<,100,0,1)
+bool=If(#AMK3_actual_velocity,<,100,0,1)
 Coast=*(#bool,#Coast)
 Coast=*(#Coast,100)
 Delete(#bool1)
@@ -34,9 +34,9 @@ Coast=Set(DIM='-')
 
 
 [Throttle_Steering]
-Throttle_Steering=+(#Throttle_Position_1,#Throttle_Position_2)
+Throttle_Steering=+(#APPS1_position,#APPS2_position)
 Throttle_Steering=/(#Throttle_Steering,2)
-AVG_Steering_Angle=+(#Steering_Angle_1,#Steering_Angle_2)
+AVG_Steering_Angle=+(#STA1_position,#STA2_position)
 AVG_Steering_Angle=/(#AVG_Steering_Angle,2)
 AVG_Steering_Angle=Abs(#AVG_Steering_Angle)
 Throttle_Steering=*(#Throttle_Steering,#AVG_Steering_Angle)
@@ -46,11 +46,11 @@ Throttle_Steering=Set(DIM='deg*%')
 
 [Brake_Steering]
 
-st1=If(#Brake_Force_Sensor,>,50,1,0)
+st1=If(#Brake_Force_sensor,>,50,1,0)
 st2=If(#AVG_Steering_Angle,>,30,1,0)    //avg_steering_angle absolutban van
 st2=+(#st1,#st2)
 st2=If(#st2,=,2,1,0)
-Br_St=*(#AVG_Steering_Angle,#Brake_Force_Sensor)
+Br_St=*(#AVG_Steering_Angle,#Brake_Force_sensor)
 Brake_Steering=FillFromBool(#Br_St,#st2)
 Brake_Steering=Set(Dim='N*deg')
 
@@ -60,7 +60,7 @@ Delete(#Br_St)
 
 
 [M_Yaw]
-
+                    //???????
 AVG_M_Yaw=Abs(#M_Yaw)
 AVG_M_Yaw=Set(Dim='Nm')
 
@@ -123,9 +123,9 @@ SlipRatio_4_Braking=Set(Dim='0.01')
 {$IfNotExists(#Slip_FL) 2023_Slip_Control.CAL}
 {$IfNotExists(#Acceleration_Y_Rear) 2023_Sensorbox_Rear.CAL}
 
-OS_US=/(#Acceleration_Y_Rear,#vx_mps)      //Acc_Y is in g
+OS_US=/(#AccY_Bosch,#vx_mps)      //Acc_Y is in g
 OS_US=*(9.81,#OS_US)                      //gravity  --> [OS_US]=rad/s
-OS_US=/(#Yaw_Rate_Rear,#OS_US)
+OS_US=/(#YawRate_Bosch,#OS_US)
 OS_US=If(#vx_mps,>,2,#OS_US,0)
 OS_US=Limit(#OS_US,-5,5)
 OS_US=*(#OS_US,100)
@@ -170,7 +170,7 @@ INT_Id4=Integrate(#INT_Id4,0)
 {$IfNotExists(#Roll_Gradient_Rear) 2023_RegressionCaller.CAL}
 
 [Lap]
-tmp = If(#AMK_Actualvelocity_1,>,-10000,1,0)
+tmp = If(#AMK1_actual_velocity,>,-10000,1,0)
 tmp = Integrate(#tmp,0)
 tmp = Derivate(#tmp)
 tmp = If(#tmp,>,0,0,1)
