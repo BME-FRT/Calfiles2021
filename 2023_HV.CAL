@@ -1,10 +1,10 @@
-;last modified 2023. 05. 08. 1:15:53 by pungorpeter    (1)
+;last modified 2023. 07. 07. 20:55:20 by Vince    (23)
 
 [2023_HV]
-
+{
 HV_Accumulator_Cell_ID =  And(#HV_Cell_Values, 0xFF00)
 HV_Accumulator_Cell_ID = /(#HV_Accumulator_Cell_ID,256)
-
+}
 HV_Cell_Voltage_Validity = If(#HV_Cell_Voltage,>,3000,1,0)
 HV_Cell_Voltage_Validity = FillFromBool(#HV_Cell_Voltage,#HV_Cell_Voltage_Validity)
 HV_Cell_Voltage_Critical = F(#HV_Cell_Voltage_Validity, F(Min 156))
@@ -16,7 +16,7 @@ HV_Cell_Temperature_Critical = F(#HV_Cell_Temperature_Validity, F(Max 156))
 Delete(#HV_Cell_Temperature_Validity)
 
 /////
-
+{
 HV_Voltage_Before_AIRs = And(#HV_Voltage_Before_&_After_AIRs , 0xFFFF0000)
 HV_Voltage_Before_AIRs = /(#HV_Voltage_Before_AIRs, 65536)
 HV_Voltage_Before_AIRs=/(#HV_Voltage_Before_AIRs,10)
@@ -25,32 +25,32 @@ HV_Voltage_Before_AIRs = Set(Dim='V')
 HV_Voltage_After_AIRs = And(#HV_Voltage_Before_&_After_AIRs, 0x0000FFFF)
 HV_Voltage_After_AIRs =/(#HV_Voltage_After_AIRs,10)
 HV_Voltage_After_AIRs = Set(Dim='V')
-
+}
 HV_Current_filtered = F(#HV_Current, F(AVG 50))
 
 [IdIq]
- Iq1=*(#AMK_Torquecurrent_1,107.2)
+ Iq1=*(#AMK1_torque_current,107.2)
  Iq1=/(#Iq1,16384)
 
- Iq2=*(#AMK_Torquecurrent_2,107.2)
+ Iq2=*(#AMK2_torque_current,107.2)
  Iq2=/(#Iq2,16384)
 
- Iq3=*(#AMK_Torquecurrent_3,107.2)
+ Iq3=*(#AMK3_torque_current,107.2)
  Iq3=/(#Iq3,16384)
 
- Iq4=*(#AMK_Torquecurrent_4,107.2)
+ Iq4=*(#AMK4_torque_current,107.2)
  Iq4=/(#Iq4,16384)
 
- Id1=*(#AMK_MagnetizingCurrent_1,107.2)
+ Id1=*(#AMK1_magnetizing_current,107.2)
  Id1=/(#Id1,16384)
 
- Id2=*(#AMK_MagnetizingCurrent_2,107.2)
+ Id2=*(#AMK2_magnetizing_current,107.2)
  Id2=/(#Id2,16384)
 
- Id3=*(#AMK_MagnetizingCurrent_3,107.2)
+ Id3=*(#AMK3_magnetizing_current,107.2)
  Id3=/(#Id3,16384)
 
- Id4=*(#AMK_MagnetizingCurrent_4,107.2)
+ Id4=*(#AMK4_magnetizing_current,107.2)
  Id4=/(#Id4,16384)
 
 
