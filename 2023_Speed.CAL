@@ -1,65 +1,65 @@
-;last modified 2023. 06. 11. 0:07:57 by pungorpeter    (99)
+;last modified 2023. 07. 07. 21:22:24 by inyoc    (111)
 
 [2023_Speed]
 
 /////Velocity
 
 V_GPS_corrected=Shift(#V_GPS,-0.2 Sec)        //GPS késése miatti eltolás
-vx_mps=And(#Speed1_32BIT, 0xFFFF0000)      //vdc model estimation
+{vx_mps=And(#Speed1_32BIT, 0xFFFF0000)      //vdc model estimation
 vx_mps=/(#vx_mps, 65536)
 vx_mps=/(#vx_mps, 1000)
 vx_mps= Set(DIM = 'm/s')
-
-vx_kmph = *(#vx_mps, 3.6)
+ }
+vx_kmph = *(#v_x, 3.6)
 vx_kmph = Set(DIM = 'km/h')
 
 [WheelSpeed_1]
 
-IfExists(#AMK_Actualvelocity_1)
-WheelSpeed_1=*(#AMK_Actualvelocity_1,Parameters.RPM2KMPH)
+IfExists(#AMK1_actual_velocity)
+WheelSpeed_1=*(#AMK1_actual_velocity,Parameters.RPM2KMPH)
 WheelSpeed_1=Set(DIM='km/h')
 
 [WheelSpeed_2]
 
-IfExists(#AMK_Actualvelocity_2)
-WheelSpeed_2=*(#AMK_Actualvelocity_2,Parameters.RPM2KMPH)
+IfExists(#AMK2_actual_velocity)
+WheelSpeed_2=*(#AMK2_actual_velocity,Parameters.RPM2KMPH)
 WheelSpeed_2=Set(DIM='km/h')
 
 [WheelSpeed_3]
 
-IfExists(#AMK_Actualvelocity_3)
-WheelSpeed_3=*(#AMK_Actualvelocity_3,Parameters.RPM2KMPH)
+IfExists(#AMK3_actual_velocity)
+WheelSpeed_3=*(#AMK3_actual_velocity,Parameters.RPM2KMPH)
 WheelSpeed_3=Set(DIM='km/h')
 
 [WheelSpeed_4]
 
-IfExists(#AMK_Actualvelocity_4)
-WheelSpeed_4=*(#AMK_Actualvelocity_4,Parameters.RPM2KMPH);
+IfExists(#AMK4_actual_velocity)
+WheelSpeed_4=*(#AMK4_actual_velocity,Parameters.RPM2KMPH);
 WheelSpeed_4=Set(DIM='km/h')
 
 [VehicleSpeed]
 
 // [m/s]
 
-y1=*(#AMK_Actualvelocity_1,@Pi)
-y1=/(#AMK_Actualvelocity_1,30)
-y1=/(#AMK_Actualvelocity_1,Parameters.PLANETARY_GEAR_RATIO)
-y1=*(#AMK_Actualvelocity_1,Parameters.WHEEL_RADIUS)
+y1=*(#AMK1_actual_velocity,@Pi)
+y1=/(#AMK1_actual_velocity,30)
+y1=/(#AMK1_actual_velocity,Parameters.PLANETARY_GEAR_RATIO)
+y1=*(#AMK1_actual_velocity,Parameters.WHEEL_RADIUS)
 
-y2=*(#AMK_Actualvelocity_2,@Pi)
-y2=/(#AMK_Actualvelocity_2,30)
-y2=/(#AMK_Actualvelocity_2,Parameters.PLANETARY_GEAR_RATIO)
-y2=*(#AMK_Actualvelocity_2,Parameters.WHEEL_RADIUS)
+y2=*(#AMK2_actual_velocity,@Pi)
+y2=/(#AMK2_actual_velocity,30)
+y2=/(#AMK2_actual_velocity,Parameters.PLANETARY_GEAR_RATIO)
+y2=*(#AMK2_actual_velocity,Parameters.WHEEL_RADIUS)
 
-y3=*(#AMK_Actualvelocity_3,@Pi)
-y3=/(#AMK_Actualvelocity_3,30)
-y3=/(#AMK_Actualvelocity_3,Parameters.PLANETARY_GEAR_RATIO)
-y3=*(#AMK_Actualvelocity_3,Parameters.WHEEL_RADIUS)
+y3=*(#AMK3_actual_velocity,@Pi)
+y3=/(#AMK3_actual_velocity,30)
+y3=/(#AMK3_actual_velocity,Parameters.PLANETARY_GEAR_RATIO)
+y3=*(#AMK3_actual_velocity,Parameters.WHEEL_RADIUS)
 
-y4=*(#AMK_Actualvelocity_4,@Pi)
-y4=/(#AMK_Actualvelocity_4,30)
-y4=/(#AMK_Actualvelocity_4,Parameters.PLANETARY_GEAR_RATIO)
-y4=*(#AMK_Actualvelocity_4,Parameters.WHEEL_RADIUS)
+y4=*(#AMK4_actual_velocity,@Pi)
+y4=/(#AMK4_actual_velocity,30)
+y4=/(#AMK4_actual_velocity,Parameters.PLANETARY_GEAR_RATIO)
+y4=*(#AMK4_actual_velocity,Parameters.WHEEL_RADIUS)
 
 //
 

@@ -1,4 +1,4 @@
-;last modified 2023. 05. 08. 1:29:51 by pungorpeter    (22)
+;last modified 2023. 07. 07. 20:23:59 by inyoc    (99)
 
 [2023_Energy]
 
@@ -76,25 +76,25 @@ E_Drag=Integrate(#P_Drag,0)
 
 [Motor mechanical Power]
 
-P_motor_1=*(#AMK_TorqueLimitPositive_1,#AMK_Actualvelocity_1)
+P_motor_1=*(#AMK1_Torque_Limit_Positive,#AMK1_actual_velocity)
 P_motor_1=*(#P_motor_1,@Pi)
 P_motor_1=/(#P_motor_1,30)
 P_motor_1=/(#P_motor_1,1000)
 E_motor_1=Integrate(#P_motor_1,0)
 
-P_motor_2=*(#AMK_TorqueLimitPositive_2,#AMK_Actualvelocity_2)
+P_motor_2=*(#AMK2_Torque_Limit_Positive,#AMK2_actual_velocity)
 P_motor_2=*(#P_motor_2,@Pi)
 P_motor_2=/(#P_motor_2,30)
 P_motor_2=/(#P_motor_2,1000)
 E_motor_2=Integrate(#P_motor_2,0)
 
-P_motor_3=*(#AMK_TorqueLimitPositive_3,#AMK_Actualvelocity_3)
+P_motor_3=*(#AMK3_TorqueLimitPositive,#AMK3_actual_velocity)
 P_motor_3=*(#P_motor_3,@Pi)
 P_motor_3=/(#P_motor_3,30)
 P_motor_3=/(#P_motor_3,1000)
 E_motor_3=Integrate(#P_motor_3,0)
 
-P_motor_4=*(#AMK_TorqueLimitPositive_4,#AMK_Actualvelocity_4)
+P_motor_4=*(#AMK4_TorqueLimitPositive,#AMK4_actual_velocity)
 P_motor_4=*(#P_motor_4,@Pi)
 P_motor_4=/(#P_motor_4,30)
 P_motor_4=/(#P_motor_4,1000)
