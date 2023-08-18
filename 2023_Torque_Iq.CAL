@@ -1,4 +1,4 @@
-;last modified 2022. 11. 03. 20:49:10 by pungorpeter    (1)
+;last modified 8/18/2023 12:55:18 AM by adama    (12)
 
 [2023_Torque_Iq]
 
@@ -41,3 +41,15 @@ Torque_Iq4 = Set(DIM = 'Nm')
 
 Delete(#tmp1)
 Delete(#tmp2)
+
+Torque_Iq_Sum=+(#Torque_Iq1,#Torque_Iq2)
+Torque_Iq_Sum=+(#Torque_Iq_Sum,#Torque_Iq3)
+Torque_Iq_Sum=+(#Torque_Iq_Sum,#Torque_Iq4)
+Torque_Iq_Sum = Set(DIM = 'Nm')
+
+P_Mech_Iq3 = *(#Torque_Iq3,#AMK3_actual_velocity)
+P_Mech_Iq3 = *(#P_Mech_Iq3,@Pi)
+P_Mech_Iq3 = /(#P_Mech_Iq3,30000)
+P_Mech_Iq4 = *(#Torque_Iq4,#AMK4_actual_velocity)
+P_Mech_Iq4 = *(#P_Mech_Iq4,@Pi)
+P_Mech_Iq4 = /(#P_Mech_Iq4,30000)
