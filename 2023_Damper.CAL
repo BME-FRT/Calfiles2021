@@ -1,13 +1,13 @@
-;last modified 2023. 05. 08. 1:48:08 by pungorpeter    (29)
+;last modified 11/24/2023 8:32:34 PM by adama    (22)
 
 [2023_Damper]
 
 [Ride_Height]
 
-Ride_Height_1=*(#DamperPos_FL, Parameters.MOTION_RATIO_FRONT)
-Ride_Height_2=*(#DamperPos_FR, Parameters.MOTION_RATIO_FRONT)
-Ride_Height_3=*(#DamperPos_RL, Parameters.MOTION_RATIO_REAR)
-Ride_Height_4=*(#DamperPos_RR, Parameters.MOTION_RATIO_REAR)
+Ride_Height_1=*(#Damper_FL, Parameters.MOTION_RATIO_FRONT)
+Ride_Height_2=*(#Damper_FR, Parameters.MOTION_RATIO_FRONT)
+Ride_Height_3=*(#Damper_RL, Parameters.MOTION_RATIO_REAR)
+Ride_Height_4=*(#Damper_RR, Parameters.MOTION_RATIO_REAR)
 
 Ride_Height_Front=+(#Ride_Height_1,#Ride_Height_2)
 Ride_Height_Front=/(#Ride_Height_Front,2)
@@ -21,28 +21,28 @@ Ride_Height_Rear=Set(DIM='mm')
 
 [Damper_Velocity]
 
-Damper_Velocity_1=Derivate(#DamperPos_FL)
+Damper_Velocity_1=Derivate(#Damper_FL)
 Damper_Velocity_1=Set(DIM='mm/s')
 
-Damper_Velocity_2=Derivate(#DamperPos_FR)
+Damper_Velocity_2=Derivate(#Damper_FR)
 Damper_Velocity_2=Set(DIM='mm/s')
 
-Damper_Velocity_3=Derivate(#DamperPos_RL)
+Damper_Velocity_3=Derivate(#Damper_RL)
 Damper_Velocity_3=Set(DIM='mm/s')
 
-Damper_Velocity_4=Derivate(#DamperPos_RR)
+Damper_Velocity_4=Derivate(#Damper_RR)
 Damper_Velocity_4=Set(DIM='mm/s')
 
 [Roll]
 
-Roll_Angle_Front=-(#DamperPos_FR,#DamperPos_FL)
+Roll_Angle_Front=-(#Damper_FR,#Damper_FL)
 Roll_Angle_Front=/(#Roll_Angle_Front,1000)
 Roll_Angle_Front=/(#Roll_Angle_Front,Parameters.TRACK_FRONT)
 Roll_Angle_Front=ArcSin(#Roll_Angle_Front)
 Roll_Angle_Front=*(#Roll_Angle_Front,@RAD2DEG)
 Roll_Angle_Front=Set(DIM='°')
 
-Roll_Angle_Rear=-(#DamperPos_RR,#DamperPos_RL)
+Roll_Angle_Rear=-(#Damper_RR,#Damper_RL)
 Roll_Angle_Rear=/(#Roll_Angle_Rear,1000)
 Roll_Angle_Rear=/(#Roll_Angle_Rear,Parameters.TRACK_REAR)
 Roll_Angle_Rear=ArcSin(#Roll_Angle_Rear)

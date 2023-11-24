@@ -1,4 +1,4 @@
-;last modified 2023. 07. 07. 21:48:51 by inyoc    (59)
+;last modified 11/24/2023 7:48:24 PM by adama    (50)
 
 [2023_Yaw]
 
@@ -32,7 +32,7 @@ Delete(#AccYaverage)
 Delete(#c1)
 
 [YAW]
-Yaw=+(#Yaw_Rate_Rear,#Yaw_Rate_Rear)
+Yaw=+(#YawRate_Bosch,#YawRate_Bosch)
 Yaw=/(#Yaw,2)
 Yaw=F(#Yaw,F(AVG 20))
 Mz_Real=Derivate(#Yaw)
@@ -86,7 +86,7 @@ Yaw_Rate_Desired = Set(DIM='deg/s')
 //Delete(#k_us_v2)
 Delete(#tmp)
 
-Yaw_Rate_Error = -(#Yaw_Rate_Desired,#Yaw_Rate_Rear)
+Yaw_Rate_Error = -(#Yaw_Rate_Desired,#YawRate_Bosch)
 
 
 

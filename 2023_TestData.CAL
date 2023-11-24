@@ -1,4 +1,4 @@
-;last modified 2023. 07. 07. 21:36:39 by Vince    (112)
+;last modified 11/24/2023 8:26:42 PM by adama    (88)
 
 [2023_TestData]
 
@@ -12,7 +12,7 @@ Mech_vs_RegBrake=Set(Dim='bar')
 Delete(#condition)
 
 [Throttle]
-Throttle=+(#APPS1_position,#APPS2_position)
+Throttle=+(#APPS1_position,#APPS2_posiition)
 Throttle=/(#Throttle,2)
 Throttle=Set(Dim='%')
 
@@ -34,7 +34,7 @@ Coast=Set(DIM='-')
 
 
 [Throttle_Steering]
-Throttle_Steering=+(#APPS1_position,#APPS2_position)
+Throttle_Steering=+(#APPS1_position,#APPS2_posiition)
 Throttle_Steering=/(#Throttle_Steering,2)
 AVG_Steering_Angle=+(#STA1_position,#STA2_position)
 AVG_Steering_Angle=/(#AVG_Steering_Angle,2)
@@ -121,12 +121,12 @@ SlipRatio_4_Braking=Set(Dim='0.01')
 
 [OS_US]
 {$IfNotExists(#Slip_FL) 2023_Slip_Control.CAL}
-{$IfNotExists(#Acceleration_Y_Rear) 2023_Sensorbox_Rear.CAL}
+//{$IfNotExists(#Acceleration_Y_Rear) 2023_Sensorbox_Rear.CAL}
 
-OS_US=/(#AccY_Bosch,#vx_mps)      //Acc_Y is in g
+OS_US=/(#AccY_Bosch,#v_x)      //Acc_Y is in g
 OS_US=*(9.81,#OS_US)                      //gravity  --> [OS_US]=rad/s
 OS_US=/(#YawRate_Bosch,#OS_US)
-OS_US=If(#vx_mps,>,2,#OS_US,0)
+OS_US=If(#v_x,>,2,#OS_US,0)
 OS_US=Limit(#OS_US,-5,5)
 OS_US=*(#OS_US,100)
 

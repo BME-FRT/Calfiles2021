@@ -1,4 +1,4 @@
-;last modified 2023. 05. 08. 1:18:53 by pungorpeter    (1)
+;last modified 11/24/2023 8:31:58 PM by adama    (1)
 
 [2023_RegressionCaller]
 
@@ -19,13 +19,13 @@ conv3=Const(1,200)
                       5. eleme -> ofszet; ennyivel van eltolva az egyenes az origóból
                       6. eleme -> mértékegység-konverzió
 }
-{$I 2023_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Front,Roll_Gradient_Front,'deg/G',Roll_offsetF,conv1)}
-{$I 2023_Regression.CAL, P(Acceleration_Y_Rear,Roll_Angle_Rear,Roll_Gradient_Rear,'deg/G',Roll_offsetR,conv1)}
-{$I 2023_Regression.CAL, P(Acceleration_X_Rear,Pitch_Angle,Pitch_Gradient,'deg/G',Pitch_offset,conv2)}
-{$I 2023_Regression.CAL, P(DamperPos_FL,Fz_1,Damper_Stiffness_1,'N/mm',Damper_offset1,conv3)}
-{$I 2023_Regression.CAL, P(DamperPos_FR,Fz_2,Damper_Stiffness_2,'N/mm',Damper_offset2,conv3)}
-{$I 2023_Regression.CAL, P(DamperPos_RL,Fz_3,Damper_Stiffness_3,'N/mm',Damper_offset3,conv3)}
-{$I 2023_Regression.CAL, P(DamperPos_RR,Fz_4,Damper_Stiffness_4,'N/mm',Damper_offset4,conv3)}
+{$I 2023_Regression.CAL, P(AccY_Bosch,Roll_Angle_Front,Roll_Gradient_Front,'deg/G',Roll_offsetF,conv1)}
+{$I 2023_Regression.CAL, P(AccY_Bosch,Roll_Angle_Rear,Roll_Gradient_Rear,'deg/G',Roll_offsetR,conv1)}
+{$I 2023_Regression.CAL, P(AccX_Bosch,Pitch_Angle,Pitch_Gradient,'deg/G',Pitch_offset,conv2)}
+{$I 2023_Regression.CAL, P(Damper_FL,Fz_1,Damper_Stiffness_1,'N/mm',Damper_offset1,conv3)}
+{$I 2023_Regression.CAL, P(Damper_FR,Fz_2,Damper_Stiffness_2,'N/mm',Damper_offset2,conv3)}
+{$I 2023_Regression.CAL, P(Damper_RL,Fz_3,Damper_Stiffness_3,'N/mm',Damper_offset3,conv3)}
+{$I 2023_Regression.CAL, P(Damper_RR,Fz_4,Damper_Stiffness_4,'N/mm',Damper_offset4,conv3)}
 ;{$I 2023_Regression.CAL P( , , ,'', ,conv)}
 
 

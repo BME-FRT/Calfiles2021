@@ -1,4 +1,4 @@
-;last modified 2023. 07. 07. 20:23:59 by inyoc    (99)
+;last modified 11/24/2023 8:10:40 PM by adama    (30)
 
 [2023_Energy]
 
@@ -6,7 +6,7 @@
 
 {$IfNotExists(#vx_mps) 2023_Speed.CAL}
 
-E_Kinetic=Power(#vx_mps,2)
+E_Kinetic=Power(#v_x,2)
 E_Kinetic=*(#E_Kinetic,Parameters.MASS)
 E_Kinetic=/(#E_Kinetic,2000)                   //2*1000
 E_Kinetic=Set(DIM='kJ')
@@ -47,7 +47,7 @@ Delete(#P_Regenerative_EM)
 
 [Rolling Resistance]
 
-P_RollRes=Power(#vx_mps,2)
+P_RollRes=Power(#v_x,2)
 P_RollRes=*(#P_RollRes,Parameters.C_L)
 P_RollRes=*(#P_RollRes,Parameters.AREA)
 P_RollRes=*(#P_RollRes,1.225)         //air density
@@ -57,7 +57,7 @@ P_d1=*(#P_d1,Parameters.MASS)
 P_d1=*(#P_d1,9.81)
 P_RollRes=+(#P_RollRes,#P_d1)
 P_RollRes=*(#P_RollRes,Parameters.ROLLING_COEFFICIENT)
-P_RollRes=*(#P_RollRes,#vx_mps)
+P_RollRes=*(#P_RollRes,#v_x)
 Delete(#P_d1)
 
 E_RollRes=Integrate(#P_RollRes,0)
@@ -66,7 +66,7 @@ E_RollRes=Set(Dim='kJ')
 
 [Drag]
 
-P_Drag=Power(#vx_mps,3)
+P_Drag=Power(#v_x,3)
 P_Drag=*(#P_Drag,Parameters.C_D)
 P_Drag=*(#P_Drag,Parameters.AREA)
 P_Drag=*(#P_Drag,1.225)

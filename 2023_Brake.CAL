@@ -1,4 +1,4 @@
-;last modified 2023. 07. 07. 19:24:50 by Vince    (49)
+;last modified 11/24/2023 7:40:43 PM by adama    (46)
 
 [2023_Brake]
 {
@@ -64,14 +64,14 @@ F_Brake_Rear=*(#F_Brake_Rear,Parameters.PISTON_AREA)
 F_Brake_Rear=*(#F_Brake_Rear, Parameters.BRAKE_MU)
 F_Brake_Rear=*(#F_Brake_Rear,Parameters.BRAKE_RADIUS)
 
-F_Brake_3=*(#AMK3_Torque_Limit_Negative,Parameters.PLANETARY_GEAR_RATIO)
+F_Brake_3=*(#AMK3_TorqueLimitNegative,Parameters.PLANETARY_GEAR_RATIO)
 F_Brake_3=/(#F_Brake_3,Parameters.WHEEL_RADIUS)
 F_Brake_3=-(#F_Brake_Rear,#F_Brake_3)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_3=Set(DIM='N')
 
 //
 
-F_Brake_4=*(#AMK4_Torque_Limit_Negative,Parameters.PLANETARY_GEAR_RATIO)
+F_Brake_4=*(#AMK4_TorqueLimitNegative,Parameters.PLANETARY_GEAR_RATIO)
 F_Brake_4=/(#F_Brake_4,Parameters.WHEEL_RADIUS)
 F_Brake_4=-(#F_Brake_Rear,#F_Brake_4)    //azért vonom ki, mert az amk_torquelimit miatt negatív az elõzõ sor
 F_Brake_4=Set(DIM='N')
