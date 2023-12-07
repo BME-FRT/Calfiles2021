@@ -1,4 +1,4 @@
-;last modified 11/24/2023 7:48:24 PM by adama    (50)
+;last modified 12/7/2023 11:22:26 PM by adama    (43)
 
 [2023_Yaw]
 
@@ -12,7 +12,7 @@ c_radius=Set(Dim='m')
 c_radius=Limit(#c_radius, -100, 100)
 
 ////
-Wheel_Angle_Real=/(#STA1_position,Parameters.STEERING_RATIO)
+Wheel_Angle_Real=/(#Steering_angle_actual,Parameters.STEERING_RATIO)
 
 Wheel_Angle_Virtual=/(Parameters.WHEELBASE,#c_radius)    // Wheel_Angle_Virtual=ArcTan(Wheelbase/c_radius)
 Wheel_Angle_Virtual=ArcTan(#Wheel_Angle_Virtual)
@@ -83,21 +83,20 @@ Yaw_Rate_Desired = *(#Wheel_Angle_Real, #Yaw_Rate_Desired)
 Yaw_Rate_Desired = *(#Yaw_Rate_Desired , 0.5)
 Yaw_Rate_Desired = Set(DIM='deg/s')
 
+
 //Delete(#k_us_v2)
 Delete(#tmp)
 
-Yaw_Rate_Error = -(#Yaw_Rate_Desired,#YawRate_Bosch)
 
-
-
-Target_Yaw_Rate=*(#v_x,-0.0000008777)//(0.48/cf-0.52/cr)
-Target_Yaw_Rate=*(#Target_Yaw_Rate,Parameters.MASS)
+Target_Yaw_Rate=*(#v_x,0.0000006296)//(0.48/cf-0.52/cr)
 Target_Yaw_Rate=*(#Target_Yaw_Rate,#v_x)
-Target_Yaw_Rate=+(#Target_Yaw_Rate,Parameters.WHEELBASE)
-Target_Yaw_Rate=/(1,#Target_Yaw_Rate)
-Target_Yaw_Rate=*(#Target_Yaw_Rate,#STA1_position)
-Target_Yaw_Rate=/(#Target_Yaw_Rate,Parameters.STEERING_RATIO)
-Target_Yaw_Rate=*(#Target_Yaw_Rate,@deg2rad)
-Target_Yaw_Rate=*(#Target_Yaw_Rate,#v_x)
-
-
+Target_Yaw_Rate=+(#Target_Yaw_Rate,1.54)//wheelbase=1.54
+Target_Yaw_Rate=/(#v_x,#Target_Yaw_Rate)
+Target_Yaw_Rate=*(#Target_Yaw_Rate,#Wheel_Angle_Real)
+Target_Yaw_Rate=*(#Target_Yaw_Rate,-1)
+Yaw_Rate_Error = -(#Target_Yaw_Rate,#YawRate_Bosch)
+Target_Yaw_Rate=*(#Target_Yaw_Rate,@DEG2RAD)
+Target_Yaw_Rate=Set(Dim='1/s')
+Yaw_Rate_Error = *(#Yaw_Rate_Error,@DEG2RAD)
+Yaw_Rate_Error=Set(Dim='1/s')
+Yaw_Rate_rad = *(#YawRate_Bosch, @DEG2RAD)

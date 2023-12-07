@@ -1,4 +1,4 @@
-;last modified 12/1/2023 11:32:50 AM by adama    (103)
+;last modified 12/7/2023 11:22:06 PM by adama    (130)
 
 [2023_TestData]
 
@@ -36,9 +36,9 @@ Coast=Set(DIM='-')
 [Throttle_Steering]
 Throttle_Steering=+(#APPS1_position,#APPS2_posiition)
 Throttle_Steering=/(#Throttle_Steering,2)
-AVG_Steering_Angle=+(#STA1_position,#STA2_position)
-AVG_Steering_Angle=/(#AVG_Steering_Angle,2)
-AVG_Steering_Angle=Abs(#AVG_Steering_Angle)
+//AVG_Steering_Angle=+(#STA1_position,#STA2_position)
+//AVG_Steering_Angle=/(#AVG_Steering_Angle,2)
+AVG_Steering_Angle=Abs(#Steering_angle_actual)
 Throttle_Steering=*(#Throttle_Steering,#AVG_Steering_Angle)
 Throttle_Steering=If(#AVG_Steering_Angle,>,30,#Throttle_Steering,0)
 Throttle_Steering=Set(DIM='deg*%')
@@ -63,6 +63,8 @@ Delete(#Br_St)
                     //???????
 AVG_M_Yaw=Abs(#M_Yaw)
 AVG_M_Yaw=Set(Dim='Nm')
+
+
 
 
 /////INT Traction
@@ -178,3 +180,10 @@ tmp = Derivate(#tmp)
 tmp = If(#tmp,>,0,0,1)
 tmp = *(#tmp, 200)
 Lap = Integrate(#tmp)
+
+
+[Yaw_Rate_Error]
+AVG_Yaw_Rate_Error=*(100,#Yaw_Rate_Error)
+AVG_Yaw_Rate_Error=Abs(#AVG_Yaw_Rate_Error)
+//AVG_Yaw_Rate_Error=*(100,#Yaw_Rate_Error)
+AVG_Yaw_Rate_Error=Set(Dim='1/(100s)')
