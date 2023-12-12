@@ -1,4 +1,4 @@
-;last modified 11/24/2023 8:08:51 PM by adama    (1)
+;last modified 12/12/2023 8:26:29 PM by zsomb    (7)
 
 [2023_Throttle_Steering]
 
@@ -15,10 +15,10 @@ Throttle_Validity_2 = *(#APPS2_validity, 1)
 
 
 [Steering]
-Steering_Angle_1 = *(#Steering_angle_actual, 1)
-
-Steering_Angle_2 = *(#Steering_angle_actual, 1)
-
+Steering_Angle_1 = -(#STA1_position, 90)
+Steering_Angle_1=  *(#Steering_Angle_1,-1)
+Steering_Angle_2 = -(#STA2_position, 90)
+Steering_Angle_2=  *(#Steering_Angle_2,-1)
 Steering_Plausibility = *(#Steering_state, 1)
 Steering_Plausibility = Set(DIM = 'bool')
 
