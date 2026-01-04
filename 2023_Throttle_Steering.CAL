@@ -1,11 +1,11 @@
-;last modified 12/12/2023 8:26:29 PM by zsomb    (7)
+;last modified 2025. 11. 02. 11:52:25 by Admin    (1)
 
 [2023_Throttle_Steering]
 
 [Throttle]
 Throttle_Position_1 = *(#APPS1_position,1)
 
-Throttle_Position_2 = *(#APPS2_posiition,1)
+Throttle_Position_2 = *(#APPS2_position,1)
 
 Throttle_Plausibility = *(#APPS_plausiblity,1)
 

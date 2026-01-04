@@ -1,0 +1,30 @@
+;last modified 2025. 07. 16. 23:29:28 by Admin    (7)
+
+[2025_APPS_STA_derivate]
+
+APPS1_pos_filt = F(#APPS1_position, F(AVG 50))
+APPS_Derivate = Derivate(#APPS1_position)
+Delete(APPS1_pos_filt)
+
+STA1_filt = F(#Steering_Angle_1, F(AVG 50))
+STA_derivate = Derivate(#Steering_Angle_1)
+Delete(STA1_filt)
+
+[Absolute_Power]
+
+Power = *(#HV_Current, #HV_Voltage_After_AIRs)
+Power_abs = Abs(#Power)
+Power_pos = If(#Power,>,0, #Power, 0)
+Avg_power = AvgValue(#Power_pos)
+
+[Turning_Radius]
+vx_power = *(#v_x, #v_x)
+ay = *(#AccY_Bosch, 9.81)
+ay_filt = F(#ay, F(AVG 50))
+T_radius =  /(#vx_power, #ay_mpers)
+T_radius_filt = F(#T_radius, F(AVG 50))
+Delete(ay mpers)
+
+[AccY absolute value]
+AccY_abs = Abs(#AccY_Bosch)
+

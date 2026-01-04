@@ -1,0 +1,50 @@
+;last modified 07.03.2022 14:19:06 by FS    (1)
+
+;[Description]
+; Creating Time And Distance channels with high resolution for evaluation purposes
+; If no Frequnecy is deposed in SpecSheet-Group FilterSettings in entry ResampleFreq,
+; the speed channel, which is selected at special channel @Int_Speed is filtered with
+; an AVG-Filter And then upsampled to 1000 Hz.
+; As can be seen different filters Or frequencies are already provided.
+
+; By integrating the resulting channel, the Distance2D channel is created.
+; For older CAL-Files, the Distance2D channel is also provided with the name Distance
+
+; By integrating a constant with value 1, the Time2D channel is created.
+
+[Variables]
+
+[Speed_lo By Cal]
+IfNotSpecValueExists(FilterSettings.ResampleFreq)
+C1            = Freq(@Int_Speed,1000)
+c1=word(#c1)
+Speed_lo      = F(#C1,F(AVG(0.5 sec)))                     ; Make low dynamic speed
+;Speed_lo      = F(#C1,F(IIR(0.5 Hz)))                    ; Make low dynamic speed
+;Speed_Lo      = Freq(#C1,@MainSamplingRate)              ; Increase samplingrate to get fine distance resolution
+
+[Speed_lo By Spec]
+IfSpecValueExists(FilterSettings.ResampleFreq)
+C1           = F(@Int_Speed,F(AVG(0.5 sec)))               ; Make low dynamic speed
+Speed_Lo     = Freq(#C1,FilterSettings.ResampleFreq)      ; Increase samplingrate to get fine distance resolution
+;Speed_Lo     = Freq(#C1,@MainSamplingRate)                ; Increase samplingrate to get fine distance resolution
+
+[Distance2D]
+Result       = I(#Speed_Lo)                               ; Integral of speed is distance
+Result       = Set(Dim="m")                               ; Set dimension
+Result       = Set(SensorInfo ="Distance from @Int_Speed"); Set Sensorinfo
+
+[Time2D By Spec]
+IfSpecValueExists(FilterSettings.ResampleFreq)
+C1           = Const(1, FilterSettings.ResampleFreq)
+Time2D       = I(#C1)                                                           ; Integral of 1 dt is time
+Time2D       = Set(Dim="sec")                                                   ; Set dimension
+Time2D       = Set(SensorInfo ="Time Channel")                                  ; Set Sensorinfo
+
+[Time2D By Cal]
+IfNotSpecValueExists(FilterSettings.ResampleFreq)
+C1           = Const(1, 1000)
+Time2D       = I(#C1)                                                           ; Integral of 1 dt is time
+Time2D       = Set(Dim="sec")                                                   ; Set dimension
+Time2D       = Set(SensorInfo ="Time Channel")                                  ; Set Sensorinfo
+
+

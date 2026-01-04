@@ -1,6 +1,18 @@
-;last modified 11/24/2023 8:10:40 PM by adama    (30)
+;last modified 2025. 10. 09. 17:26:43 by Admin    (1)
 
 [2023_Energy]
+
+Energy_value=*(#HV_Voltage_Before_AIRs,#State_of_Charge)
+Energy_value=/(#Energy_value,1000)
+Energy_value=Set(DIM='Wh')
+
+[LV_Energy]
+
+LV_Power=*(#VDCDCOutput1Average,#IDCDCOutput1Average) ;23-as FSG-n Output2
+LV_Energy=Integrate(#LV_Power) ;0 -> körönként lenullázza
+LV_Enegy=/(#LV_Energy, 3600)
+LV_Energy=Set(DIM='Wh')
+Delete(#LV_Power)
 
 [Kinetic_Energy]
 
@@ -141,3 +153,4 @@ INT_HV_current_Pos=/(#INT_HV_current_Pos,3.6)
 INT_HV_current_Neg=/(#INT_HV_current_Neg,3.6)
 INT_HV_current_Pos=Set(DIM='mAh')
 INT_HV_current_Neg=Set(DIM='mAh')
+

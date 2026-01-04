@@ -1,4 +1,4 @@
-;last modified 11/24/2023 7:42:02 PM by adama    (112)
+;last modified 2025. 07. 21. 0:11:08 by Admin    (138)
 
 [2023_Speed]
 
@@ -151,5 +151,11 @@ Delete(#egy)
 
 Dist=Integrate(#vx_kmph)
 Dist=Set(DIM='m')
+
+[Throttle_Brake]
+// for the GNSS circuit map
+Brake_temp=If(#Brake_Force_sensor,<,#VDC_BFS_Offset,0,#Brake_Force_sensor)
+Throttle_Brake=+(#APPS1_position,#Brake_temp)
+Delete(#Brake_temp)
 
 

@@ -1,0 +1,47 @@
+;last modified 10.01.2022 14:48:39 by FS    (3)
+
+[TrackNr]
+;USER EDIT:
+
+TrackNr = If(#GPSTrackNr,>,0,#GpsTrackNr,0)                                     ; Select all GPSTracks for evaluation
+;TrackNr = If(#GPSTrackNr,=2,0,2,0)                                             ; Select only GPSTrackNr 2 GPSTracks for evaluation
+
+;===============================================================================
+
+[TrackChannels]
+
+IsTrack           = If(#TrackNr,>,0,1,0)                                        ; Boolean TRUE ("1") when a GPSTrack is active.
+IsTrack           = Set(Dim='')                                                 ; Set dimension
+TimeForTrack      = TimeForTrue(#IsTrack)                                       ; Absolute Time of the current track in seconds
+TimeForTrack      = Set(Dim="sec")                                              ; Set dimension
+TimeInTrack       = TimeSinceTrue(#IsTrack)                                     ; Relative Time of the current track in seconds
+TimeInTrack       = Set(Dim="sec")                                              ; Set dimension
+
+C1                = /(#TimeInTrack, #TimeforTrack)
+RelTimeInTrack    =*(#C1, 100)                                                  ; Relative Time of the current track in percent
+RelTimeInTrack    = Set(Dim="%")                                                ; Set dimension
+
+SOT               = RisingEdge(#IsTrack)                                        ; Start of Track
+EOT               = FallingEdge(#IsTrack)                                       ; End of Track
+
+C1                = HoldWhileTrue(#distance2D   , #IsTrack)
+C2                = ExpandWhileTrue(#distance2D , #IsTrack)
+DistanceInTrack   =-(#C1, #C2)                                                  ; Relative Distance of the current track in meters
+DistanceInTrack   = Set(Dim='m')                                                ; Set dimension
+DistanceForTrack  = MaxWhileTrue(#DistanceInTrack, #IsTrack)                    ; Absolute Distance of the current track in meters
+DistanceForTrack  = Set(Dim='m')                                                ; Set dimension
+
+Trackcnt          = Sum(#EOT)                                                   ; GPSTrack count channel (Counting up at every end of GPSTrack)
+
+LapNr             = SetLapTrigger(#Trackcnt)                                    ; Creating laptriggers at every END of a GPSTrack
+
+;===============================================================================
+[TrackEvaluations]
+;USER EDIT:
+V_AVG            = AvgWhileTrue(@Int_Speed,#IsTrack)                            ; Average Speed drivin in this Track
+V_MIN            = MinWhileTrue(@Int_Speed,#IsTrack)                            ; Minimum Speed drivin in this Track
+V_MAX            = MAXWhileTrue(@Int_Speed,#IsTrack)                            ; Maximum Speed drivin in this Track
+
+
+
+

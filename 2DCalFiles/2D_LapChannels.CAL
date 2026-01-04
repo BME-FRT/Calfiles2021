@@ -1,0 +1,55 @@
+;last modified 29.03.2022 09:02:03 by FS    (1)
+
+;[Description]
+; Extension of 2D_DistanceAndTimeCH, which calculates Time And Distance channels
+; of every lap.
+; Also, a channel #InLap is created which can be seen as a TRUE-condition of a lap.
+
+[Call_2DDistanceAndTimeCH]
+{$I <UserDataDir>\Calfiles\2DCalfiles\2D_DistanceAndTimeCH, P()}
+
+[TimeInLap]
+C1           = Const(1, #Time2D.Rate)                                           ; Creating constant with rate of #Time2D
+Result       = I(#C1,0)                                                         ; Integral of 1 dt is Time And reset value every Laptrigger (,0) --> TimeInLap
+Result       = Set(Dim="sec")                                                   ; Set dimension
+Result       = Set(SensorInfo ="Time Channel per Lap")                          ; Set Sensorinfo
+
+[InLap]
+C1           = F'(#timeinlap)
+C1           = Shift(#C1, 1)
+Result       = If(#C1, >, 0, 1, 0)                                       ; Creating TRUE condition of every lap
+Result       = Set(Dim="")                                                      ; Set dimension
+Result       = Set(SensorInfo ="TRUE condition of lap")                         ; Set Sensorinfo
+
+[TimeForLap]
+Result       = MaxWhileTrue(#TimeInLap, #InLap)
+Result       = Set(Dim="sec")                                                   ; Set dimension
+
+[Lapmeter2D]
+Result       = I(#Speed_Lo,0)                                                   ; Integral of speed is distance And reset at laptrigger to 0
+Result       = Set(Dim="m")                                                     ; Set dimension
+Result       = Set(SensorInfo ="Distance per lap from @Int_Speed")              ; Set Sensorinfo
+
+[Lapmeter2D_REL]
+C1           = MaxWhileTrue(#Lapmeter2D, #Inlap)                                  ; Detect maxima of #Lapmeter of every lap
+c2           =/(#Lapmeter2D, #C1)                                                 ; Calculate ratio of current And lap-maxima #Lapmeter
+Result       =*(#c2, 100)                                                       ; Cacluate percentage of current #Lapmeter per lap
+Result       = Set(Dim="%")                                                     ; Set dimension
+Result       = Set(SensorInfo ="Distance per lap in [%]")                       ; Set Sensorinfo
+
+[LapNr]
+C1           = RisingEdge(#InLap)                                               ; Channel is true during lap And short time 0 at laptrigger
+Result       = Sum(#c1)                                                         ; Sum LapEnd to get Lap counter
+Result       = Set(Dim="")                                                      ; Set dimension
+
+[FastestLap]
+c1           = LastValue(#lapNr, #lapnr.rate)                                   ; Detect InLap
+LapNr        = If(#lapnr, =, #c1, 0, #lapnr)                                    ; Set LapNr at InLap to 0 (OutLap already 0)
+
+C1           = If(#LapNr, =,0, 9999, #TimeForLap)                               ; Set TimeFor In-&OutLap to 9999
+c1           = If(#TimeForLap, <, 0.5, 9999, #C1)                               ; Through TimeForLap-calculation with InLap, at Laptrigger small 0-Phases are existing --> remove all gaps smaller 0.5 sek
+
+C1           = MinValue(#c1, #c1.rate)                                          ; Detect fastest lap
+Result       = If(#TimeForLap, =, #C1, 1, 0)                                    ; Mark fastest lap with "1"
+Result       = Set(Dim="")                                                      ; Set dimension
+

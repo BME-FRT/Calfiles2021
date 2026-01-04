@@ -1,4 +1,4 @@
-;last modified 11/24/2023 8:28:49 PM by adama    (1)
+;last modified 2024. 07. 11. 20:24:10 by Admin    (37)
 
 [2023_Slip_Control]
 
@@ -11,8 +11,13 @@ Yaw_Correction_FL=*(#Yaw_Correction_FL,0.5)
 vx_FL=-(#v_x,#Yaw_Correction_FL)
 WheelSpeed_1_mps=/(#WheelSpeed_1,3.6)
 Slip_FL=-(#WheelSpeed_1_mps,#vx_FL)
+
+Slip_FL_corr = /(#Slip_FL, #Wheelspeed_1_mps)
+Slip_FL_corr = Set(DIM='')
+
 Slip_FL=/(#Slip_FL,#vx_FL)
 Slip_FL=Set(DIM='')
+
 
 
 //Slip_FR
@@ -49,7 +54,7 @@ Delete(#Yaw_Correction_FL)
 Delete(#Yaw_Correction_FR)
 Delete(#Yaw_Correction_RL)
 Delete(#Yaw_Correction_RR)
-Delete(#WheelSpeed_1_mps)
+;Delete(#WheelSpeed_1_mps)
 Delete(#WheelSpeed_2_mps)
 Delete(#WheelSpeed_3_mps)
 Delete(#WheelSpeed_4_mps)

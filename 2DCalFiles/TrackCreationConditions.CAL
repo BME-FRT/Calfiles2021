@@ -1,0 +1,41 @@
+;last modified 16.11.2020 11:06:43 by FS    (1)
+
+[Variables]
+V_GPS_MIN           = 49.0
+V_GPS_MAX           = 51.0
+MetersAfterTrigger1 = 12.5
+
+[AtKoordinate_1_VGPS]
+C1       = FreqNI(#V_GPS, #Atkoordinate_1.Rate)                       ; Upsample #V_GPS to Rate of #Atkoordiante_1
+
+C2       = MinWhileTrue(#c1, #Atkoordinate_1)                         ; Detect minimum of #V_GPS in AA
+C3       = MaxWhileTrue(#c1, #Atkoordinate_1)                         ; Detect maximum of #V_GPS in AA
+
+c4       = If(#C2, >, @V_GPS_MIN,   1, 0)                             ; Check If minimum is bigger minima-treshold
+c4       = If(#C3, <, @V_GPS_MAX, #C4, 0)                             ; Check If maximum is smaller maxima-treshold => AND-Condition
+
+Result   =*(#Atkoordinate_1, #C4)                                     ; Create new InKoordinate_1_V_GPS If #V_GPS is inside limits
+
+[AtKoordinate_2_VGPS]
+C1       = FreqNI(#V_GPS, #Atkoordinate_2.Rate)                       ; Upsample #V_GPS to Rate of #Inkoordiante
+
+C2       = MinWhileTrue(#c1, #Atkoordinate_2)                         ; Detect minimum of #V_GPS in CC
+C3       = MaxWhileTrue(#c1, #Atkoordinate_2)                         ; Detect maximum of #V_GPS in CC
+
+c4       = If(#C2, >, @V_GPS_MIN,   1, 0)                             ; Check If minimum is bigger minima-treshold
+c4       = If(#C3, <, @V_GPS_MAX, #C4, 0)                             ; Check If maximum is smaller maxima-treshold => AND-Condition
+
+Result   =*(#Atkoordinate_2, #C4)                                     ; Create new InKoordinate_2_V_GPS If #V_GPS is inside limits
+
+[Trigger2ValidAfterMeterX]
+C1                      = RisingEdge(#AtKoordinate_1_VGPS)
+C1                      = FillFromBool(#Distance2d, #c1)
+C1                      =-(#Distance2d, #C1)
+c1                      = If(#C1, <, @MetersAfterTrigger1, 1, 0)     ; Check if 2nd trigger is valid is inside defined range in [m] (AfterMeterX--> (AMx)
+C1                      = ExpandWhileTrue(#AtKoordinate_2_VGPS, #C1)
+AtKoordinate_1_VGPS_AMx =*(#C1, #AtKoordinate_1)                     ; Create new InKoordinate_1, if Speed is Valid (*_VGPS*) and 2nd Trigger in Range (*_AMx)
+AtKoordinate_2_VGPS_AMx =*(#C1, #AtKoordinate_2)                     ; Create new InKoordinate_2, if Speed is Valid (*_VGPS*) and 2nd Trigger in Range (*_AMx)
+
+
+
+

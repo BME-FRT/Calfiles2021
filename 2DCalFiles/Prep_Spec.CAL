@@ -1,0 +1,16 @@
+;last modified 09.09.2021 15:26:34 by FS    (1)
+
+
+
+[PrepSpec_Sensor_1]
+IfNotSpecValueExists(Sensor_1.Rot_x)
+c1             = Const(0, 1)
+Sensor_1.Name  = LastValue(#C1, 1)
+Sensor_1.Rot_x = LastValue(#C1, 1)
+Sensor_1.Rot_y = LastValue(#C1, 1)
+Sensor_1.Rot_z = LastValue(#C1, 1)
+Sensor_1.Cor_x = LastValue(#C1, 1)
+Sensor_1.Cor_y = LastValue(#C1, 1)
+Sensor_1.Cor_z = LastValue(#C1, 1)
+
+

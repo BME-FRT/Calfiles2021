@@ -1,0 +1,27 @@
+;last modified 2025. 08. 05. 11:10:03 by Admin    (3)
+
+; for the alumni car
+[Efficiency]
+
+;P_Electric=*(#HV_Voltage_Before_AIRs,#HV_Current)
+P_Electric=*(#HI_Udc_A,#HV_Current)
+P_Electric=/(#P_Electric, 1000)
+P_Electric=Set(DIM='kW')
+
+P_motor_A=*(#BSW_TrqSp_A,#SD_NMech_A)
+P_motor_A=*(#P_motor_A,@Pi)
+P_motor_A=/(#P_motor_A,30)
+P_motor_A=/(#P_motor_A,1000)
+
+P_motor_B=*(#BSW_TrqSp_B,#SD_NMech_B)
+P_motor_B=*(#P_motor_B,@Pi)
+P_motor_B=/(#P_motor_B,30)
+P_motor_B=/(#P_motor_B,1000)
+
+
+P_mech_sum=+(#P_motor_A,#P_motor_B)
+P_mech_sum=Set(DIM='kW')
+Efficiency=/(#P_mech_sum, #P_Electric)
+Efficiency=Set(DIM='-')
+;Delete(#P_mech_sum)
+

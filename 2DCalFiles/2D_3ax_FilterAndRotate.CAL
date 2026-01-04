@@ -1,0 +1,10 @@
+;last modified 11.05.2021 16:00:36 by FS    (1)
+
+
+[Call_2D_FilterAndRotate_Single]
+; Examples
+{$I <UserDataDir>\CalFiles\2DCalFiles\_2D_3ax_FilterAndRotate, p( _Rot, FilterSettings.FilterFreq, FilterSettings.ResampleFreq)}
+;{$I <UserDataDir>\CalFiles\2DCalFiles\_2D_3ax_RotateAndFilter, p( _Rot, FilterSettings.FilterFreq, FilterSettings.ResampleFreq)}
+;{$I <UserDataDir>\CalFiles\2DCalFiles\_2D_3ax_Rotate         , p( _Rot                                                        )}
+;{$I <UserDataDir>\CalFiles\2DCalFiles\_2D_3ax_Filter         , p( _Rot, FilterSettings.FilterFreq, FilterSettings.ResampleFreq)}
+

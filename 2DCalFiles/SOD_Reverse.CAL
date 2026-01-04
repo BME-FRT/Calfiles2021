@@ -1,0 +1,31 @@
+;last modified 10.01.2022 11:09:08 by FS    (1)
+
+; Erzeugt aus SOD-Kanal wieder HHMM und SSHH Kanäle. Nur zu Entwicklungszwecken! -> FS 07.02.2020
+[SOD_Reverse]
+
+C1      =/(#SOD, 3600)
+HH_SOD  = Trunc(#C1)
+C2      =*(#HH_SOD, 3600)
+C3      =-(#SOD, #C2)
+
+C4      =/(#C3, 60)
+MM_SOD  = Trunc(#C4)
+
+C5      =*(#MM_SOD, 60)
+SSHH_SOD=-(#C3, #C5)
+
+C1      =/(#MM_SOD, 100)
+HHMM_SOD=+(#HH_SOD, #C1)
+
+[Delete channels]
+Delete(#HH_SOD)
+Delete(#MM_SOD)
+
+[WriteToSpecSheet]
+;Time.HHMM_FV=FirstValue(#HHMM_SOD,1)
+;Time.SSHH_FV=FirstValue(#SSHH_SOD,1)
+;Time.HHMM_LV=LastValue(#HHMM_SOD,1)
+;Time.SSHH_LV=LastValue(#SSHH_SOD,1)
+
+
+

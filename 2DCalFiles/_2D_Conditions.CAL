@@ -1,0 +1,26 @@
+;last modified 10.01.2022 11:47:31 by FS    (1)
+
+; Include-call: {$I <UserCal>\2DCalFiles\2D_Conditions, P(ICH1, CH2, OutName)}
+
+[Time2Condition_@p3]
+IfNotExists(#Time2D)
+C1      = Const(1, 100)
+Time2D  = I(#C1)
+Time2D  = Set(Dim='sec')
+
+[CreateCondition_@P3]
+C1      = Sum(#@P1)                          ; alle Start-Trigger aufsummieren --> Genereller Start-Trigger-Counter
+C10     = FillFromBool(#C1, #@P2)            ; Wert von Start-Trigger-Summe am End-Trigger merken
+C1      =-(#C1, #C10)                        ; Endwert vom generellen Start-Trigger-Counter abziehen --> Zähler welcher nach End-Trigger immer die Start-Trigger ab 0 zählt
+C0      = PosMaxWhileTrue(#C1, #C1)          ; Größten Wert des Counters markieren --> letzer Start-Trigger vor End-Trigger
+
+C10     = FillWithNextBool(#time2d, #C0)     ; Zeitpunkt letzer Start-Trigger vor End-Trigger
+C100    = FillFromBool(#C10, #@p2)           ; Start-Trigger-Zeit bis End-Trigger führen
+C20     = FillWithNextBool(#time2d, #@p2)    ; Zeitpunkt nächster End-Trigger
+
+
+C3      = If(#Time2D,>,#C100, 1, 0)          ; Wenn Zeit größer Zeitpunkt letzter Start-Trigger
+@P3     = If(#Time2D,<,#C20 , #C3, 0)        ; & Zeit kleiner nächster End-Trigger, dann Condition TRUE sonst FALSE
+
+
+
