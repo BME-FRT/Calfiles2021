@@ -1,22 +1,16 @@
-;last modified 2025. 10. 09. 17:26:43 by Admin    (1)
+;last modified 2026. 01. 11. 20:19:51 by Admin    (13)
 
 [2023_Energy]
-
-Energy_value=*(#HV_Voltage_Before_AIRs,#State_of_Charge)
-Energy_value=/(#Energy_value,1000)
-Energy_value=Set(DIM='Wh')
 
 [LV_Energy]
 
 LV_Power=*(#VDCDCOutput1Average,#IDCDCOutput1Average) ;23-as FSG-n Output2
 LV_Energy=Integrate(#LV_Power) ;0 -> körönként lenullázza
-LV_Enegy=/(#LV_Energy, 3600)
+LV_Energy=/(#LV_Energy, 3600)
 LV_Energy=Set(DIM='Wh')
 Delete(#LV_Power)
 
 [Kinetic_Energy]
-
-{$IfNotExists(#vx_mps) 2023_Speed.CAL}
 
 E_Kinetic=Power(#v_x,2)
 E_Kinetic=*(#E_Kinetic,Parameters.MASS)
@@ -30,32 +24,6 @@ E_Useful=Integrate(#P_Useful,0)
 P_Useful=Set(DIM='kW')
 E_Useful=Set(DIM='kJ')
 
-[Electric_Energy]
-P_Electric =  *(#HV_Voltage_Before_AIRs,#HV_Current)
-P_Electric =  /(#P_Electric, 1000)
-P_Electric = Set( DIM = 'kW')
-
-E_Electric= Integrate(#P_Electric,0)
-Ppos=If(#P_Electric,>,0,#P_Electric,0)
-E_Electric_pos=Integrate(#Ppos,0)
-Delete(#Ppos)
-E_Electric=Set(Dim='kJ')
-E_Electric_pos=Set(Dim='kJ')
-
-Pneg=If(#P_Electric,<,0,#P_Electric,0)
-E_Electric_neg=Integrate(#Pneg,0)
-Delete(#Pneg)
-E_Electric_neg=Set(Dim='kJ')
-
-/////Electric Power for Rules compliant energy calculation
-
-P_Regenerative_EM = *(#P_Electric, 0.9)
-P_Electric_EM = If(#P_Electric, >=, 0, #P_Electric, #P_Regenerative_EM)
-
-E_Electric_EM= Integrate(#P_Electric_EM,0)
-E_Electric_EM = /(#E_Electric_EM,3.6)
-E_Electric_EM = Set(DIM = 'Wh')
-Delete(#P_Regenerative_EM)
 
 [Rolling Resistance]
 
@@ -88,39 +56,35 @@ E_Drag=Integrate(#P_Drag,0)
 
 [Motor mechanical Power]
 
-P_motor_1=*(#AMK1_Torque_Limit_Positive,#AMK1_actual_velocity)
+P_motor_1=*(#BSW_TrqSp_1,#SD_NMech_1)
 P_motor_1=*(#P_motor_1,@Pi)
 P_motor_1=/(#P_motor_1,30)
-P_motor_1=/(#P_motor_1,1000)
 E_motor_1=Integrate(#P_motor_1,0)
 
-P_motor_2=*(#AMK2_Torque_Limit_Positive,#AMK2_actual_velocity)
+P_motor_2=*(#BSW_TrqSp_2,#SD_NMech_2)
 P_motor_2=*(#P_motor_2,@Pi)
 P_motor_2=/(#P_motor_2,30)
-P_motor_2=/(#P_motor_2,1000)
 E_motor_2=Integrate(#P_motor_2,0)
 
-P_motor_3=*(#AMK3_TorqueLimitPositive,#AMK3_actual_velocity)
+P_motor_3=*(#BSW_TrqSp_3,#SD_NMech_3)
 P_motor_3=*(#P_motor_3,@Pi)
 P_motor_3=/(#P_motor_3,30)
-P_motor_3=/(#P_motor_3,1000)
 E_motor_3=Integrate(#P_motor_3,0)
 
-P_motor_4=*(#AMK4_TorqueLimitPositive,#AMK4_actual_velocity)
+P_motor_4=*(#BSW_TrqSp_4,#SD_NMech_4)
 P_motor_4=*(#P_motor_4,@Pi)
 P_motor_4=/(#P_motor_4,30)
-P_motor_4=/(#P_motor_4,1000)
 E_motor_4=Integrate(#P_motor_4,0)
 
-P_motor_1=Set(Dim='kW')
-P_motor_2=Set(Dim='kW')
-P_motor_3=Set(Dim='kW')
-P_motor_4=Set(Dim='kW')
+P_motor_1=Set(Dim='W')
+P_motor_2=Set(Dim='W')
+P_motor_3=Set(Dim='W')
+P_motor_4=Set(Dim='W')
 
-E_motor_1=Set(Dim='kJ')
-E_motor_2=Set(Dim='kJ')
-E_motor_3=Set(Dim='kJ')
-E_motor_4=Set(Dim='kJ')
+E_motor_1=Set(Dim='J')
+E_motor_2=Set(Dim='J')
+E_motor_3=Set(Dim='J')
+E_motor_4=Set(Dim='J')
 
 E_motors=+(#E_motor_1,#E_motor_2)
 E_motors=+(#E_motors,#E_motor_3)
@@ -130,23 +94,24 @@ P_motors=+(#P_motor_1,#P_motor_2)
 P_motors=+(#P_motors,#P_motor_3)
 P_motors=+(#P_motors,#P_motor_4)
 
+
 [Efficiency]
 
 Motor_Efficiency=+(#P_motor_1,#P_motor_2)
 Motor_Efficiency=+(#Motor_Efficiency,#P_motor_3)
 Motor_Efficiency=+(#Motor_Efficiency,#P_motor_4)
-Motor_Efficiency=/(#Motor_Efficiency,#P_Electric)
+Motor_Efficiency=/(#Motor_Efficiency,#TS_Power)
 Motor_Efficiency=Set(DIM='-')
 
-P_Lost=-(#P_Electric,#P_motor_1)
+P_Lost=-(#TS_Power,#P_motor_1)
 P_Lost=-(#P_Lost,#P_motor_2)
 P_Lost=-(#P_Lost,#P_motor_3)
 P_Lost=-(#P_Lost,#P_motor_4)
 
 [mAh]
 
-INT_HV_current_Pos=If(#HV_Current,>,0,#HV_Current,0)
-INT_HV_current_Neg=If(#HV_Current,>,0,0,#HV_Current)
+INT_HV_current_Pos=If(#TS_Current,>,0,#TS_Current,0)
+INT_HV_current_Neg=If(#TS_Current,>,0,0,#TS_Current)
 INT_HV_current_Pos=Integrate(#INT_HV_current_Pos,0)
 INT_HV_current_Neg=Integrate(#INT_HV_current_Neg,0)
 INT_HV_current_Pos=/(#INT_HV_current_Pos,3.6)

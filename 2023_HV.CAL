@@ -1,4 +1,4 @@
-;last modified 2026. 01. 04. 11:48:46 by Admin    (1)
+;last modified 2026. 01. 04. 16:40:28 by Admin    (1)
 
 [2023_HV]
 {
@@ -12,12 +12,4 @@ HV_Cell_Temperature_Validity = FillFromBool(#HV_Cell_Temperature,#HV_Cell_Temper
 HV_Cell_Temperature_Critical = F(#HV_Cell_Temperature_Validity, F(Max 156))
 Delete(#HV_Cell_Temperature_Validity)
 }
-
-HV_Current_filtered = F(#HV_Current, F(AVG 50))
-HV_Current_abs = Abs(#HV_Current_filtered)
-not_null = If(#HV_Current_abs, >, 0, 1, 0)
-HV_Current_Avg = AvgWhileTrue(#HV_Current_abs, #not_null)
-Delete(HV_Current_abs)
-Delete(not_null)
-
 

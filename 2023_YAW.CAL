@@ -1,9 +1,8 @@
-;last modified 12/7/2023 11:22:26 PM by adama    (43)
+;last modified 2026. 02. 08. 16:09:42 by Admin    (7)
 
 [2023_Yaw]
 
 /////Cornering radius
-
 c_radius=Power(#v_x, 2)
 c_radius=/(#c_radius,#AccY_Bosch)
 c_radius=/(#c_radius,9.81)
@@ -11,54 +10,60 @@ c_radius=F(#c_radius,F(AVG 20))
 c_radius=Set(Dim='m')
 c_radius=Limit(#c_radius, -100, 100)
 
-////
-Wheel_Angle_Real=/(#Steering_angle_actual,Parameters.STEERING_RATIO)
+{$IfNotExists(#Steering_Angle_1) 2023_Throttle_Steering.CAL}
+
+Wheel_Angle_Real=/(#Steering_Angle_1,Parameters.STEERING_RATIO)
+Wheel_Angle_Real_rad=*(#Wheel_Angle_Real,@DEG2RAD)
+Wheel_Angle_Real_rad=Set(Dim='rad')
 
 Wheel_Angle_Virtual=/(Parameters.WHEELBASE,#c_radius)    // Wheel_Angle_Virtual=ArcTan(Wheelbase/c_radius)
 Wheel_Angle_Virtual=ArcTan(#Wheel_Angle_Virtual)
 Wheel_Angle_Virtual=*(#Wheel_Angle_Virtual,@RAD2DEG)
-Wheel_Angle_Virtual=If(#VehicleSpeed,<,5,#Wheel_Angle_Real,#Wheel_Angle_Virtual)
+Wheel_Angle_Virtual=If(#v_x,<,5,#Wheel_Angle_Real,#Wheel_Angle_Virtual)
 Wheel_Angle_Virtual=F(#Wheel_Angle_Virtual,F(AVG 10))
 Wheel_Angle_Virtual=Set(Dim='°')
 
 Handling=/(#Wheel_Angle_Virtual,#Wheel_Angle_Real)
 Handling=-(#Handling,1)
-Handling=If(#VehicleSpeed,>,5,#Handling,0)
+Handling=If(#v_x,>,0.5,#Handling,0)
 c1=Abs(#Wheel_Angle_Real)
 Handling=If(#c1,<,3,0,#Handling)
 Handling=Set(Dim='-')
 
-Delete(#AccYaverage)
 Delete(#c1)
 
-[YAW]
+[Yaw_moment]
+{
 Yaw=+(#YawRate_Bosch,#YawRate_Bosch)
 Yaw=/(#Yaw,2)
 Yaw=F(#Yaw,F(AVG 20))
 Mz_Real=Derivate(#Yaw)
+Mz_Real=*(#Mz_Real,@DEG2RAD)
 Mz_Real=*(#Mz_Real,Parameters.I_Z)
 Mz_Real=Set(Dim='Nm')
 
 Delete(#Yaw)
+}
+//Delete(#Mz_Real)
 
-/////Yaw calculated from torques at wheels
+/////Yaw moment calculated from torques at wheelsû
 
-Mz_1=*(#AMK_TorqueLimit_1,Parameters.PLANETARY_GEAR_RATIO)
+Mz_1=*(#BSW_TrqSp_1,Parameters.PLANETARY_GEAR_RATIO)
 Mz_1=*(#Mz_1,Parameters.TRACK_FRONT)
 Mz_1=/(#Mz_1,-2)
 Mz_1=/(#Mz_1,Parameters.WHEEL_RADIUS)
 
-Mz_2=*(#AMK_TorqueLimit_2,Parameters.PLANETARY_GEAR_RATIO)
+Mz_2=*(#BSW_TrqSp_2,Parameters.PLANETARY_GEAR_RATIO)
 Mz_2=*(#Mz_2,Parameters.TRACK_FRONT)
 Mz_2=/(#Mz_2,2)
 Mz_2=/(#Mz_2,Parameters.WHEEL_RADIUS)
 
-Mz_3=*(#AMK_TorqueLimit_3,Parameters.PLANETARY_GEAR_RATIO)
+Mz_3=*(#BSW_TrqSp_3,Parameters.PLANETARY_GEAR_RATIO)
 Mz_3=*(#Mz_3,Parameters.TRACK_REAR)
 Mz_3=/(#Mz_3,-2)
 Mz_3=/(#Mz_3,Parameters.WHEEL_RADIUS)
 
-Mz_4=*(#AMK_TorqueLimit_4,Parameters.PLANETARY_GEAR_RATIO)
+Mz_4=*(#BSW_TrqSp_4,Parameters.PLANETARY_GEAR_RATIO)
 Mz_4=*(#Mz_4,Parameters.TRACK_REAR)
 Mz_4=/(#Mz_4,2)
 Mz_4=/(#Mz_4,Parameters.WHEEL_RADIUS)
@@ -72,31 +77,28 @@ Delete(#Mz_2)
 Delete(#Mz_3)
 Delete(#Mz_4)
 
-[Yaw_rate_des]
-k_us_v2=/(#E_Kinetic, 22.8)
-tmp = *(#k_us_v2,Parameters.BIAS)
-tmp = *(#tmp,2)
-k_us_v2 = -(#tmp,#k_us_v2)
-Yaw_Rate_Desired = +(Parameters.WHEELBASE, #k_us_v2)
-Yaw_Rate_Desired = /(#VehicleSpeed, #Yaw_Rate_Desired)
-Yaw_Rate_Desired = *(#Wheel_Angle_Real, #Yaw_Rate_Desired)
-Yaw_Rate_Desired = *(#Yaw_Rate_Desired , 0.5)
-Yaw_Rate_Desired = Set(DIM='deg/s')
+
+[Understeer gradient]
+// velocity dependent k_us interpolation
+num = -(#VDC_Understeer_Gradient_B, #VDC_Understeer_Gradient_A)
+fract = /(#num, 30) //30 m/s is the maximum given velocity in the VDC model
+fract1 = *(#fract, #v_x)
+K_us_Actual = +(#fract1, #VDC_Understeer_Gradient_A)
+Delete(#num)
+Delete(#fract)
+Delete(#fract1)
 
 
-//Delete(#k_us_v2)
-Delete(#tmp)
+[Target_Yaw_Rate]
 
-
-Target_Yaw_Rate=*(#v_x,0.0000006296)//(0.48/cf-0.52/cr)
-Target_Yaw_Rate=*(#Target_Yaw_Rate,#v_x)
-Target_Yaw_Rate=+(#Target_Yaw_Rate,1.54)//wheelbase=1.54
+Target_Yaw_Rate=*(#v_x, #v_x)
+Target_Yaw_Rate=*(#Target_Yaw_Rate,#K_us_Actual)
+Target_Yaw_Rate=+(#Target_Yaw_Rate,Parameters.WHEELBASE)
 Target_Yaw_Rate=/(#v_x,#Target_Yaw_Rate)
 Target_Yaw_Rate=*(#Target_Yaw_Rate,#Wheel_Angle_Real)
-Target_Yaw_Rate=*(#Target_Yaw_Rate,-1)
-Yaw_Rate_Error = -(#Target_Yaw_Rate,#YawRate_Bosch)
-Target_Yaw_Rate=*(#Target_Yaw_Rate,@DEG2RAD)
 Target_Yaw_Rate=Set(Dim='1/s')
-Yaw_Rate_Error = *(#Yaw_Rate_Error,@DEG2RAD)
-Yaw_Rate_Error=Set(Dim='1/s')
-Yaw_Rate_rad = *(#YawRate_Bosch, @DEG2RAD)
+
+[AccY m/s^2]
+AccY_mpss=*(#AccY_Bosch,9.81)
+AccY_mpss=Set(Dim='m/s^2')
+

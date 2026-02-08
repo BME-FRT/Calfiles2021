@@ -1,153 +1,39 @@
-;last modified 2025. 07. 21. 0:11:08 by Admin    (138)
+;last modified 2026. 01. 11. 19:43:55 by Admin    (17)
 
 [2023_Speed]
 
-/////Velocity
-
-//V_GPS_corrected=Shift(#V_GPS,-0.2 Sec)        //GPS késése miatti eltolás
-{vx_mps=And(#Speed1_32BIT, 0xFFFF0000)      //vdc model estimation
-vx_mps=/(#vx_mps, 65536)
-vx_mps=/(#vx_mps, 1000)
-vx_mps= Set(DIM = 'm/s')
- }
 vx_kmph = *(#v_x, 3.6)
 vx_kmph = Set(DIM = 'km/h')
 
 [WheelSpeed_1]
 
-IfExists(#AMK1_actual_velocity)
-WheelSpeed_1=*(#AMK1_actual_velocity,Parameters.RPM2KMPH)
-WheelSpeed_1=Set(DIM='km/h')
+IfExists(#SD_NMech_1)
+WheelSpeed_1=*(#SD_NMech_1,Parameters.RPM2KMPH)
+WheelSpeed_1=/(#WheelSpeed_1,3.6)
+WheelSpeed_1=Set(DIM='m/s')
 
 [WheelSpeed_2]
 
-IfExists(#AMK2_actual_velocity)
-WheelSpeed_2=*(#AMK2_actual_velocity,Parameters.RPM2KMPH)
-WheelSpeed_2=Set(DIM='km/h')
+IfExists(#SD_NMech_2)
+WheelSpeed_2=*(#SD_NMech_2,Parameters.RPM2KMPH)
+WheelSpeed_2=/(#WheelSpeed_2,3.6)
+WheelSpeed_2=Set(DIM='m/s')
 
 [WheelSpeed_3]
 
-IfExists(#AMK3_actual_velocity)
-WheelSpeed_3=*(#AMK3_actual_velocity,Parameters.RPM2KMPH)
-WheelSpeed_3=Set(DIM='km/h')
+IfExists(#SD_NMech_3)
+WheelSpeed_3=*(#SD_NMech_3,Parameters.RPM2KMPH)
+WheelSpeed_3=/(#WheelSpeed_3,3.6)
+WheelSpeed_3=Set(DIM='m/s')
 
 [WheelSpeed_4]
 
-IfExists(#AMK4_actual_velocity)
-WheelSpeed_4=*(#AMK4_actual_velocity,Parameters.RPM2KMPH);
-WheelSpeed_4=Set(DIM='km/h')
+IfExists(#SD_NMech_4)
+WheelSpeed_4=*(#SD_NMech_4,Parameters.RPM2KMPH)
+WheelSpeed_4=/(#WheelSpeed_4,3.6)
+WheelSpeed_4=Set(DIM='m/s')
 
-[VehicleSpeed]
-
-// [m/s]
-
-y1=*(#AMK1_actual_velocity,@Pi)
-y1=/(#AMK1_actual_velocity,30)
-y1=/(#AMK1_actual_velocity,Parameters.PLANETARY_GEAR_RATIO)
-y1=*(#AMK1_actual_velocity,Parameters.WHEEL_RADIUS)
-
-y2=*(#AMK2_actual_velocity,@Pi)
-y2=/(#AMK2_actual_velocity,30)
-y2=/(#AMK2_actual_velocity,Parameters.PLANETARY_GEAR_RATIO)
-y2=*(#AMK2_actual_velocity,Parameters.WHEEL_RADIUS)
-
-y3=*(#AMK3_actual_velocity,@Pi)
-y3=/(#AMK3_actual_velocity,30)
-y3=/(#AMK3_actual_velocity,Parameters.PLANETARY_GEAR_RATIO)
-y3=*(#AMK3_actual_velocity,Parameters.WHEEL_RADIUS)
-
-y4=*(#AMK4_actual_velocity,@Pi)
-y4=/(#AMK4_actual_velocity,30)
-y4=/(#AMK4_actual_velocity,Parameters.PLANETARY_GEAR_RATIO)
-y4=*(#AMK4_actual_velocity,Parameters.WHEEL_RADIUS)
-
-//
-
-der_y1=Derivate(#y1)
-der_y1=Abs(#der_y1)
-der_y1=F(#der_y1,F(AVG 5))
-der_y2=Derivate(#y2)
-der_y2=Abs(#der_y2)
-der_y2=F(#der_y2,F(AVG 5))
-der_y3=Derivate(#y3)
-der_y3=Abs(#der_y3)
-der_y3=F(#der_y3,F(AVG 5))
-der_y4=Derivate(#y4)
-der_y4=Abs(#der_y4)
-der_y4=F(#der_y4,F(AVG 5))
-
-//Weights
-egy=Const(1,200)
-egy=*(#egy,100)
-
-n1_tmp=*(#der_y1,-0.1)
-n1_tmp=+(#n1_tmp,300)
-n1_tmp=Min(#egy,#n1_tmp)
-n1=If(#der_y1,>,2999,0,#n1_tmp)
-
-n2_tmp=*(#der_y2,-0.1)
-n2_tmp=+(#n2_tmp,300)
-n2_tmp=Min(#egy,#n2_tmp)
-n2=If(#der_y2,>,2999,0,#n2_tmp)
-
-n3_tmp=*(#der_y3,-0.1)
-n3_tmp=+(#n3_tmp,300)
-n3_tmp=Min(#egy,#n3_tmp)
-n3=If(#der_y3,>,2999,0,#n3_tmp)
-
-n4_tmp=*(#der_y4,-0.1)
-n4_tmp=+(#n4_tmp,300)
-n4_tmp=Min(#egy,#n4_tmp)
-n4=If(#der_y4,>,2999,0,#n4_tmp)
-
-//
-
-out1=*(#y1,#n1)
-out2=*(#y2,#n2)
-out3=*(#y3,#n3)
-out4=*(#y4,#n4)
-
-//
-
-sumn=+(#n1,#n2)
-sumn=+(#sumn,#n3)
-sumn=+(#sumn,#n4)
-
-sumout=+(#out1,#out2)
-sumout=+(#sumout,#out3)
-sumout=+(#sumout,#out4)
-
-VehicleSpeed=/(#sumout,#sumn)
-VehicleSpeed=*(#VehicleSpeed,0.0292)
-VehicleSpeed=RcLp(#VehicleSpeed,0.16)
-VehicleSpeed=F(#VehicleSpeed, F(AVG 0.01 sec))
-VehicleSpeed=Shift(#VehicleSpeed,-0.1 sec)
-VehicleSpeed=Set(Dim='km/h')
-
-
-Delete(#y1)
-Delete(#y2)
-Delete(#y3)
-Delete(#y4)
-Delete(#der_y1)
-Delete(#der_y2)
-Delete(#der_y3)
-Delete(#der_y4)
-Delete(#n1)
-Delete(#n2)
-Delete(#n3)
-Delete(#n4)
-Delete(#n1_tmp)
-Delete(#n2_tmp)
-Delete(#n3_tmp)
-Delete(#n4_tmp)
-Delete(#out1)
-Delete(#out2)
-Delete(#out3)
-Delete(#out4)
-Delete(#sumn)
-Delete(#sumout)
-Delete(#egy)
+[Distance]
 
 Dist=Integrate(#vx_kmph)
 Dist=Set(DIM='m')

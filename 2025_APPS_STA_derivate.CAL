@@ -1,4 +1,4 @@
-;last modified 2025. 07. 16. 23:29:28 by Admin    (7)
+;last modified 2026. 01. 05. 0:44:34 by Admin    (1)
 
 [2025_APPS_STA_derivate]
 
@@ -12,7 +12,7 @@ Delete(STA1_filt)
 
 [Absolute_Power]
 
-Power = *(#HV_Current, #HV_Voltage_After_AIRs)
+Power = *(#TS_Current, #TS_Voltage)
 Power_abs = Abs(#Power)
 Power_pos = If(#Power,>,0, #Power, 0)
 Avg_power = AvgValue(#Power_pos)
