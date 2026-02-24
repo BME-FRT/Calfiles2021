@@ -1,10 +1,6 @@
-;last modified 2026. 01. 11. 19:48:32 by Admin    (1)
+;last modified 2026. 02. 24. 10:51:24 by Admin    (1)
 
 [2023_Throttle_Steering]
-
-[Throttle]
-
-Throttle_Plausibility = *(#APPS_plausiblity,1)
 
 [Steering]
 Steering_Angle_1 = -(#STA1_position, 90)

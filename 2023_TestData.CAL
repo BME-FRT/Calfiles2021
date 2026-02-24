@@ -1,4 +1,4 @@
-;last modified 2026. 01. 11. 20:26:36 by Admin    (40)
+;last modified 2026. 02. 24. 10:54:01 by Admin    (111)
 
 [2023_TestData]
 
@@ -6,7 +6,7 @@
 {$IfNotExists(#E_Kinetic) 2023_Energy.CAL}
 
 [Brake]
-condition = If(#Brake_Force_sensor,>,200,1,0)
+condition = If(#Brake_Force_sensor,>,#VDC_BFS_Offset,1,0)
 Mech_vs_RegBrake = If(#condition,=,1,#Brake_pressure_front,0)
 Mech_vs_RegBrake=Set(Dim='bar')
 Delete(#condition)
@@ -17,36 +17,42 @@ Throttle=/(#Throttle,2)
 Throttle=Set(Dim='%')
 
 [Coast]    //no brake force & no throttle & the car is Not standing
-bool1=If(#Brake_pressure_front,<,10,0,1)
-bool2=If(#Throttle,<,5,0,1)
-bool3=If(#Brake_Force_sensor,<,30,0,1)
-Coast=+(#bool1,#bool2)
-Coast=+(#Coast,#bool3)
-Coast=If(#Coast,=,0,1,0)
-bool=If(#SD_NMech_3,<,100,0,1)
-Coast=*(#bool,#Coast)
-Coast=*(#Coast,100)
-Delete(#bool1)
-Delete(#bool2)
-Delete(#bool3)
-Delete(#bool)
+no_brake_pres=If(#Brake_pressure_front,<,10,1,0)
+no_throttle=If(#Throttle,<,5,1,0)
+no_brake_force=If(#Brake_Force_sensor,<,#VDC_BFS_Offset,1,0)
+Rpm_avg =+(#SD_NMech_1,#SD_NMech_2)
+Rpm_avg=+(#Rpm_avg,#SD_NMech_3)
+Rpm_avg=+(#Rpm_avg,#SD_NMech_4)
+Rpm_avg=/(#Rpm_avg, 4)
+car_moving=If(#Rpm_avg,>,100,1,0)
+r2d_state=If(#Car_state,=,3,1,0)
+Coast=*(#no_brake_pres,#no_throttle)
+Coast=*(#Coast,#no_brake_force)
+Coast=*(#Coast,#car_moving)
+Coast=*(#Coast,#r2d_state)
+
+Delete(#no_brake_pres)
+Delete(#no_throttle)
+Delete(#no_brake_force)
+Delete(#car_moving)
+Delete(#Rpm_avg)
+Delete(#r2d_state)
 Coast=Set(DIM='-')
 
 
 [Throttle_Steering]
-Throttle_Steering=+(#APPS1_position,#APPS2_position)
-Throttle_Steering=/(#Throttle_Steering,2)
-//AVG_Steering_Angle=+(#STA1_position,#STA2_position)
-//AVG_Steering_Angle=/(#AVG_Steering_Angle,2)
-AVG_Steering_Angle=Abs(#Steering_angle_actual)
-Throttle_Steering=*(#Throttle_Steering,#AVG_Steering_Angle)
+AVG_Steering_Angle=+(#Steering_Angle_1,#Steering_Angle_2)
+AVG_Steering_Angle=/(#AVG_Steering_Angle,2)
+AVG_Steering_Angle=Abs(#AVG_Steering_Angle)
+Throttle_Steering=*(#Throttle,#AVG_Steering_Angle)
 Throttle_Steering=If(#AVG_Steering_Angle,>,30,#Throttle_Steering,0)
 Throttle_Steering=Set(DIM='deg*%')
+Delete(#AVG_Steering_Angle)
 
 
 [Brake_Steering]
 
-st1=If(#Brake_Force_sensor,>,50,1,0)
+st1=If(#Brake_Force_sensor,>,#VDC_BFS_Offset,1,0)
 st2=If(#AVG_Steering_Angle,>,30,1,0)    //avg_steering_angle absolutban van
 st2=+(#st1,#st2)
 st2=If(#st2,=,2,1,0)
@@ -123,12 +129,13 @@ OS_US=*(#OS_US,@Pi)
 OS_US=If(#v_x,>,2,#OS_US,0)
 OS_US=Limit(#OS_US,-5,5)
 OS_US=*(#OS_US,100)
+OS_US=F(#OS_US,F(AVG 40))
 
 
 [HV_Current]
 
 INT_HV_Current=Integrate(#TS_Current,0)
-INT_HV_Current=/(#INT_HV_Current,3.6)
+INT_HV_Current=/(#INT_HV_Current,3600)
 INT_HV_Current=Set(Dim='mAh')
 
 
