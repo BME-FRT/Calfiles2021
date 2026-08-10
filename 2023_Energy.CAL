@@ -1,4 +1,4 @@
-;last modified 2026. 01. 11. 20:19:51 by Admin    (13)
+;last modified 2026. 08. 10. 15:08:25 by VDC    (98)
 
 [2023_Energy]
 
@@ -56,22 +56,22 @@ E_Drag=Integrate(#P_Drag,0)
 
 [Motor mechanical Power]
 
-P_motor_1=*(#BSW_TrqSp_1,#SD_NMech_1)
+P_motor_1=*(#SF_TrqSp_1,#SD_NMech_1)
 P_motor_1=*(#P_motor_1,@Pi)
 P_motor_1=/(#P_motor_1,30)
 E_motor_1=Integrate(#P_motor_1,0)
 
-P_motor_2=*(#BSW_TrqSp_2,#SD_NMech_2)
+P_motor_2=*(#SF_TrqSp_2,#SD_NMech_2)
 P_motor_2=*(#P_motor_2,@Pi)
 P_motor_2=/(#P_motor_2,30)
 E_motor_2=Integrate(#P_motor_2,0)
 
-P_motor_3=*(#BSW_TrqSp_3,#SD_NMech_3)
+P_motor_3=*(#SF_TrqSp_3,#SD_NMech_3)
 P_motor_3=*(#P_motor_3,@Pi)
 P_motor_3=/(#P_motor_3,30)
 E_motor_3=Integrate(#P_motor_3,0)
 
-P_motor_4=*(#BSW_TrqSp_4,#SD_NMech_4)
+P_motor_4=*(#SF_TrqSp_4,#SD_NMech_4)
 P_motor_4=*(#P_motor_4,@Pi)
 P_motor_4=/(#P_motor_4,30)
 E_motor_4=Integrate(#P_motor_4,0)
@@ -100,18 +100,18 @@ P_motors=+(#P_motors,#P_motor_4)
 Motor_Efficiency=+(#P_motor_1,#P_motor_2)
 Motor_Efficiency=+(#Motor_Efficiency,#P_motor_3)
 Motor_Efficiency=+(#Motor_Efficiency,#P_motor_4)
-Motor_Efficiency=/(#Motor_Efficiency,#TS_Power)
+Motor_Efficiency=/(#Motor_Efficiency,#hvecu_ts_power)
 Motor_Efficiency=Set(DIM='-')
 
-P_Lost=-(#TS_Power,#P_motor_1)
+P_Lost=-(#hvecu_ts_power,#P_motor_1)
 P_Lost=-(#P_Lost,#P_motor_2)
 P_Lost=-(#P_Lost,#P_motor_3)
 P_Lost=-(#P_Lost,#P_motor_4)
 
 [mAh]
 
-INT_HV_current_Pos=If(#TS_Current,>,0,#TS_Current,0)
-INT_HV_current_Neg=If(#TS_Current,>,0,0,#TS_Current)
+INT_HV_current_Pos=If(#hvecu_ts_current,>,0,#hvecu_ts_current,0)
+INT_HV_current_Neg=If(#hvecu_ts_current,>,0,0,#hvecu_ts_current)
 INT_HV_current_Pos=Integrate(#INT_HV_current_Pos,0)
 INT_HV_current_Neg=Integrate(#INT_HV_current_Neg,0)
 INT_HV_current_Pos=/(#INT_HV_current_Pos,3.6)

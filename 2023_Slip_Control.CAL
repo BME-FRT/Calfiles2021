@@ -1,11 +1,11 @@
-;last modified 2026. 01. 11. 19:46:05 by Admin    (16)
+;last modified 2026. 08. 10. 15:24:43 by VDC    (32)
 
 [2023_Slip_Control]
 
 {$IfNotExists(#WheelSpeed_1) 2023_Speed.CAL}
 
 //Slip_FL
-Yaw_Correction_FL=*(#YawRate_Bosch,1.2)
+Yaw_Correction_FL=*(#YAW_RATE,1.2)
 Yaw_Correction_FL=*(#Yaw_Correction_FL,0.5)
 vx_FL=-(#v_x,#Yaw_Correction_FL)
 Slip_FL=-(#WheelSpeed_1,#vx_FL)
@@ -19,7 +19,7 @@ Slip_FL=Set(DIM='')
 
 
 //Slip_FR
-Yaw_Correction_FR=*(#YawRate_Bosch,1.2)
+Yaw_Correction_FR=*(#YAW_RATE,1.2)
 Yaw_Correction_FR=*(#Yaw_Correction_FR,0.5)
 vx_FR=+(#v_x,#Yaw_Correction_FR)
 Slip_FR=-(#WheelSpeed_2,#vx_FR)
@@ -28,7 +28,7 @@ Slip_FR=Set(DIM='')
 
 
 //Slip_RL
-Yaw_Correction_RL=*(#YawRate_Bosch,1.16)
+Yaw_Correction_RL=*(#YAW_RATE,1.16)
 Yaw_Correction_RL=*(#Yaw_Correction_RL,0.5)
 vx_RL=-(#v_x,#Yaw_Correction_RL)
 Slip_RL=-(#WheelSpeed_3,#vx_RL)
@@ -37,7 +37,7 @@ Slip_RL=Set(DIM='')
 
 
 //Slip_RR
-Yaw_Correction_RR=*(#YawRate_Bosch,1.16)
+Yaw_Correction_RR=*(#YAW_RATE,1.16)
 Yaw_Correction_RR=*(#Yaw_Correction_RR,0.5)
 vx_RR=+(#v_x,#Yaw_Correction_RR)
 Slip_RR=-(#WheelSpeed_4,#vx_RR)

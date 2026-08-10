@@ -1,4 +1,4 @@
-;last modified 2026. 02. 24. 10:54:01 by Admin    (111)
+;last modified 2026. 08. 10. 15:23:34 by VDC    (1)
 
 [2023_TestData]
 
@@ -121,9 +121,9 @@ SlipRatio_4_Braking=Set(Dim='0.01')
 [OS_US]
 {$IfNotExists(#Slip_FL) 2023_Slip_Control.CAL}
 
-OS_US=/(#AccY_Bosch,#v_x)      //Acc_Y is in g
+OS_US=/(#AY,#v_x)      //Acc_Y is in g
 OS_US=*(9.81,#OS_US)                      //gravity  --> [OS_US]=rad/s
-OS_US=/(#YawRate_Bosch,#OS_US)
+OS_US=/(#YAW_RATE,#OS_US)
 OS_US=/(#OS_US,180)
 OS_US=*(#OS_US,@Pi)
 OS_US=If(#v_x,>,2,#OS_US,0)
@@ -134,7 +134,7 @@ OS_US=F(#OS_US,F(AVG 40))
 
 [HV_Current]
 
-INT_HV_Current=Integrate(#TS_Current,0)
+INT_HV_Current=Integrate(#hvecu_ts_current,0)
 INT_HV_Current=/(#INT_HV_Current,3600)
 INT_HV_Current=Set(Dim='mAh')
 
